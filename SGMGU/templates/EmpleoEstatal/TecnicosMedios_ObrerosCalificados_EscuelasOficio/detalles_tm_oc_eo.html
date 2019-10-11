@@ -1,0 +1,184 @@
+{% extends "EmpleoEstatal/TecnicosMedios_ObrerosCalificados_EscuelasOficio/listar_tm_oc_eo.html" %}
+
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+
+{% block section_superior %}
+
+{% endblock %}
+
+
+
+{% block titulo_tabla %}
+    <div class="modal fade" id="modal_dar_baja_tm_oc_eo" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de baja</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de darle baja al egresado seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_modificar_egresado" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_reporte_title">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar el egresado seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block contenido_tabla %}
+    <div class="row panel panel-primary">
+        <div class="panel-heading"> Datos del egresado: {{ tm_oc_eo.nombre_apellidos }}</div>
+
+        <div class="panel-body">
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" %}
+
+                        <li><a class=" btn_gestion modal-tm_oc_eo" id="{{ tm_oc_eo.id }}"
+                               data-toggle="modal" data-target="#modal_modificar_tm_oc_eo"
+                               onclick="Objeto.__init__({{ tm_oc_eo.id }},'tecnicosmedios_obreroscalificados_escuelasoficio','modal_modificar_tm_oc_eo').modificar();">
+                            <span class="glyphicon glyphicon-pencil"></span> Modificar
+                        </a></li>
+                        </a></li>
+
+                        <li><a class=" btn_gestion "
+                               href="/tecnicosmedios_obreroscalificados_escuelasoficio/{{ id_tm_oc_eo }}/re_incorporar">
+                            <span class="glyphicon glyphicon-retweet"></span> Re-incorporar
+                        </a></li>
+
+                        {% if tm_oc_eo.activo %}
+                            <li><a class=" btn_gestion modal-tm_oc_eo" id="{{ tm_oc_eo.id }}"
+                                   data-toggle="modal" data-target="#modal_dar_baja_tm_oc_eo"
+                                   onclick="Objeto.__init__({{ tm_oc_eo.id }},'tecnicosmedios_obreroscalificados_escuelasoficio','modal_dar_baja_tm_oc_eo').dar_baja();">
+                                <span class="glyphicon glyphicon-trash"></span> Dar baja
+                            </a></li>
+                        {% endif %}
+                    {% endif %}
+
+                    <li><a class=" btn_gestion " href="/tecnicosmedios_obreroscalificados_escuelasoficio">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Ir atrás
+                    </a></li>
+
+                </ul>
+            </div>
+            <div id="datos_exp" class="datos_exp_50 datos_egresado_ep">
+                <h4 class="text-center">Datos:</h4>
+                <p><strong>Fuente de procedencia:</strong> {{ tm_oc_eo.fuente_procedencia }}</p>
+                <p><strong>Nombre y apellidos:</strong> {{ tm_oc_eo.nombre_apellidos }}</p>
+                <p><strong>Carnet de identidad:</strong> {{ tm_oc_eo.ci }}</p>
+                <p><strong>Edad:</strong> {{ tm_oc_eo.edad }}</p>
+                <p><strong>Sexo:</strong> {{ tm_oc_eo.sexo_verbose }}</p>
+                <p><strong>Dirección de
+                    residencia:</strong> {{ tm_oc_eo.direccion_particular }}, {{ tm_oc_eo.municipio_residencia }}, {{ tm_oc_eo.municipio_residencia.provincia }}
+                </p>
+                <p><strong>Provincia donde solicita empleo:</strong> {{ tm_oc_eo.municipio_solicita_empleo.provincia }}
+                </p>
+                <p><strong>Municipio donde solicita empleo:</strong> {{ tm_oc_eo.municipio_solicita_empleo }}</p>
+                <p><strong>Nivel escolar:</strong> {{ tm_oc_eo.nivel_escolar }}</p>
+
+                {% if tm_oc_eo.carrera != None %}
+                    <p><strong>Carrera:</strong> {{ tm_oc_eo.carrera }}</p>
+                {% endif %}
+
+                {% if tm_oc_eo.cumple_servicio_social %}
+                    <p><strong>Cumple el servicio social:</strong> Sí</p>
+                    <p><strong>Folio de la boleta:</strong> {{ tm_oc_eo.folio_boleta }}</p>
+                {% else %}
+                    <p><strong>Cumple el servicio social:</strong> No</p>
+                {% endif %}
+
+                <p><strong>Ubicado:</strong> {{ tm_oc_eo.ubicado_estado }}</p>
+
+                {% if tm_oc_eo.ubicado %}
+                    <p><strong>Ubicación:</strong> {{ tm_oc_eo.ubicacion }}</p>
+                    <p><strong>Fecha de la ubicación:</strong> {{ tm_oc_eo.fecha_ubicacion }}</p>
+                    {% if tm_oc_eo.organismo %}<p><strong>Organismo:</strong> {{ tm_oc_eo.organismo }}</p>{% endif %}
+                    {% if tm_oc_eo.entidad %}<p><strong>Entidad:</strong> {{ tm_oc_eo.entidad }}</p>{% endif %}
+                    {% if tm_oc_eo.municipio_entidad.provincia %}<p><strong>Provincia de la entidad:</strong> {{ tm_oc_eo.municipio_entidad.provincia }}</p>{% endif %}
+                    {% if tm_oc_eo.municipio_entidad %}<p><strong>Municipio de la entidad:</strong> {{ tm_oc_eo.municipio_entidad }}</p>{% endif %}
+                    <p><strong>Incorporado</strong> {{ tm_oc_eo.incorporado }}</p>
+                {% else %}
+                    <p><strong>Causa de no ubicación:</strong> {{ tm_oc_eo.causa_no_ubicado }}</p>
+                {% endif %}
+
+                {% if tm_oc_eo.fecha_baja != None %}
+                    <p><strong>Fecha de baja:</strong> {{ tm_oc_eo.fecha_baja }}</p>
+                    <p><strong>Causa de baja:</strong> {{ tm_oc_eo.causa_baja }}</p>
+                {% endif %}
+            </div>
+            {% if historiales %}
+                <div id="datos_exp" class="datos_exp_50 historial_empleo_estatal dt-responsive">
+                    <h4 class="text-center">Historial:</h4>
+
+                    {% for historial in historiales %}
+                        <p><strong>Fecha de ubicación:</strong> {{ historial.fecha_ubicacion }}</p>
+                        <p><strong>Provincia donde solicita
+                            empleo:</strong> {{ historial.municipio_solicita_empleo.provincia }}</p>
+                        <p><strong>Municipio donde solicita empleo:</strong> {{ historial.municipio_solicita_empleo }}
+                        </p>
+                        <p><strong>Ubicación:</strong> {{ historial.ubicacion }}</p>
+                        {% if historial.organismo %}<p><strong>Organismo:</strong> {{ historial.organismo }}</p>{% endif %}
+                        {% if historial.entidad %}<p><strong>Entidad:</strong> {{ historial.entidad }}</p>{% endif %}
+                        {% if historial.municipio_entidad %}<p><strong>Municipio de la entidad:</strong> {{ historial.municipio_entidad }}</p>{% endif %}
+                        {% if historial.municipio_entidad.provincia %}<p><strong>Provincia de la entidad:</strong> {{ historial.municipio_entidad.provincia }}</p>{% endif %}
+                        {% if not forloop.last %}
+                            <p><strong>------------------------</strong></p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        </div>
+        <div class="panel-footer">
+            <p class="text-muted"><span class="glyphicon glyphicon-time"></span> Registrado
+                el {{ tm_oc_eo.fecha_registro }}.</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+

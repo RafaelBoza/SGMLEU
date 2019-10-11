@@ -1,0 +1,61 @@
+[
+  {
+    "model": "SGMGU.NivelEscolar",
+    "pk": 1,
+    "fields": {
+      "nombre": "Menor de 6to Grado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.NivelEscolar",
+    "pk": 2,
+    "fields": {
+      "nombre": "6to Grado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.NivelEscolar",
+    "pk": 3,
+    "fields": {
+      "nombre": "9no Grado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },{
+    "model": "SGMGU.NivelEscolar",
+    "pk": 4,
+    "fields": {
+      "nombre": "12mo Grado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },{
+    "model": "SGMGU.NivelEscolar",
+    "pk": 5,
+    "fields": {
+      "nombre": "Obrero Calificado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },{
+    "model": "SGMGU.NivelEscolar",
+    "pk": 6,
+    "fields": {
+      "nombre": "Técnico Medio",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },{
+    "model": "SGMGU.NivelEscolar",
+    "pk": 7,
+    "fields": {
+      "nombre": "Universitario",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

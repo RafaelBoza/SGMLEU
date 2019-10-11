@@ -1,0 +1,20 @@
+[
+  {
+    "model": "SGMGU.MotivoEgreso",
+    "pk": 1,
+    "fields": {
+      "nombre": "Extinción de sanción",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.MotivoEgreso",
+    "pk": 2,
+    "fields": {
+      "nombre": "Libertad condicional",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "model": "SGMGU.Ubicacion",
+    "pk": 1,
+    "fields": {
+      "ubicacion": "Empleo Estatal",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.Ubicacion",
+    "pk": 2,
+    "fields": {
+      "ubicacion": "TPCP",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.Ubicacion",
+    "pk": 3,
+    "fields": {
+      "ubicacion": "DL 300",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.Ubicacion",
+    "pk": 4,
+    "fields": {
+      "ubicacion": "Otro no Estatal",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.Ubicacion",
+    "pk": 5,
+    "fields": {
+      "ubicacion": "SMA",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

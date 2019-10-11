@@ -1,0 +1,46 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Exportar: Comportamiento de las figuras priorizadas (ubicados y pendientes)</div>
+            <div class="panel-body">
+                <form method="post" id="filtrar_municipio">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="id_municipio" style="font-size: 15px"
+                                       class="label label-default control-label">Municipio</label>
+                                <select name="municipio" id="id_municipio" class="form-control" required="required">
+                                    <option value="">---------</option>
+                                    {% for municipio in municipios %}
+                                        <option value="{{ municipio.id }}"
+                                                {% if municipio.id|striptags == id_municipio|striptags %}selected{% endif %}>{{ municipio.nombre }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" name="aceptar" type="submit"> Exportar excel</button>
+                        <a class="btn btn-success btn_gestion" href="{% url 'reportes' %}">
+                            <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

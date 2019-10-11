@@ -1,0 +1,6 @@
+django==1.10.5
+PIL==1.1.7
+psycopg2==2.6.1
+reportlab==2.7
+xlrd==0.9.3
+xlsxwriter==0.9.6

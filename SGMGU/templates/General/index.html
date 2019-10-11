@@ -1,0 +1,236 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#	<title>SGMLEU</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<img src="../../static/img/SITIO-EN-CONSTRUCCION.jpg"#}
+{#     style="width: 100%; height: 800px; border: 5px; box-shadow: 2px 2px 5px #999;">#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{% extends "General/base.html" %}
+{% load staticfiles %}
+{% block body %}
+
+    <div class="modal fade" id="enviar_notificacion">
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+            <form method="POST" action="/enviar_notificacion">{% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title modal_reporte_title">Enviar notificación</h5>
+          </div>
+          <div class="modal-body" style="height:250px; overflow-y:auto;">
+            <textarea  required rows="7" class="form-control" name="texto" placeholder="Escriba el texto de la notificación"></textarea>
+            <select id="select_usuarios_notificaciones" multiple class="form-control" name="remitente" style="width: 100%; margin-top: 5px !important;"></select>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Enviar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          </div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="modal fade" id="lista_notificaciones">
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title modal_reporte_title">Notificación</h5>
+          </div>
+          <div class="modal-body modal_notificacion">
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-success" onclick="Objeto.responder_notificacion();">Responder</button>
+              <button type="button" class="btn btn-danger" onclick="Objeto.eliminar_notificacion();">Eliminar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+  <body id="body_index">
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-header" style="position: relative">
+               <img id="titulo_inicioo" src="{% static "img/logo.png" %}">
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              {% if user.perfil_usuario.categoria.nombre != "dpt_ee" and user.perfil_usuario.categoria.nombre != "dmt" and user.perfil_usuario.categoria.nombre != "interrupto"%}
+
+                {% block busqueda_ficha %}
+                    <div class="input-group nav_busqueda_graduado">
+                        {% if busqueda_ficha %}
+                            <input value="{{ ci }}" disabled type="number" id="ci_ficha_graduado" class="form-control" aria-label="..."  style="height:35px;">
+                        {% else %}
+
+                            <input type="number" id="ci_ficha_graduado" class="form-control" aria-label="..." placeholder="Escriba el CI..." style="height:35px;">
+                        {% endif %}
+                         <div class="input-group-btn">
+                            {% if busqueda_ficha %}
+                                 <a type="button" class="btn btn-default btn_normal" href="/inicio"><span class="glyphicon glyphicon-refresh"></span> Limpiar</a>
+                            {% else %}
+                                 <button type="button" class="btn btn-default btn_normal" onclick="Objeto.__init__('','graduado','ci_ficha_graduado').buscar('ci');"><span class="glyphicon glyphicon-search"></span></button>
+                            {% endif %}
+                         </div>
+                    </div>
+                {% endblock %}
+
+            {% endif %}
+
+              <ul class="nav navbar-nav navbar-right">
+                   <li class="dropdown">
+                       <a  href="#" aria-haspopup="true" aria-expanded="true" class="dropdown-toggle" role="button" data-toggle="dropdown">
+                           {% if cantidad_no_revisadas == 0%}
+                               <span class="glyphicon glyphicon glyphicon-envelope"></span>
+                           {% else %}
+                               <span class="span_cant_notificaciones">{{ cantidad_no_revisadas }}</span>
+                               <span class="glyphicon glyphicon glyphicon-envelope glyphicon_notificaciones"></span>
+                           {% endif %}
+                           Notificaciones
+                       </a>
+                       <ul class="dropdown-menu dropdown_notificaciones">
+                            <li  class="enviar_notificacion" data-toggle="modal" data-target="#enviar_notificacion" onclick="Objeto.__init__({{ user.id }},'notificaciones_usuarios','').listar_usuarios();">Enviar Notificación</li>
+                           {% for notificacion in notificaciones %}
+                               {% if notificacion.revisado %}
+                                   <li id="{{ notificacion.id }}" class="notificacion" onclick="Objeto.__init__({{ notificacion.id }},'revisar_notificacion','').revisar_notificacion();">
+                               {% else %}
+                                    <li id="{{ notificacion.id }}" class="notificacion notificacion_sin_revisar" onclick="Objeto.__init__({{ notificacion.id }},'revisar_notificacion','').revisar_notificacion();">
+                                 {% endif %}
+                                        {% ifequal notificacion.emisor.perfil_usuario.foto ""%}
+                                           <div class="pull-left foto"><span class="pull-left glyphicon glyphicon-user"></span></div>
+                                       {% else %}
+                                           <img src="/media/{{ notificacion.emisor.perfil_usuario.foto }}" class="foto_perfil2  pull-left">
+                                       {% endifequal %}
+                                       <span class=" emisor">{{ notificacion.emisor.first_name}} {{ notificacion.emisor.last_name }} <small class="text-muted">({{ notificacion.emisor.perfil_usuario.organismo.siglas }})</small></span>
+                                       <br>
+                                       <span class="texto texto_estandar">{{ notificacion.texto|truncatechars:48 }}</span>
+                               </li>
+                      {% endfor %}
+                    </ul>
+                   </li>
+
+                  <li class="nav_contacto"><a href="/contacto"><span class="glyphicon glyphicon glyphicon-star"></span> Contacto</a></li>
+                   {% if user.is_staff %}
+                      <li><a href="/admin"><span class="glyphicon glyphicon glyphicon-cog"></span> Administración</a></li>
+                   {% endif %}
+                   {% if user.is_authenticated %}
+                          <li class="dropdown">
+                              <a name="{{ user.id }}" id="btn_salir" href="#" aria-haspopup="true" aria-expanded="true" class="dropdown-toggle" role="button" data-toggle="dropdown">
+                                  {{ user }}
+                                  <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu dropdown_inicio">
+                                  <li><a href="/usuario/modificar" ><span class="glyphicon glyphicon-user pull-left"></span> Datos personales</a></li>
+                                  <li><a href="/usuario/cambiar_contrasenna"><span class="glyphicon glyphicon-cog pull-left"></span> Contraseña</a></li>
+                                  <li><a href="/logout"><span class="glyphicon glyphicon-log-out pull-left"></span> Salir</a></li>
+                              </ul>
+                              {% ifequal profile.foto ""%}
+                              {% else %}
+                                  <li><img src="/media/{{ profile.foto }}" class="foto_perfil"></li>
+                              {% endifequal %}
+                          </li>
+                   {% endif %}
+              </ul>
+
+            </div>
+          </div>
+      </nav>
+      </div>
+
+      <div class="container-fluid">
+          <div class="row">
+              {% block aside %}
+                  <div class="col-xs-2 col-md-2 sidebar">
+                  <div class="bienvenido">
+                      {% ifequal profile.foto ""%}
+                                  <div class="foto_bienvenido">
+                                   <span class="glyphicon glyphicon-user imagen_user_not_foto"></span>
+                                  </div>
+                              {% else %}
+                                  <img src="/media/{{ profile.foto }}" class="foto_bienvenido">
+                      {% endifequal %}
+
+                      <div class="texto">
+                          <p class="titulo">Bienvenido</p>
+                          {% if  user.first_name%}
+                                <p class="username"> {{ user.first_name }}</p>
+                          {% else %}
+                                <p class="username"> {{ user }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+                  {% for item in menu %}
+                     {% block aside1 %}
+                         <ul class="nav nav-sidebar">
+                             {% if item.active %}
+                                 <li class="active"></span><a href="{{ item.url }}"><span class="{{ item.icon }}"></span> {{ item.name }} </a></li>
+                                 {% if item.menu %}
+                                     {% for item2 in item.menu %}
+                                         <ul class="side2">
+                                             {% if item2.active %}
+                                                 <li class="active"></span><a href="{{ item2.url }}"><span class="{{ item2.icon }}"></span> {{ item2.name }} </a></li>
+                                             {% else %}
+                                                 <li></span><a href="{{ item2.url }}"><span class="{{ item2.icon }}"></span> {{ item2.name }} </a></li>
+                                             {% endif %}
+                                         </ul>
+                                     {% endfor %}
+                                 {% endif %}
+
+                             {% else %}
+                                 <li></span><a href="{{ item.url }}"><span class="{{ item.icon }}"></span> {{ item.name }} </a></li>
+                             {% endif %}
+
+
+                         </ul >
+                     {% endblock %}
+                  {% endfor %}
+                  </div>
+              {% endblock %}
+              <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                  {% block encabezado %}
+
+                      <div class="div_img_fondo">
+                          <img src="{% static "img/Fondos FTC (4).jpg" %}">
+                      </div>
+
+
+
+                  {% endblock %}
+                    <div class="row">
+                      {% block section_superior %}
+                         <!--img class="img_principal img-responsive img-rounded" src="{% static "img/login egresados.jpg" %}"-->
+                      {% endblock %}
+                  </div>
+
+                  {% block titulo_tabla %}
+                  {% endblock %}
+
+                  {% block contenido_tabla %}
+
+                  {% endblock %}
+
+
+
+              </div>
+
+
+
+              </div>
+          </div>
+      </div>
+</body>
+{% endblock %}
+

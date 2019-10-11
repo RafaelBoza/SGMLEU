@@ -1,0 +1,65 @@
+[
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 1,
+    "fields": {
+      "causa": "Rotura de equipos",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 2,
+    "fields": {
+      "causa": "Falta de piezas de repuesto, materiales, materias primas o bienes intermedios ...",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.569"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 3,
+    "fields": {
+      "causa": "La acción de la lluvia, ciclón, incendio, derrumbes, contaminación u otros ...",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.570"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 4,
+    "fields": {
+      "causa": "Falta de energía, combustible, lubricantes , agua u otros ...",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.571"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 5,
+    "fields": {
+      "causa": "Orden de paralización temporal de equipos, maquinarias … emitida por las autoridades facultadas",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.572"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 6,
+    "fields": {
+      "causa": "Paralización por reparación capital o mantenimiento general",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.573"
+    }
+  },
+  {
+    "model": "SGMGU.CausalInterrupcion",
+    "pk": 7,
+    "fields": {
+      "causa": "Otras causas no imputables al trabajador que determine la paralización eventual de las labores, determinadas por el órgano u organismo competente",
+      "activo": "True",
+      "fecha_registro": "2018-06-20 16:48:00.574"
+    }
+  }
+]

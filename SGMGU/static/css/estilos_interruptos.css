@@ -1,0 +1,9 @@
+#id_causa_interrupcion_rotura,
+#id_causa_interrupcion_falta_piezas,
+#id_causa_interrupcion_accion_lluvia,
+#id_causa_interrupcion_falta_energia,
+#id_causa_interrupcion_orden_paralizacion_temporal,
+#id_causa_interrupcion_paralizacion_reparacion,
+#id_causa_interrupcion_otras_causas {
+    width: 60px;
+}

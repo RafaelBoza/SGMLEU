@@ -1,0 +1,39 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+{% block titulo_tabla %}
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+
+        <div class="tab-content">
+            <div id="disponibles" class="tab-pane fade in active">
+                {% include "EmpleoEstatal/TecnicosMedios_ObrerosCalificados_EscuelasOficio/listar_tm_oc_eo.html" %}
+            </div>
+        </div>
+        <div class="panel-footer" style="overflow: hidden">
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,386 @@
+{% extends "General/index.html" %}
+
+
+{% block encabezado %}
+    <header></header>
+{% endblock %}
+
+
+{% block section_superior %}
+{% endblock %}
+
+
+{% block titulo_tabla %}
+    {% include "Reportes/modals_reportes.html" %}
+{% endblock %}
+
+{% block contenido_tabla %}
+    <div>
+    <div class="panel panel-primary">
+    <div class="panel-heading">Reportes disponibles</div>
+    <div class="panel-body">
+
+        <ul class="nav nav-pills nav-tabs ">
+            {% if user.perfil_usuario.categoria.nombre != "juridico" and user.perfil_usuario.categoria.nombre != "dmt" and user.perfil_usuario.categoria.nombre != "dpt_ee" and user.perfil_usuario.categoria.nombre != "interrupto" %}
+                <li class="active"><a class="tab_movimiento_laboral" data-toggle="tab" href="#movimiento_laboral">Movimiento
+                    Laboral</a></li>
+                <li><a class="tab_ubicados" data-toggle="tab" href="#ubicados">Ubicación Laboral</a></li>
+            {% endif %}
+            {% if  user.perfil_usuario.categoria.nombre == "juridico" %}
+                <li class="active"><a class="tab_ubicados" data-toggle="tab"
+                                      href="#inhabilitaciones">Inhabilitaciones</a>
+                </li>
+            {% elif  user.perfil_usuario.categoria.nombre == "administrador" %}
+                <li><a class="tab_ubicados" data-toggle="tab" href="#inhabilitaciones">Inhabilitaciones</a></li>
+            {% endif %}
+            {% if user.perfil_usuario.categoria.nombre == "dmt" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+                <li class="active"><a class="tab_movimiento_laboral" data-toggle="tab" href="#empleo_estatal">Empleo
+                    Estatal</a></li>
+            {% endif %}
+
+            {% if user.perfil_usuario.categoria.nombre == "administrador" %}
+                <li><a class="tab_movimiento_laboral" data-toggle="tab" href="#empleo_estatal">Empleo Estatal</a></li>
+            {% endif %}
+
+{#            {% if user.perfil_usuario.categoria.nombre == "interrupto" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}#}
+            {% if user.perfil_usuario.categoria.nombre == "interrupto" %}
+                <li class="active"><a class="tab_movimiento_laboral" data-toggle="tab" href="#interrupto">Interruptos</a></li>
+            {% endif %}
+
+            {% if user.perfil_usuario.categoria.nombre == "organismo" %}
+                <li><a class="tab_movimiento_laboral" data-toggle="tab" href="#empleo_estatal">Empleo
+                    Estatal</a></li>
+            {% endif %}
+
+            {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+                <li><a class="tab_movimiento_laboral" data-toggle="tab" href="#interrupto">Interruptos</a></li>
+            {% endif %}
+
+        </ul>
+        <br>
+
+        <div class="tab-content">
+            {% if user.perfil_usuario.categoria.nombre  != 'juridico' %}
+                <div id="movimiento_laboral" class="tab-pane fade in active">
+            {% else %}
+                <div id="movimiento_laboral" class="tab-pane">
+            {% endif %}
+
+            {% if user.perfil_usuario.categoria.nombre == "administrador" or  user.perfil_usuario.categoria.nombre == "especialista" or   user.perfil_usuario.categoria.nombre == "invitado" %}
+                <!--
+                <a href="/reportes/reporte_exp_organismos"><p class="bg_primary "><span class="glyphicon glyphicon-paperclip"></span> Totales de Expedientes aprobados por organismos  </p></a>
+                <a href="/reportes/reporte_exp_org_carrera"><p class="bg_primary "> <span class="glyphicon glyphicon-paperclip"></span> Totales de Expedientes aprobados por organismos y carreras </p></a>
+                <a href="/reportes/reporte_exp_org_provincia"><p class="bg_primary "><span class="glyphicon glyphicon-paperclip"></span> Totales de Expedientes aprobados por provincias y organismos</p></a>
+                <a href="/reportes/reporte_noexp_organismos"><p class="bg_danger "><span class="glyphicon glyphicon-paperclip"></span> Totales de Expedientes no aprobados por organismos  </p></a>
+                <a href="/reportes/reporte_noexp_org_carrera"><p class="bg_danger "> <span class="glyphicon glyphicon-paperclip"></span> Totales de Expedientes no aprobados por organismos y carreras </p></a>
+                <a href="/reportes/reporte_mov_int_organismos"><p class="bg_success "><span class="glyphicon glyphicon-paperclip"></span> Totales de Movimientos Internos por Organismos</p></a>
+                -->
+                <a href="#" data-toggle="modal" data-target="#modal_exportar_resumen_mensual"><p
+                        class="bg_second "><span
+                        class="glyphicon glyphicon-export"></span> Totales de Expedientes aprobados de cada
+                    organismo
+                    por
+                    meses</p></a>
+            {% endif %}
+            {% if user.perfil_usuario.categoria.nombre == "administrador" or  user.perfil_usuario.categoria.nombre == "especialista" or  user.perfil_usuario.categoria.nombre == "organismo" %}
+                {% if user.perfil_usuario.organismo.hijode == None %}
+                    <a href="#" data-toggle="modal" data-target="#modal_exportar_organismos_expedientes"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Totales de
+                        Expedientes
+                        aprobados por organismos </p></a>
+                {% endif %}
+            {% endif %}
+            {% if user.perfil_usuario.categoria.nombre != "dpts" and user.perfil_usuario.categoria.nombre != "dpt_ee" and user.perfil_usuario.categoria.nombre != "dmt" and user.perfil_usuario.categoria.nombre != "interrupto" %}
+                <a href="#" data-toggle="modal" data-target="#modal_exportar_carreras_expedientes"><p
+                        class="bg_second ">
+                    <span class="glyphicon glyphicon-export"></span> Totales de Expedientes aprobados por carreras
+                </p>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#modal_exportar_causales_expedientes"><p
+                        class="bg_second ">
+                    <span class="glyphicon glyphicon-export"></span> Totales de Expedientes aprobados por causales
+                </p>
+                </a>
+                <a href="#" data-toggle="modal" data-target="#modal_exportar_provincias_expedientes"><p
+                        class="bg_second ">
+                    <span class="glyphicon glyphicon-export"></span> Totales de Expedientes aprobados por provincias
+                </p>
+                </a>
+                <a href="/exportar_expedientes_causal"><p class="bg_second "><span
+                        class="glyphicon glyphicon-export"></span> Registro de Expedientes aprobados según causal
+                </p>
+                </a>
+                <a href="/exportar_expedientes_carrera"><p class="bg_second "><span
+                        class="glyphicon glyphicon-export"></span> Registro de Expedientes aprobados según carrera
+                </p>
+                </a>
+                <hr>
+            {% endif %}
+            </div>
+
+            <div id="ubicados" class="tab-pane">
+                {% if user.perfil_usuario.categoria.nombre != "dpts"  and  user.perfil_usuario.categoria.nombre != "organismo" and  user.perfil_usuario.categoria.nombre != "interrupto" %}
+                    <a href="/exportar_ubicados_provincia_ubicacion"><p class="bg_second "><span
+                            class="glyphicon glyphicon-export"></span> Registro de ubicados según provincia de
+                        ubicación
+                    </p>
+                    </a>
+                    <a href="/exportar_ubicados_provincia_residencia"><p class="bg_second "><span
+                            class="glyphicon glyphicon-export"></span> Registro de ubicados según provincia de
+                        residencia
+                    </p></a>
+                    <a href="/exportar_ubicados_organismo"><p class="bg_second "><span
+                            class="glyphicon glyphicon-export"></span> Registro de ubicados según organismo</p></a>
+                    <a href="#" data-toggle="modal" data-target="#modal_total_ubicados_organismos"><p
+                            class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Totales de ubicados por organismos</p></a>
+                    <a href="#" data-toggle="modal" data-target="#modal_total_ubicados_provincias_ubicacion"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Totales de ubicados
+                        por
+                        provincias de ubicación</p></a>
+                    <a href="#" data-toggle="modal" data-target="#modal_total_ubicados_provincias_residencia"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Totales de ubicados
+                        por
+                        provincias de residencia</p></a>
+                    <a href="#" data-toggle="modal" data-target="#modal_analisis_proceso_ubicacion"><p
+                            class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Análisis del listado de Ubicados</p></a>
+                {% endif %}
+                {% if user.perfil_usuario.categoria.nombre == "dpts"  or  user.perfil_usuario.categoria.nombre == "organismo" %}
+                    <a href="#" data-toggle="modal" data-target="#modal_ubicados"><p class="bg_second "><span
+                            class="glyphicon glyphicon-export"></span> Registro de ubicados propios</p></a>
+                    <a href="#" data-toggle="modal" data-target="#modal_analisis_proceso_ubicacion"><p
+                            class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Análisis del listado de Ubicados</p></a>
+                {% endif %}
+                {% if user.perfil_usuario.categoria.nombre == "dpts" %}
+                    <a href="#" data-toggle="modal" data-target="#modal_ubicados_universidades"><p
+                            class="bg_second "><span
+                            class="glyphicon glyphicon-export"></span> Registro de ubicados de universidades propias
+                    </p>
+                    </a>
+                {% endif %}
+            </div>
+
+            {% if user.perfil_usuario.categoria.nombre  != 'juridico' %}
+                <div id="inhabilitaciones" class="tab-pane">
+            {% else %}
+                <div id="inhabilitaciones" class="tab-pane fade in active">
+            {% endif %}
+            <a href="#" data-toggle="modal" data-target="#modal_total_procesos"><p class="bg_second "><span
+                    class="glyphicon glyphicon-export"></span> Total de procesos</p></a>
+            <a href="#" data-toggle="modal" data-target="#modal_total_procesos_causales"><p class="bg_second "><span
+                    class="glyphicon glyphicon-export"></span> Total de procesos por causales</p></a>
+            <a href="#" data-toggle="modal" data-target="#modal_total_procesos_organismos"><p
+                    class="bg_second "><span
+                    class="glyphicon glyphicon-export"></span> Total de procesos por organismos</p></a>
+            <a href="#" data-toggle="modal" data-target="#modal_total_procesos_niveles"><p class="bg_second "><span
+                    class="glyphicon glyphicon-export"></span> Total de procesos por nivel educacional</p></a>
+            <a href="#" data-toggle="modal" data-target="#modal_procesos_registro_nominal"><p
+                    class="bg_second "><span
+                    class="glyphicon glyphicon-export"></span> Registro Nominal</p></a>
+            </div>
+
+            {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" or user.perfil_usuario.categoria.nombre == "dpt_ee" or user.perfil_usuario.categoria.nombre == "organismo" %}
+                {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "organismo" %}
+                    <div id="empleo_estatal" class="tab-pane">
+                {% endif %}
+                {% if user.perfil_usuario.categoria.nombre == "dmt" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+                    <div id="empleo_estatal" class="tab-pane fade in active">
+                {% endif %}
+
+                <a href="{% url 'reporte_nominal' %}"><p class="bg_second ">
+                    <span class="glyphicon glyphicon-export"></span> Reporte nominal </p></a>
+
+                <a href="{% url 'reporte_nominal_cierre_mes' %}"><p class="bg_second ">
+                    <span class="glyphicon glyphicon-export"></span> Reporte nominal (Cierre del mes anterior)</p></a>
+
+                {% if user.perfil_usuario.categoria.nombre != "organismo" %}
+
+                    <a href="{% url 'totales_fuentes_procedencia' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Controlados, ubicados y pendientes: Totales por Fuentes de Procedencia</p></a>
+
+                    <a href="{% url 'totales_fuentes_procedencia_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Controlados, ubicados y pendientes: Totales por Fuentes de Procedencia (Cierre del mes anterior)</p></a>
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                        <a href="{% url 'total_personas_ubicadas_provincias' %}"><p class="bg_second ">
+                            <span class="glyphicon glyphicon-export"></span> Total de personas ubicadas por provincias</p></a>
+
+                        <a href="{% url 'total_personas_ubicadas_provincias_cierre_mes' %}"><p class="bg_second ">
+                            <span class="glyphicon glyphicon-export"></span> Total de personas ubicadas por provincias (Cierre del mes anterior)</p></a>
+
+                    {% endif %}
+
+                    <a href="{% url 'total_personas_ubicadas_provincias_y_municipios' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas ubicadas {% if user.perfil_usuario.categoria.nombre == "administrador" %} por provincias y municipios {% elif user.perfil_usuario.categoria.nombre == "dpt_ee" %} por provincia y municipios{% endif %}</p></a>
+
+                    <a href="{% url 'total_personas_ubicadas_provincias_y_municipios_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas ubicadas {% if user.perfil_usuario.categoria.nombre == "administrador" %} por provincias y municipios {% elif user.perfil_usuario.categoria.nombre == "dpt_ee" %} por provincia y municipios{% endif %} (Cierre del mes anterior)</p></a>
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                        <a href="{% url 'total_personas_no_ubicadas_provincias' %}"><p class="bg_second ">
+                            <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas por provincias</p></a>
+
+                        <a href="{% url 'total_personas_no_ubicadas_provincias_cierre_mes' %}"><p class="bg_second ">
+                            <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas por provincias (Cierre del mes anterior)</p></a>
+
+                    {% endif %}
+
+                    <a href="{% url 'total_personas_no_ubicadas_provincias_y_municipios' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas {% if user.perfil_usuario.categoria.nombre == "administrador" %} por provincias y municipios {% elif user.perfil_usuario.categoria.nombre == "dpt_ee" %} por provincia y municipios{% endif %}</p></a>
+
+                    <a href="{% url 'total_personas_no_ubicadas_provincias_y_municipios_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas {% if user.perfil_usuario.categoria.nombre == "administrador" %} por provincias y municipios {% elif user.perfil_usuario.categoria.nombre == "dpt_ee" %} por provincia y municipios{% endif %} (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'no_ubicados_por_no_existir_oferta' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas por no existir oferta de empleo</p></a>
+
+                    <a href="{% url 'no_ubicados_por_no_existir_oferta_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Total de personas no ubicadas por no existir oferta de empleo (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'comportamiento_figuras_priorizadas_organismos' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Ubicados por Organismos: Totales por Fuentes de Procedencia</p></a>
+
+                    <a href="{% url 'comportamiento_figuras_priorizadas_organismos_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Ubicados por Organismos: Totales por Fuentes de Procedencia (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'desvinculados_no_ubicados_por_causales' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Desvinculados no Ubicados: Por causales</p></a>
+
+                    <a href="{% url 'desvinculados_no_ubicados_por_causales_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Desvinculados no Ubicados: Por causales (Cierre del mes anterior)</p></a>
+
+                {% endif %}
+
+{#                {% if user.perfil_usuario.categoria.nombre != "dmt" and user.perfil_usuario.categoria.nombre != "organismo" %}#}
+{#                    <a href="{% url 'comportamiento_figuras_priorizadas_filtrar_municipio' %}"><p class="bg_second ">#}
+{#                        <span class="glyphicon glyphicon-export"></span> Controlados, ubicados y pendientes: Filtrar por Municipio</p></a>#}
+{#                {% endif %}#}
+
+                {% if user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                    <a href="{% url 'desvinculados_no_ubicados_por_causales_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Desvinculados no Ubicados: Por causales (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'tecnicos_medios_pendientes_por_no_existir_oferta' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Técnicos medios Pendientes por no existir oferta de empleo: Por especialidades</p></a>
+
+                    <a href="{% url 'tecnicos_medios_pendientes_por_no_existir_oferta_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Técnicos medios Pendientes por no existir oferta de empleo: Por especialidades (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'obreros_calificados_pendientes_por_no_existir_oferta' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Obreros calificados Pendientes por no existir oferta de empleo: Por especialidades</p></a>
+
+                    <a href="{% url 'obreros_calificados_pendientes_por_no_existir_oferta_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Obreros calificados Pendientes por no existir oferta de empleo: Por especialidades (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'escuelas_oficio_pendientes_por_no_existir_oferta' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Escuelas de oficio Pendientes por no existir oferta de empleo: Por especialidades</p></a>
+
+                    <a href="{% url 'escuelas_oficio_pendientes_por_no_existir_oferta_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Escuelas de oficio Pendientes por no existir oferta de empleo: Por especialidades (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'mujeres_ubicadas_por_fuentes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Mujeres Ubicadas: Por fuentes de procedencia</p></a>
+
+                    <a href="{% url 'mujeres_ubicadas_por_fuentes_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Mujeres Ubicadas: Por fuentes de procedencia (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'mujeres_no_ubicadas_por_fuentes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Mujeres no Ubicadas: Por fuentes de procedencia</p></a>
+
+                    <a href="{% url 'mujeres_no_ubicadas_por_fuentes_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Mujeres no Ubicadas: Por fuentes de procedencia (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'menores_ubicados_por_sector' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Menores Ubicados: Por sector</p></a>
+
+                    <a href="{% url 'menores_ubicados_por_sector_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Menores Ubicados: Por sector (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'menores_ubicados_por_especialidad' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Menores Ubicados: Por especialidades</p></a>
+
+                    <a href="{% url 'menores_ubicados_por_especialidad_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Menores Ubicados: Por especialidades (Cierre del mes anterior)</p></a>
+
+                    <a href="{% url 'obreros_calificados_pendientes_por_causales' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Obreros calificados Pendientes: Por causales</p></a>
+
+                    <a href="{% url 'obreros_calificados_pendientes_por_causales_cierre_mes' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Obreros calificados Pendientes: Por causales (Cierre del mes anterior)</p></a>
+
+                {% endif %}
+
+
+                </div>
+            {% endif %}
+
+            {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "interrupto" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+                    <div id="interrupto" class="tab-pane">
+                {% endif %}
+
+                {% if user.perfil_usuario.categoria.nombre == "interrupto"%}
+                    <div id="interrupto" class="tab-pane fade in active">
+                {% endif %}
+
+                {% if user.perfil_usuario.categoria.nombre == "interrupto" or user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                    <a href="{% url 'interruptos_por_organismos' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: Informe General </p></a>
+
+                    <a href="{% url 'interruptos_por_organismos_sin_entidades' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: Informe General (sin entidades)</p></a>
+
+                    <a href="{% url 'interruptos_por_organismos_filtros' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: Informe General (Filtros)</p></a>
+
+                    <a href="{% url 'interruptos_por_provincias' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Provincias</p></a>
+
+                    <a href="{% url 'interruptos_por_provincias_sin_entidades' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Provincias (sin entidades)</p></a>
+
+                    <a href="{% url 'interruptos_por_actividades' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Actividades</p></a>
+
+                    <a href="{% url 'interruptos_por_actividades_sin_entidades' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Actividades (sin entidades)</p></a>
+
+                    <a href="{% url 'interruptos_por_causas_interrupcion' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Causas de Interrupción</p></a>
+
+                    <a href="{% url 'interruptos_por_causas_interrupcion_sin_entidades' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: por Causas de Interrupción (sin entidades)</p></a>
+
+                    <a href="{% url 'interruptos_situacion_duracion' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: Reubicados</p></a>
+
+                {% endif %}
+
+                {% if user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                    <a href="{% url 'total_interruptos_por_organismos_cap' %}"><p class="bg_second ">
+                        <span class="glyphicon glyphicon-export"></span> Interruptos: Informe General </p></a>
+
+                {% endif %}
+
+{#                <a href="{% url 'interruptos_por_actividades' %}"><p class="bg_second ">#}
+{#                    <span class="glyphicon glyphicon-export"></span> Interruptos por Actividades: Filtros</p></a>#}
+
+                </div>
+            {% endif %}
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

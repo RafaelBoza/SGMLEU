@@ -1,0 +1,119 @@
+[
+  {
+    "model": "SGMGU.Delito",
+    "pk": 1,
+    "fields": {
+      "nombre": "Tráfico de droga",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 2,
+    "fields": {
+      "nombre": "Tenencia de droga",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 3,
+    "fields": {
+      "nombre": "Rob Hurt, Sac, Ilegal Gan M",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 4,
+    "fields": {
+      "nombre": "Sacrificio del ganado mayor",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 5,
+    "fields": {
+      "nombre": "Malversación",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 6,
+    "fields": {
+      "nombre": "Cohecho",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 7,
+    "fields": {
+      "nombre": "Inc Deber de Pres bienes U E E",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 8,
+    "fields": {
+      "nombre": "Abuso en el Ejerc Cargo",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 9,
+    "fields": {
+      "nombre": "Act. Econ Ilicita",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 10,
+    "fields": {
+      "nombre": "Robo con Violencia",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 11,
+    "fields": {
+      "nombre": "Robo con Fza Vivienda Habilitada",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 12,
+    "fields": {
+      "nombre": "Hurto vivienda Habitada",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Delito",
+    "pk": 13,
+    "fields": {
+      "nombre": "Proxenetismo",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  }
+]

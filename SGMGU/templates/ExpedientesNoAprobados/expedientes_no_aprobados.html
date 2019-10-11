@@ -1,0 +1,134 @@
+{% extends "General/index.html" %}
+
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                 {% if message.level == 40 %}
+                     <p class="mensaje_error" ><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}</p>
+                 {% else %}
+                    <p class="mensaje_exito" ><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+                 {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+
+
+{% block section_superior %}
+        <div class="panel panel-primary">
+            <div class="panel-heading">Listado de No Aprobados</div>
+            <div class="panel-body">
+            <div class="panel-body-superior">
+                <div class="row">
+                <div class="col-xs-3 pull-right">
+                    <div class="input-group">
+                        {% if busqueda %}
+                            <input value="{{ valor_busqueda }}" disabled type="number" id="input_busqueda_expediente" class="form-control" aria-label="..." placeholder="Escriba aquí" style="height:32px;">
+                        {% else %}
+                            <input type="text" id="input_busqueda_expediente" class="form-control" aria-label="..." placeholder="Escriba aquí" style="height:32px;">
+                        {% endif %}
+                        <div class="input-group-btn">
+                            {% if busqueda %}
+                                 <a type="button" class="btn btn-default btn_normal" href="/expedientes_no_aprobados"><span class="glyphicon glyphicon-refresh"></span> Limpiar</a>
+                            {% else %}
+                                 <button type="button" class="btn btn-default btn_normal" onclick="Objeto.__init__('','expedientes_no_aprobados','input_busqueda_expediente').buscar('ci');">Buscar CI</button>
+                            {% endif %}
+                        </div><!-- /btn-group -->
+                    </div><!-- /input-group -->
+                </div><!-- /input-group -->
+              </div>
+            </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered dt-responsive nowrap usar_DataTable_3" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre y apellidos</th>
+                            {% if categoria != "organismo" %}
+                                <th>Organismo Lib</th>
+                            {% else %}
+                                <th>Entidad Lib</th>
+                            {% endif %}
+                            <th>Carrera</th>
+                            <th>Causa</th>
+                            <th>No Aprobado</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for expediente in expedientes_no_aprob%}
+                            <tr>
+                                <td>{{ expediente.expediente.id }}</td>
+                                <td>{{ expediente.expediente.graduado.nombre }}</td>
+                                {% if categoria != "organismo" %}
+                                     <td>{{ expediente.expediente.organismo_liberacion.siglas}}</td>
+                                {% else %}
+                                     <td>{{ expediente.expediente.entidad_liberacion}}</td>
+                                {% endif %}
+                                <td>{{ expediente.expediente.graduado.carrera.nombre}}</td>
+                                <td>{{ expediente.sintesis_no_aprobado|truncatechars:15}}</td>
+                                <td>{{ expediente.fecha_no_aprobado|date:"Y/m/d" }} {{ expediente.fecha_no_aprobado|time:"H:i" }}</td>
+
+                                <td  id="opciones_gestion">
+                                    <a href="/expedientes_no_aprobados/{{expediente.id}}" id="{{ expediente.id }}" class="btn btn-warning ">
+                                    <span class="glyphicon glyphicon-plus"></span> Detalles
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+               <ul class="pagination pull-right">
+                {% if expedientes_no_aprob.has_previous %}
+                    <li>
+                        <a href="?pagina={{ expedientes_no_aprob.previous_page_number }}" aria-label="Previous">
+                            Anterior
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="#" aria-label="Previous">
+                            Anterior
+                        </a>
+                    </li>
+                {% endif %}
+                {% if paginas %}
+                {% for pagina in paginas %}
+                    {% if pagina == expedientes_no_aprob.number  %}
+                          <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                    {% else %}
+                         <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% else %}
+                    <li class="active"><a href="?pagina=1">1</a></li>
+                {% endif %}
+
+                {% if expedientes_no_aprob.has_next %}
+                    <li>
+                        <a href="?pagina={{ expedientes_no_aprob.next_page_number }}" aria-label="Next">
+                            Próximo
+                        </a>
+                    </li>
+                {% else %}
+
+                    <li class="disabled">
+                        <a  href="#" aria-label="Next">
+                            Próximo
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            </div>
+
+    </div>
+        </div>
+
+{% endblock %}
+

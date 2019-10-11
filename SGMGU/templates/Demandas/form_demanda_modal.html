@@ -1,0 +1,33 @@
+<form method="post" action="{% url 'demanda_create' %}" class="js-demanda-create-form">
+    {#action="{% url 'demanda_create' %}" class="js-demanda-create-form"#}
+    <div class="modal-header-demanda">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Crear nueva demanda</h4>
+    </div>
+    <div class="modal-body modal-body-demanda">
+
+        <div class="row">
+            <div class="form-group col-xs-6" id="columna-1-demanda">
+                {% if form %}
+                    <form method="post" id="registrar_demanda">
+                        {% csrf_token %}{% include "General/forms_snippets_column1.html" %}</form>
+                {% endif %}
+            </div>
+            <div class="form-group col-xs-6" id="columna-2-demanda">
+                {% if form %}
+                    <form method="post"
+                          id="registrar_demanda">{% csrf_token %} {% include "General/forms_snippets_column2.html" %}</form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer modal-footer-demanda">
+        <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-floppy-disk btn-lg"></span></button>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok btn-lg"></span></button>
+    </div>
+
+
+</form>

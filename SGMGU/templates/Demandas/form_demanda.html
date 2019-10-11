@@ -1,0 +1,40 @@
+{% extends "demandas/gestion_demanda.html" %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+{% block section_superior %}
+    <div class="col-xs-8 placeholder" id="div_registrar_demanda" style="margin-left:10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_accion }} Demanda</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="registrar_demanda"
+                          enctype="multipart/form-data">{% csrf_token %} {% include "General/Forms_Sinippets_Geforza/form_snippet_demanda.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <button class="btn btn-default" type="reset"><span></span> Limpiar</button>
+                            <a class="btn btn-success btn_gestion" href="/demandas"><span
+                                    class="glyphicon glyphicon-arrow-left"> </span> Atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $('#id_organismo').html('');
+        var $lista = [1, 2, 3, 4, 5];
+
+        console.log("el tamaño de la lista es de "+$lista.length);
+
+        for (var i = 0; i < $lista.length; i++) {
+            console.log($lista[i]);
+            $('#id_organismo').append("<option>"+$lista[i]+"</option>");
+        }
+
+    </script>
+
+{% endblock %} {% block titulo_tabla %} {% endblock %} {% block contenido_tabla %} {% endblock %}

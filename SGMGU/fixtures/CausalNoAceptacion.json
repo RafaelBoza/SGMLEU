@@ -1,0 +1,20 @@
+[
+  {
+    "model": "SGMGU.CausalNoAceptacion",
+    "pk": 1,
+    "fields": {
+      "causa": "No le gustan las ofertas",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoAceptacion",
+    "pk": 2,
+    "fields": {
+      "causa": "No desea trabajar",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

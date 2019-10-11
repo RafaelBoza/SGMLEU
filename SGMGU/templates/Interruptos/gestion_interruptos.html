@@ -1,0 +1,178 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'registrar_interrupto' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Registrar interrupto
+                    </a>
+                </div>
+
+                <div class="col-xs-3 pull-right">
+                    <form action="" method="GET">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" name="q"
+                                   aria-label="..." placeholder="Buscar..." style="height:32px;"
+                                   value="{{ request.GET.q }}">
+                            <div class="input-group-btn">
+
+                                <button type="submit" class="btn btn-default btn_normal"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado"
+                       cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Organismo</th>
+                        <th>Entidad</th>
+                        <th>Municipio</th>
+                        <th>Fecha registro</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for interrupto in interruptos %}
+                        <tr>
+                            <td>{{ interrupto.organismo__nombre }}</td>
+                            <td>{{ interrupto.entidad__e_nombre }}</td>
+                            <td>{{ interrupto.municipio__nombre }}</td>
+                            <td>{{ interrupto.fecha_registro }}</td>
+                            <td class="opciones_gestion" align="center">
+
+                                <a href="/interruptos/{{ interrupto.id }}"
+                                   class="btn btn-success"
+                                   title="Detalles"><span class="glyphicon glyphicon-search"></span></a>
+
+                                {% if autorizado  and interrupto.fecha_registro.month == mes_actual and user.perfil_usuario.categoria.nombre == "interrupto" %}
+
+                                    <a href="{% url 'modificar_interrupto' interrupto.id %}"
+                                       class="btn btn-info" title="Modificar"><span
+                                            class="glyphicon glyphicon-pencil"></span></a>
+
+                                    <button id="{{ interrupto.id }}" title="Eliminar"
+                                            class="btn btn-danger modal-eliminar_interrupto"
+                                            data-toggle="modal" data-target="#modal_eliminar_interrupto"
+                                            onclick="Objeto.__init__({{ interrupto.id }},'interruptos','modal_eliminar_interrupto').eliminar();">
+                                          <span class="glyphicon glyphicon-trash">
+                                          </span>
+                                    </button>
+
+                                {% endif %}
+
+                                {% if user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                                    <a href="{% url 'modificar_interrupto' interrupto.id %}"
+                                       class="btn btn-info" title="Modificar"><span
+                                            class="glyphicon glyphicon-pencil"></span></a>
+
+                                    <button id="{{ interrupto.id }}" title="Eliminar"
+                                            class="btn btn-danger modal-eliminar_interrupto"
+                                            data-toggle="modal" data-target="#modal_eliminar_interrupto"
+                                            onclick="Objeto.__init__({{ interrupto.id }},'interruptos','modal_eliminar_interrupto').eliminar();">
+                                          <span class="glyphicon glyphicon-trash">
+                                          </span>
+                                    </button>
+
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                {% if interruptos.has_previous or interruptos.has_next %}
+                    <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                        {% if interruptos.has_previous %}
+                            <li>
+                                <a href="?pagina={{ interruptos.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% endif %}
+    {#                    {% if paginas %}#}
+    {#                        {% for pagina in paginas %}#}
+    {#                            {% if pagina == interruptos.number %}#}
+    {#                                <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>#}
+    {#                            {% else %}#}
+    {#                                <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>#}
+    {#                            {% endif %}#}
+    {#                        {% endfor %}#}
+    {#                    {% else %}#}
+    {#                        <li class="active"><a href="?pagina=1">1</a></li>#}
+    {#                    {% endif %}#}
+
+                        <li class="disabled"><a>Página {{ interruptos.number }} de {{ interruptos.paginator.num_pages }}</a></li>
+
+                        {% if interruptos.has_next %}
+                            <li>
+                                <a href="?pagina={{ interruptos.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% else %}
+
+                            <li class="disabled">
+                                <a href="#" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_interrupto" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

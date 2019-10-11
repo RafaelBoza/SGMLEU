@@ -1,0 +1,232 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+        <div class="panel-body">
+            {#        BUSQUEDA         #}
+            <div class="row">
+                <div class="col-xs-3 pull-right">
+                    <div class="input-group">
+                        {% if busqueda %}
+                            <input value="{{ valor_busqueda }}" disabled type="number" id="ci_buscar"
+                                   class="form-control" aria-label="..." style="height:32px;">
+                        {% else %}
+                            <input type="text" id="ci_buscar" class="form-control" aria-label="..."
+                                   placeholder="Escriba el CI" style="height:32px;">
+                        {% endif %}
+                        <div class="input-group-btn">
+                            {% if busqueda %}
+                                <a type="button" class="btn btn-default btn_normal" href="/desvinculados"><span
+                                        class="glyphicon glyphicon-refresh"></span> Limpiar</a>
+                            {% else %}
+                                <button type="button" class="btn btn-default btn_normal"
+                                        onclick="Objeto.__init__('','desvinculados','ci_buscar').buscar('ci');"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#     FIN   BUSQUEDA         #}
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" %}
+
+                        <li><a class=" btn_gestion "
+                               href="{% url 'registrar_desvinculado' %}">
+                            <span class="glyphicon glyphicon-plus"></span> Registrar
+                        </a></li>
+
+                    {% endif %}
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                        <li><a class=" btn_gestion " href="{% url 'reportes_desvinculados' %}">
+                            <span class="glyphicon glyphicon-th-list"></span> Reportes
+                        </a></li>
+
+                    {% endif %}
+
+
+                </ul>
+            </div>
+            <div class="table-responsive">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nombre y Apellidos</th>
+                        <th>CI</th>
+                        <th>M. Solicita Emp.</th>
+                        <th>Provincia</th>
+                        <th>Estado</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for desvinculado in desvinculados %}
+                        <tr>
+                            <td>{{ desvinculado.nombre_apellidos }}</td>
+                            <td>{{ desvinculado.ci }}</td>
+                            <td>{{ desvinculado.municipio_solicita_empleo }}</td>
+                            <td>{{ desvinculado.municipio_solicita_empleo.provincia }}</td>
+                            <td>
+                                {% if desvinculado.activo %}
+                                    <span class="label label-success">Activo</span>
+                                {% else %}
+                                    <span class="label label-danger">Baja</span>
+                                {% endif %}
+                            </td>
+                            <td class="opciones_gestion" align="center">
+
+{#                                {% if user.perfil_usuario.categoria.nombre == "administrador" %}#}
+{#                                    <button id="{{ desvinculado.id }}" class="btn btn-info modal-desvinculado"#}
+{#                                            title="Modificar"#}
+{#                                            data-toggle="modal" data-target="#modal_modificar_desvinculado"#}
+{#                                            onclick="Objeto.__init__({{ desvinculado.id }},'desvinculados','modal_modificar_desvinculado').modificar();">#}
+{#                                      <span class="glyphicon glyphicon-pencil">#}
+{#                                      </span>#}
+{#                                    </button>#}
+{#                                {% endif %}#}
+
+                                {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" %}
+
+                                    <a href="/desvinculados/{{ desvinculado.id }}"
+                                       class="btn btn-success"
+                                       title="Detalles"><span class="glyphicon glyphicon-search"></span></a>
+
+                                    {% if desvinculado.activo %}
+
+                                        {% if desvinculado.ubicado == False %}
+
+                                            <a href="{% url 'ubicar_desvinculado' desvinculado.id %}"
+                                               class="btn btn-warning" title="Ubicar"><span
+                                                    class="glyphicon glyphicon-ok-sign"></span></a>
+
+                                        {% endif %}
+
+                                        <button id="{{ desvinculado.id }}" class="btn btn-danger modal-desvinculado"
+                                                title="Dar baja"
+                                                data-toggle="modal" data-target="#modal_dar_baja_desvinculado"
+                                                onclick="Objeto.__init__({{ desvinculado.id }},'desvinculados','modal_dar_baja_desvinculado').dar_baja();">
+                                             <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    {% endif %}
+
+                                {% endif %}
+
+                                {% if user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                                    <a href="/desvinculados/{{ desvinculado.id }}"
+                                       class="btn btn-success" title="Detalles"><span
+                                            class="glyphicon glyphicon-search"></span></a>
+
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                    {% if desvinculados.has_previous %}
+                        <li>
+                            <a href="?pagina={{ desvinculados.previous_page_number }}" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if paginas %}
+                        {% for pagina in paginas %}
+                            {% if pagina == desvinculados.number %}
+                                <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% else %}
+                                <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <li class="active"><a href="?pagina=1">1</a></li>
+                    {% endif %}
+
+                    {% if desvinculados.has_next %}
+                        <li>
+                            <a href="?pagina={{ desvinculados.next_page_number }}" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% else %}
+
+                        <li class="disabled">
+                            <a href="#" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_dar_baja_desvinculado" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de darle baja al desvinculado seleccionado?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_modificar_desvinculado" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar el desvinculado seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

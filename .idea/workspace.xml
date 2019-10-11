@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3be9a248-4de6-447a-bd41-36d61bf1858d" name="Default" comment="" />
+    <ignored path="SGMLEU.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/SGMLEU$Factory_Method.coverage" NAME="Factory Method Coverage Results" MODIFIED="1496856196153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/PycharmProjects/PatronesDisenno" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="SGMLEU" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SGMLEU/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views_licenciados_sma.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>reporte_c</find>
+      <find>comportamiento_figuras_priorizadas_filtrar_municipio</find>
+      <find>def control</find>
+      <find>licenciados</find>
+      <find>reportes</find>
+      <find>response</find>
+      <find>def regis</find>
+      <find>print</find>
+      <find>inicio</find>
+      <find>interruptos_por_causas_interrupcion_sin</find>
+      <find>tm</find>
+      <find>disponible</find>
+      <find>disponibles</find>
+      <find>Año</find>
+      <find>Análisis del Listado de Ubicados</find>
+      <find>modal_analisis_proceso_ubicacion</find>
+      <find>exportar_analisis_ubicacion</find>
+      <find>registrar</find>
+      <find>def cont</find>
+      <find>def dar</find>
+      <find>incorporado</find>
+      <find>No controlado</find>
+      <find>si contro</find>
+      <find>for</find>
+      <find>for</find>
+      <find>Si incorporado</find>
+      <find>taban</find>
+      <find>bataban</find>
+      <find>bata</find>
+      <find>def con</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>municipio_residencia__provincia</replace>
+      <replace>organismo</replace>
+      <replace>auto_now=True</replace>
+      <replace>export</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>C:\Apache2.2\htdocs\SGMLEU</dir>
+      <dir>C:\Apache2.2\htdocs\SGMLEU\SGMGU\views\ReportesInterruptos</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_fuente_procedencia.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_fuente_procedencia_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_menores_ubicados_por_especialidad.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_menores_ubicados_por_especialidad_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_menores_ubicados_por_sector.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_menores_ubicados_por_sector_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_no_ubicadas_por_fuentes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_no_ubicadas_por_fuentes_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_ubicadas_por_fuentes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_ubicadas_por_fuentes_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_no_ubicados_por_no_existir_oferta.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_no_ubicados_por_no_existir_oferta_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_obreros_calificados_pendientes_por_causales.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_obreros_calificados_pendientes_por_causales_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_obreros_calificados_pendientes_por_no_existir_oferta.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_obreros_calificados_pendientes_por_no_existir_oferta_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/resultados_entrevistas_sma_diciembre.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/resultados_entrevistas_sma_junio.py" />
+        <option value="$PROJECT_DIR$/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/Reportes/reportes_licenciados_sma.html" />
+        <option value="$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/ubicacion_general_sma.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/utiles.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_por_organismos.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_actividades.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_actividades_sin_entidades.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_causas_interrupcion.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_causas_interrupcion_sin_entidades.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_organismos_sin_entidades.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_provincias.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_provincias_sin_entidades.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_reubicados.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_por_organismos_filtros.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_ubicados_y_pendientes_por_organismos.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_ubicados_y_pendientes_por_organismos_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/models.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias_y_municipios.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias_y_municipios_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_reporte_nominal_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_reporte_nominal.py" />
+        <option value="$PROJECT_DIR$/SGMGU/urls.py" />
+        <option value="$PROJECT_DIR$/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/listar_licenciados_sma.html" />
+        <option value="$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/resultados_entrevistas_sma.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_ubicadas_provincias.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_desvinculados_no_ubicados_por_causales.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_desvinculados_no_ubicados_por_causales_cierre_mes.py" />
+        <option value="$PROJECT_DIR$/SGMGU/templates/Reportes/reportes.html" />
+        <option value="$PROJECT_DIR$/SGMGU/templates/Organismos/gestion_organismos.html" />
+        <option value="$PROJECT_DIR$/SGMGU/views/views_disponibles.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/views_ubicados.py" />
+        <option value="$PROJECT_DIR$/SGMLEU/settings.py" />
+        <option value="$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1370" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMGU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMGU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMGU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMGU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EmpleoEstatal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMLEU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SGMGU" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EmpleoEstatal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="LicenciadosSMA" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/SGMLEU/2019-03-28/SGMLEU" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="SearchEverywhereHistoryKey" value="urls&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/urls.py&#10;models&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/models.py&#10;reportes&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/Reportes/reportes.html&#10;total_personas_ubicadas&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_ubicadas_provincias.py&#10;licenci&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py&#10;licencia&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py&#10;utile&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/utiles.py&#10;nominal&#9;null&#9;null&#10;nomina&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/ReportesEmpleoEstatal/views_reporte_nominal_cierre_mes.py&#10;reporte&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/Reportes/reportes.html&#10;mode&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/models.py&#10;sett&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMLEU/settings.py&#10;setti&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMLEU/settings.py&#10;forms&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/forms.py&#10;url&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/urls.py&#10;repor&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/Reportes/reportes_licenciados_sma.html&#10;licenc&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py&#10;model&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/models.py&#10;setting&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMLEU/settings.py&#10;report&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/Reportes/reportes.html&#10;base&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/General/base.html&#10;settin&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMLEU/settings.py&#10;forms.py&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/forms.py&#10;views_tm&#9;null&#9;null&#10;desvinc&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_desvinculados.py&#10;fil&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/ReportesEmpleoEstatal/views_filtrar_nominal_por_anno.py&#10;filtrar&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/ReportesEmpleoEstatal/views_filtrar_nominal_por_anno.py&#10;control&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/control_licenciado_sma.html&#10;desvincu&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_desvinculados.py&#10;desvin&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_desvinculados.py&#10;desvi&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/templates/EmpleoEstatal/Desvinculados/detalles_desvinculado.html&#10;desv&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_desvinculados.py&#10;conte&#9;null&#9;null&#10;views_interr&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/Interruptos/views_interruptos.py&#10;views&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/EmpleoEstatal/views_tecnicos_medios_obreros_calificados_escuelas_oficio.py&#10;views_des&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/views_descargar_gforza.py&#10;contex&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/context_proccesors.py&#10;des&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/static/css/descargar_gforza.css&#10;desca&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/static/css/descargar_gforza.css&#10;views_in&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/views_inhabilitaciones.py&#10;views_enti&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/views_entidades.py&#10;utiles&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/utiles.py&#10;views_inte&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/Interruptos/views_interruptos.py&#10;views_inter&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/views/Interruptos/views_interruptos.py&#10;se&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMLEU/settings.py&#10;views_usu&#9;null&#9;null&#10;proc&#9;null&#9;null&#10;seti&#9;null&#9;null&#10;form&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/forms.py&#10;ur&#9;FILE&#9;file://C:/Apache2.2/htdocs/SGMLEU/SGMGU/urls.py" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\SGMLEU\SGMGU\static\img" />
+      <recent name="D:\SGMLEU2\SGMGU\templates\General" />
+      <recent name="D:\SGMLEU2\SGMGU\static\css" />
+      <recent name="D:\SGMLEU\SGMGU\templates\Ubicados" />
+      <recent name="D:\SGMLEU\SGMGU\templates\Expedientes" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\SGMLEU\SGMGU" />
+      <recent name="D:\Base de datos\SGMLEU v 1.3.3\SGMGU\static\css" />
+      <recent name="D:\Base de datos\SGMLEU v 1.3.3\SGMGU\static\img" />
+      <recent name="C:\Users\Rolando.Morales\PycharmProjects\SGMLEU v 1.3\SGMGU\static\css" />
+      <recent name="D:\Base de datos\SGMLEU v 1.3\SGMGU\static\js" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Django server.SGMLEU">
+    <configuration default="false" name="Factory Method" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/PatronesDisenno" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/PatronesDisenno/Factory Method.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="SGMLEU" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SGMLEU" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="SGMLEU.settings" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Django server.SGMLEU" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Factory Method" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Python.Factory Method" />
+      </list>
+    </recent_temporary>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="SGMLEU" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3be9a248-4de6-447a-bd41-36d61bf1858d" name="Default" comment="" />
+      <created>1487169707017</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1487169707017</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1370" height="744" extended-state="1" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4164038" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.599018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7070376" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23206107" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46481177" sideWeight="0.4941435" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39934534" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="17" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_organismos_sin_entidades.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="935">
+          <caret line="64" column="101" lean-forward="false" selection-start-line="64" selection-start-column="101" selection-end-line="64" selection-end-column="101" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_actividades.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="34" lean-forward="true" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_provincias.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_provincias_sin_entidades.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_reubicados.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="88" column="0" lean-forward="false" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_ubicados_y_pendientes_por_organismos_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="65" column="65" lean-forward="true" selection-start-line="65" selection-start-column="65" selection-end-line="65" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_ubicados_y_pendientes_por_organismos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="55" column="68" lean-forward="false" selection-start-line="47" selection-start-column="63" selection-end-line="55" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_por_organismos_filtros.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="154" column="68" lean-forward="true" selection-start-line="154" selection-start-column="32" selection-end-line="154" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="1580" column="21" lean-forward="false" selection-start-line="1580" selection-start-column="21" selection-end-line="1580" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/context_proccesors.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="171" column="29" lean-forward="false" selection-start-line="171" selection-start-column="15" selection-end-line="171" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="97" column="13" lean-forward="true" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/static/js/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="152" column="0" lean-forward="false" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/General/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="62" lean-forward="false" selection-start-line="22" selection-start-column="62" selection-end-line="22" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_causas_interrupcion.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="48" column="40" lean-forward="false" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_ubicadas_provincias_y_municipios.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="20" column="105" lean-forward="false" selection-start-line="20" selection-start-column="105" selection-end-line="20" selection-end-column="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias_y_municipios.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="20" column="118" lean-forward="false" selection-start-line="20" selection-start-column="118" selection-end-line="20" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_reporte_nominal_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="164" column="38" lean-forward="false" selection-start-line="164" selection-start-column="38" selection-end-line="164" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_no_ubicadas_provincias_y_municipios_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="143" lean-forward="false" selection-start-line="25" selection-start-column="143" selection-end-line="25" selection-end-column="143" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_no_ubicadas_por_fuentes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="53" column="103" lean-forward="true" selection-start-line="53" selection-start-column="103" selection-end-line="53" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_ubicadas_por_fuentes_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3723">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_mujeres_ubicadas_por_fuentes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="180" column="70" lean-forward="false" selection-start-line="180" selection-start-column="38" selection-end-line="180" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/listar_licenciados_sma.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="88" column="0" lean-forward="true" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/metodos_auxiliares_sma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="61" column="39" lean-forward="false" selection-start-line="61" selection-start-column="18" selection-end-line="61" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_total_personas_ubicadas_provincias.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="78" column="73" lean-forward="false" selection-start-line="78" selection-start-column="73" selection-end-line="78" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/ReportesLicenciadosSMA/resultados_entrevistas_sma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="151" column="64" lean-forward="true" selection-start-line="151" selection-start-column="64" selection-end-line="151" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_desvinculados_no_ubicados_por_causales.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/views_organismos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="29" column="54" lean-forward="true" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/Organismos/gestion_organismos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="69" column="14" lean-forward="true" selection-start-line="69" selection-start-column="14" selection-end-line="69" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/metodos_auxiliares.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="17" column="37" lean-forward="true" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_desvinculados_no_ubicados_por_causales_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="32" column="37" lean-forward="true" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesInterruptos/views_interruptos_por_organismos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="107" column="64" lean-forward="true" selection-start-line="107" selection-start-column="28" selection-end-line="107" selection-end-column="64" />
+          <folding>
+            <marker date="1563558163042" expanded="true" signature="5206:5344" ph="SELECT id FR... SGMGU_interruptos" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/Ubicados/GestionUbicados.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="116" column="47" lean-forward="true" selection-start-line="116" selection-start-column="47" selection-end-line="116" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/Ubicados/disponibles.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="62" column="69" lean-forward="true" selection-start-line="62" selection-start-column="68" selection-end-line="62" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/Reportes/reportes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="144" column="98" lean-forward="true" selection-start-line="144" selection-start-column="66" selection-end-line="144" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/Reportes/modals_reportes.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="373" column="92" lean-forward="false" selection-start-line="373" selection-start-column="65" selection-end-line="373" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="357" column="47" lean-forward="false" selection-start-line="357" selection-start-column="47" selection-end-line="357" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/utiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="197" column="7" lean-forward="false" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="7" />
+          <folding>
+            <marker date="1563557914225" expanded="true" signature="3901:5304" ph="select id, n... id" />
+            <marker date="1563557914225" expanded="true" signature="4283:5265" ph="select id, n... id" />
+            <marker date="1563557914225" expanded="true" signature="4431:4793" ph="SELECT p.id,... SGMGU_disponibilidadgraduados" />
+            <marker date="1563557914225" expanded="true" signature="4808:5163" ph="SELECT p.id,... SGMGU_ubicacionlaboral" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/views_disponibles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="253" column="39" lean-forward="true" selection-start-line="253" selection-start-column="39" selection-end-line="253" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/migrations/0034_auto_20190410_1514.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="28" column="62" lean-forward="true" selection-start-line="28" selection-start-column="62" selection-end-line="28" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/views_ubicados.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1207">
+          <caret line="82" column="14" lean-forward="false" selection-start-line="82" selection-start-column="14" selection-end-line="91" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_fuente_procedencia_cierre_mes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="462" column="60" lean-forward="false" selection-start-line="462" selection-start-column="24" selection-end-line="462" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/templates/EmpleoEstatal/LicenciadosSMA/detalles_licenciado_sma.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1496">
+          <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="659" column="15" lean-forward="false" selection-start-line="659" selection-start-column="4" selection-end-line="659" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_filtrar_mes_ubicados_y_pendientes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_filtrar_municipio_ubicados_y_pendientes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" column="35" lean-forward="true" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/Interruptos/views_interruptos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="50" column="76" lean-forward="true" selection-start-line="50" selection-start-column="40" selection-end-line="50" selection-end-column="76" />
+          <folding>
+            <marker date="1562336803651" expanded="true" signature="1720:1882" ph="SELECT id FR... SGMGU_interruptos" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/ReportesEmpleoEstatal/views_reporte_nominal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="188" column="111" lean-forward="true" selection-start-line="188" selection-start-column="111" selection-end-line="188" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMLEU/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SGMGU/views/EmpleoEstatal/views_licenciados_sma.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

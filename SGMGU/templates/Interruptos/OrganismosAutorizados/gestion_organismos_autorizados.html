@@ -1,0 +1,76 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_form }}</div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"
+                       id="tabla_gestion">
+                    <thead>
+                    <tr>
+                        <th>Organismo autorizados</th>
+                        <th>Fecha de autorizo</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for organismo in organismos_autorizados %}
+                        <tr>
+                            <td>{{ organismo.organismo }}</td>
+                            <td>{{ organismo.fecha_registro }}</td>
+                            <td class="opciones_gestion" align="center">
+
+                                <button id="{{ organismo.id }}" class="btn btn-danger modal-actividad"
+                                        data-toggle="modal" data-target="#modal_eliminar_organismo"
+                                        onclick="Objeto.__init__({{ organismo.id }},'organismos_autorizados','modal_eliminar_organismo').eliminar();">
+                                      <span class="glyphicon glyphicon-trash">
+                                      </span>
+                                </button>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success btn_gestion" href="{% url 'autorizar_organismo' %}">
+                <span class="glyphicon glyphicon-plus"></span> Autorizar organismo
+            </a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_organismo" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

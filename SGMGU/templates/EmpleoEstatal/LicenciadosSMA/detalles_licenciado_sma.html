@@ -1,0 +1,204 @@
+{% extends "EmpleoEstatal/LicenciadosSMA/listar_licenciados_sma.html" %}
+
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+
+{% block section_superior %}
+
+{% endblock %}
+
+
+
+{% block titulo_tabla %}
+    <div class="modal fade" id="modal_dar_baja_licenciado_sma" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de darle baja el licenciado del SMA seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_modificar_licenciado_sma" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_reporte_title">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar el licenciado del SMA seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block contenido_tabla %}
+
+    <div class="row panel panel-primary">
+        <div class="panel-heading"> Datos del licenciado del SMA: {{ licenciado_sma.nombre_apellidos }}</div>
+
+        <div class="panel-body">
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt"%}
+                        <li>
+                            <a class=" btn_gestion " href="/licenciados_sma/{{ licenciado_sma.id }}/modificar">
+                            <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                        </li>
+                        <li>
+                            <a class=" btn_gestion" href="/licenciados_sma/{{ id_licenciado_sma }}/control">
+                            <span class="glyphicon glyphicon-ok-sign"></span> Control</a>
+                        </li>
+
+{#                        <li>#}
+{#                            <a class=" btn_gestion " href="/licenciados_sma/{{ licenciado_sma.id }}/re_incorporar">#}
+{#                            <span class="glyphicon glyphicon-retweet"></span> Re-incorporar</a>#}
+{#                        </li>#}
+
+                        {% if licenciado_sma.activo %}
+                            <li><a class=" btn_gestion modal-licenciados_sma" id="{{ licenciado_sma.id }}"
+                                   data-toggle="modal" data-target="#modal_dar_baja_licenciado_sma"
+                                   onclick="Objeto.__init__({{ licenciado_sma.id }},'licenciados_sma','modal_dar_baja_licenciado_sma').dar_baja();">
+                                <span class="glyphicon glyphicon-trash"></span> Dar baja
+                            </a></li>
+                        {% endif %}
+                    {% endif %}
+
+                    <li><a class=" btn_gestion " href="/licenciados_sma">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Ir atrás
+                    </a></li>
+
+                </ul>
+            </div>
+            <div id="datos_exp" class="datos_exp_50 datos_licenciado_sma">
+                <h4 class="text-center">Datos del licenciado del SMA:</h4>
+                <p><strong>Nombre y apellidos:</strong> {{ licenciado_sma.nombre_apellidos }}</p>
+                <p><strong>Carnet de identidad:</strong> {{ licenciado_sma.ci }}</p>
+                <p><strong>Edad:</strong> {{ licenciado_sma.edad }}</p>
+                <p><strong>Sexo:</strong> {{ licenciado_sma.sexo_verbose }}</p>
+                <p><strong>Dirección de
+                    residencia:</strong> {{ licenciado_sma.direccion_particular }}, {{ licenciado_sma.municipio_residencia }}, {{ licenciado_sma.municipio_residencia.provincia }}
+                </p>
+                <p><strong>Nivel escolar:</strong> {{ licenciado_sma.nivel_escolar }}</p>
+                {% if licenciado_sma.carrera != None %}
+                    <p><strong>Carrera:</strong> {{ licenciado_sma.carrera }}</p>
+                {% endif %}
+
+                <p><strong>Fecha de la entrevista:</strong> {{ licenciado_sma.mes_entrevista }} / {{ licenciado_sma.anno_entrevista }}</p>
+                <p><strong>Recibió oferta:</strong> {{ licenciado_sma.ro }}</p>
+                {% if licenciado_sma.recibio_oferta %}
+                    <p><strong>Aceptó oferta:</strong> {{ licenciado_sma.ao }}</p>
+                    {% if licenciado_sma.acepto_oferta == "S" %}
+                        <p><strong>Oferta seleccionada:</strong> {{ licenciado_sma.ubicacion }}</p>
+                        {% if licenciado_sma.organismo %}<p><strong>Organismo:</strong> {{ licenciado_sma.organismo }}</p>{% endif %}
+                        {% if licenciado_sma.entidad %}<p><strong>Entidad:</strong> {{ licenciado_sma.entidad }}</p>{% endif %}
+                        {% if licenciado_sma.municipio_entidad.provincia %}<p><strong>Provincia de la entidad:</strong> {{ licenciado_sma.municipio_entidad.provincia }}</p>{% endif %}
+                        {% if licenciado_sma.municipio_entidad %}<p><strong>Municipio de la entidad:</strong> {{ licenciado_sma.municipio_entidad }}</p>{% endif %}
+                    {% else %}
+                        <p><strong>Causa de no aceptación:</strong> {{ licenciado_sma.causa_no_aceptacion }}</p>
+                    {% endif %}
+                {% endif %}
+                {% if licenciado_sma.fecha_baja != None %}
+                    <p><strong>Fecha de baja:</strong> {{ licenciado_sma.fecha_baja }}</p>
+                    <p><strong>Causa de baja:</strong> {{ licenciado_sma.causa_baja }}</p>
+                {% endif %}
+{#                {% if licenciado_sma.fecha_ubicacion %}<p><strong>Fecha de ubicación:</strong> {{ licenciado_sma.fecha_ubicacion }}</p>{% endif %}#}
+            </div>
+
+            {% if c_licenciado_sma %}
+                <div id="datos_exp" class="datos_exp_50 datos_entidad">
+                    <h4 class="text-center">Datos del último control realizado:</h4>
+
+                    <p><strong>Incorporado:</strong> {{ c_licenciado_sma.estados_incorporado }}</p>
+                    {% if c_licenciado_sma.ubicacion %}<p><strong>Ubicación:</strong> {{ c_licenciado_sma.ubicacion }}</p>{% endif %}
+                    {% if c_licenciado_sma.organismo %}<p><strong>Organismo:</strong> {{ c_licenciado_sma.organismo }}</p>{% endif %}
+                    {% if c_licenciado_sma.entidad %}<p><strong>Entidad:</strong> {{ c_licenciado_sma.entidad }}</p>{% endif %}
+                    {% if c_licenciado_sma.municipio %}<p><strong>Municipio :</strong> {{ c_licenciado_sma.municipio }}</p>{% endif %}
+
+                    {% if c_licenciado_sma.incorporado == 'N' %}
+                        <p><strong>Causa de no incorporación :</strong> {{ c_licenciado_sma.causa_no_ubicado }}</p>
+                    {% endif %}
+
+                </div>
+
+
+                <div id="datos_exp" class="datos_exp_50 datos_entidad">
+                    <h4 class="text-center">Historial de los controles realizados:</h4>
+
+                    {% for control in controles %}
+
+                        <p><strong>Control #{{ forloop.counter }}:</strong> {{ control.fecha_registro }}</p>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+{#            {% if historiales %}#}
+{#                <div id="datos_exp" class="datos_exp_50 historial_empleo_estatal dt-responsive">#}
+{#                    <h4 class="text-center">Historial:</h4>#}
+{##}
+{#                    {% for historial in historiales %}#}
+{#                        <p><strong>Fecha de ubicación:</strong> {{ historial.fecha_ubicacion }}</p>#}
+{#                        <p><strong>Provincia donde solicita#}
+{#                            empleo:</strong> {{ historial.municipio_solicita_empleo.provincia }}</p>#}
+{#                        <p><strong>Municipio donde solicita empleo:</strong> {{ historial.municipio_solicita_empleo }}#}
+{#                        </p>#}
+{#                        <p><strong>Ubicación:</strong> {{ historial.ubicacion }}</p>#}
+{#                        {% if historial.organismo %}<p><strong>Organismo:</strong> {{ historial.organismo }}</p>{% endif %}#}
+{#                        <p><strong>Entidad:</strong> {{ historial.entidad }}</p>#}
+{#                        <p><strong>Municipio de la entidad:</strong> {{ historial.municipio_entidad }}</p>#}
+{#                        <p><strong>Provincia de la entidad:</strong> {{ historial.municipio_entidad.provincia }}</p>#}
+{#                        {% if not forloop.last %}#}
+{#                            <p><strong>------------------------</strong></p>#}
+{#                        {% endif %}#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            {% endif %}#}
+
+
+        </div>
+        <div class="panel-footer">
+            <p class="text-muted"><span class="glyphicon glyphicon-time"></span> Registrado
+                el {{ licenciado_sma.fecha_registro }}.</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+

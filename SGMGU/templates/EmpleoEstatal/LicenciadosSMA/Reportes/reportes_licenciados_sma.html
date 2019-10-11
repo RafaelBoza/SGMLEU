@@ -1,0 +1,112 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %}
+{% endblock %}
+
+{% block contenido_tabla %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Reportes: Licenciados SMA</div>
+        <div class="panel-body">
+
+            <ul class="nav nav-pills nav-tabs ">
+                <li class="active"><a class="tab_total" data-toggle="tab" href="#total">Total</a></li>
+                <li><a class="tab_junio" data-toggle="tab" href="#junio">Junio</a></li>
+                <li><a class="tab_diciembre" data-toggle="tab" href="#diciembre">Diciembre</a></li>
+            </ul>
+            <br>
+
+            <div class="tab-content">
+
+                <!--
+                REPORTES TOTALES
+                -->
+
+                <div id="total" class="tab-pane fade in active">
+
+                    <a href="{% url 'ubicacion_general_sma' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Control a la incorporación </p>
+                    </a>
+
+                    <a href="{% url 'incorporados_por_organismos_sma' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Incorporados por Organismos </p>
+                    </a>
+
+                    <a href="{% url 'relacion_no_ubicados_nominal_sma' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Relación Nominal: No Incorporados </p>
+                    </a>
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                        <a href="{% url 'causas_no_incorporado_sma' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Causas de no Incorporados </p>
+                        </a>
+
+                        <a href="{% url 'resultados_entrevistas_sma' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Resultados de las Entrevistas </p>
+                        </a>
+
+                    {% endif %}
+                </div>
+
+                <!--
+                REPORTES 1ER SEMESTRE --- JUNIO
+                -->
+
+                <div id="junio" class="tab-pane">
+                    <a href="{% url 'ubicacion_general_sma_junio' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Control a la incorporación </p>
+                    </a>
+
+                    <a href="{% url 'incorporados_por_organismos_sma_junio' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Incorporados por Organismos </p>
+                    </a>
+
+                    <a href="{% url 'relacion_no_ubicados_nominal_sma_junio' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Relación Nominal: No Incorporados </p>
+                    </a>
+
+                    <a href="{% url 'resultados_entrevistas_sma_junio' %}" data-toggle="modal"><p
+                        class="bg_second "><span class="glyphicon glyphicon-export"></span> Resultados de las Entrevistas </p>
+                    </a>
+
+                </div>
+
+                <!--
+                REPORTES 2DO SEMESTRE --- DICIEMBRE
+                -->
+
+                <div id="diciembre" class="tab-pane">
+                    <a href="{% url 'ubicacion_general_sma_diciembre' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Control a la incorporación </p>
+                    </a>
+
+                    <a href="{% url 'incorporados_por_organismos_sma_diciembre' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Incorporados por Organismos </p>
+                    </a>
+
+                    <a href="{% url 'relacion_no_ubicados_nominal_sma_diciembre' %}" data-toggle="modal"><p
+                            class="bg_second "><span class="glyphicon glyphicon-export"></span> Relación Nominal: No Incorporados </p>
+                    </a>
+
+                    <a href="{% url 'resultados_entrevistas_sma_diciembre' %}" data-toggle="modal"><p
+                        class="bg_second "><span class="glyphicon glyphicon-export"></span> Resultados de las Entrevistas </p>
+                    </a>
+                </div>
+
+            </div>
+        <a class="btn btn-success btn_gestion" href="{% url 'listar_licenciados_sma' %}">
+            <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+        </a>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+

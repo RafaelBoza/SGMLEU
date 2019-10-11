@@ -1,0 +1,46 @@
+{% extends "Interruptos/gestion_interruptos.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_form }}</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="modificar_interrupto" enctype="multipart/form-data">{% csrf_token %}
+{#                        {% include "General/forms_snippets.html" %}#}
+                        {% include "Interruptos/form_modificar.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+{#                            <a class="btn btn-default" href="{% url 'registrar_interrupto' %}"> Limpiar </a>#}
+                            <a class="btn btn-success btn_gestion" href="{% url 'interruptos' %}">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static "js/validacion_modificar_interrupto_entidades.js" %}"></script>
+    <script src="{% static "js/validacion_totales_interruptos.js" %}"></script>
+
+    <script>
+        {#alert("!!!!!!!!!!!  IMPORTANTE  !!!!!!!!!!!");#}
+        {#alert("EN CASO DE APARECER REPETIDA ALGUNA ENTIDAD EN EL MISMO MUNICIPIO,\ CONTACTAR CON DANIEL: 78380008 ext:2089");#}
+        {#alert("NO SE DEBEN UTILIZAR ENTIDADES QUE APAREZCAN REPETIDAS.");#}
+    </script>
+
+{% endblock %}
+
+

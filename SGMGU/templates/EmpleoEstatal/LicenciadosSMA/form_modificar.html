@@ -1,0 +1,244 @@
+{% with form_licenciados.nombre_apellidos as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.ci as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.municipio_residencia as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="{{ field.name }}" id="id_{{ field.name }}" class="form-control">
+                    <option value="{{ municipio_residencia.id }}" selected>{{ municipio_residencia }}</option>
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.direccion_particular as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.nivel_escolar as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.carrera as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="carrera" id="id_carrera" class="form-control"
+                    {% if field.value != None %}
+                        {% if form_licenciados.nivel_escolar.value == None %}
+                            disabled
+                        {% elif form_licenciados.nivel_escolar.value|striptags != '5' and form_licenciados.nivel_escolar.value|striptags != '6' %}
+                            disabled
+                        {% endif %}
+                     {% elif form_licenciados.nivel_escolar.value|striptags != '5' and form_licenciados.nivel_escolar.value|striptags != '6' %}
+                        disabled
+                    {% endif %}>
+                    <option value="">---------</option>
+                    {% for carrera in carreras %}
+                        <option value="{{ carrera.id }}"
+                                {% if errores and carrera.id|striptags == id_carrera %}selected
+                                {% elif carrera.id|striptags == licenciado_sma.carrera.id|striptags %}selected{% endif %}
+                                data-tipo="{{ carrera.tipo }}">{{ carrera.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.recibio_oferta as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="{{ field.name }}" id="id_{{ field.name }}" class="form-control">
+                    {% if errores %}
+                        <option value="True" {% if id_recibio_oferta == 'True' %}selected{% endif %}>Si</option>
+                        <option value="False" {% if not id_recibio_oferta or id_recibio_oferta == 'False' %}selected{% endif %}>No</option>
+                    {% else %}
+                        <option value="True" {% if licenciados_sma.recibio_oferta == 'True' %}selected{% endif %}>Si</option>
+                        <option value="False" {% if not licenciado_sma.recibio_oferta or licenciados_sma.recibio_oferta == 'False' %}selected{% endif %}>No</option>
+                    {% endif %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.acepto_oferta as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="{{ field.name }}" id="id_{{ field.name }}" class="form-control" required
+                         {% if not form_licenciados.recibio_oferta.value or form_licenciados.recibio_oferta.value == 'False' %}disabled{% endif %}>
+                    {% if errores %}
+                        <option value="" {% if not field.value %}selected{% endif %}>---------</option>
+                        <option value="S" {% if id_acepto_oferta == 'S' %}selected{% endif %}>Si</option>
+                        <option value="N" {% if id_acepto_oferta == 'N' %}selected{% endif %}>No</option>
+                    {% else %}
+                        <option value="" {% if not field.value %}selected{% endif %}>---------</option>
+                        <option value="S" {% if licenciado_sma.acepto_oferta == 'S' %}selected{% endif %}>Si</option>
+                        <option value="N" {% if licenciado_sma.acepto_oferta == 'N' %}selected{% endif %}>No</option>
+                    {% endif %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.causa_no_aceptacion as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="causa_no_aceptacion" id="id_causa_no_aceptacion" class="form-control"
+                        {% if not field.value %}disabled{% endif %}>
+                    <option value="">---------</option>
+                    {% for causa in causa_no_acep %}
+                        <option value="{{ causa.id }}"
+                                {% if errores and causa.id|striptags == id_causa_no_aceptacion %}selected
+                                {% elif causa.id|striptags == licenciado_sma.causa_no_aceptacion.id|striptags %}selected{% endif %}>{{ causa.causa }}</option>
+                    {% endfor %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form_licenciados.ubicacion as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="ubicacion" id="id_ubicacion" class="form-control"
+                        {% if form_licenciados.acepto_oferta.value != 'S' %}disabled{% endif %}>
+                    <option value="">---------</option>
+                    {% for ubicacion in ubicaciones %}
+                        <option value="{{ ubicacion.id }}"
+                                {% if errores and ubicacion.id|striptags == id_ubicacion %}selected
+                                {% elif ubicacion.id|striptags == licenciado_sma.ubicacion.id|striptags %}selected{% endif %}>{{ ubicacion.ubicacion }}</option>
+                    {% endfor %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}

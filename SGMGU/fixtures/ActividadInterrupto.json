@@ -1,0 +1,38 @@
+[
+  {
+    "model": "SGMGU.ActividadInterrupto",
+    "pk": 1,
+    "fields": {
+      "actividad": "Trabajadores de órganos de regulación y control",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:01"
+    }
+  },
+  {
+    "model": "SGMGU.ActividadInterrupto",
+    "pk": 2,
+    "fields": {
+      "actividad": "Trabajadores directos a la producción",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:02"
+    }
+  },
+  {
+    "model": "SGMGU.ActividadInterrupto",
+    "pk": 3,
+    "fields": {
+      "actividad": "Todos los trabajadores",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:03"
+    }
+  },
+  {
+    "model": "SGMGU.ActividadInterrupto",
+    "pk": 4,
+    "fields": {
+      "actividad": "Trabajadores indirectos",
+      "activo": "True",
+      "fecha_registro": "2018-09-27 16:48:03"
+    }
+  }
+]

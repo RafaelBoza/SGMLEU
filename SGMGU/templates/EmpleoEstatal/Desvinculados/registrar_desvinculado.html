@@ -1,0 +1,184 @@
+{% extends "EmpleoEstatal/Desvinculados/gestion_desvinculados.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_form }}</div>
+            <div class="panel-body">
+                {% if form_desvinculados %}
+                    <form method="post" id="registrar_desvinculado">{% csrf_token %}
+                        {% include "EmpleoEstatal/Desvinculados/form.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <a class="btn btn-default" href="{% url 'registrar_desvinculado' %}"> Limpiar </a>
+                            <a class="btn btn-success btn_gestion" href="{% url 'listar_desvinculados' %}">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var $carreras = [];
+        $('#id_carrera').find('option').each(function (k, v) {
+            $carreras.push(v);
+        });
+        $('#id_nivel_escolar').on('change', function () {
+            var $carrera = $('#id_carrera');
+            switch ($(this).val()) {
+                case '5':
+                    $carrera.html('');
+                    for (var i = 0; i < $carreras.length; i++) {
+                        if ($carreras[i].dataset.tipo === 'oc') {
+                            $carrera.append($carreras[i]);
+                        }
+                    }
+                    $carrera.prop('disabled', false); break;
+                    break;
+                case '6':
+                    $carrera.html('');
+                    for (var i = 0; i < $carreras.length; i++) {
+                        if ($carreras[i].dataset.tipo === 'nm') {
+                            $carrera.append($carreras[i]);
+                        }
+                    }
+                    $carrera.prop('disabled', false); break;
+                    break;
+                case '7':
+                    $carrera.html('');
+                    for (var i = 0; i < $carreras.length; i++) {
+                        if ($carreras[i].dataset.tipo === 'ns') {
+                            $carrera.append($carreras[i]);
+                        }
+                    }
+                    $carrera.prop('disabled', false); break;
+                    break;
+                default:
+                    $carrera.prop('disabled', true); break;
+            }
+        });
+
+        var ubicacion = $('#id_ubicacion'),
+            organismo = $('#id_organismo'),
+            entidad = $('#id_entidad'),
+            municipio_entidad = $('#id_municipio_entidad');
+
+        ubicacion.on('change', function () {
+            if(ubicacion.val() === "1"){
+                organismo.prop('disabled', false);
+                organismo.prop('required', true);
+                entidad.prop('disabled', false);
+                entidad.prop('required', true);
+                municipio_entidad.prop('disabled', false);
+                municipio_entidad.prop('required', true);
+            }
+            else
+            if(ubicacion.val() === "3"){
+                organismo.prop('disabled', false);
+                organismo.prop('required', true);
+
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+            }
+            else{
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+            }
+        });
+
+        var ubicado = $('#id_ubicado');
+        ubicado.on('change', function () {
+            var ubicacion = $('#id_ubicacion');
+            var organismo = $('#id_organismo');
+            var entidad = $('#id_entidad');
+            var municipio_entidad = $('#id_municipio_entidad');
+            var causa_no_ubicado = $('#id_causa_no_ubicado');
+            var incorporado = $('#id_incorporado');
+
+            if ($(this).val() === 'True') {
+                ubicacion.prop('disabled', false);
+                ubicacion.prop('required', true);
+
+                ubicacion.on('change', function () {
+                    if(ubicacion.val() === "1" || ubicacion.val() === "3"){
+                        organismo.prop('disabled', false);
+                        organismo.prop('required', true);
+                        entidad.prop('disabled', false);
+                        entidad.prop('required', true);
+                        municipio_entidad.prop('disabled', false);
+                        municipio_entidad.prop('required', true);
+                    }else{
+                        organismo.prop('disabled', true);
+                        organismo.prop('required', false);
+                        entidad.prop('disabled', true);
+                        entidad.prop('required', false);
+                        municipio_entidad.prop('disabled', true);
+                        municipio_entidad.prop('required', false);
+                    }
+                });
+
+                incorporado.prop('disabled', false);
+                incorporado.prop('required', true);
+                causa_no_ubicado.prop('disabled', true);
+                causa_no_ubicado.prop('required', false);
+            }
+            if ($(this).val() === 'False'){
+                ubicado.prop('required', false);
+
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+                incorporado.prop('disabled', true);
+                incorporado.prop('required', false);
+
+                causa_no_ubicado.prop('disabled', false);
+                causa_no_ubicado.prop('required', true);
+            }
+            if($(this).val() === ''){
+                ubicado.prop('required', true);
+
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+                incorporado.prop('disabled', true);
+                incorporado.prop('required', false);
+                causa_no_ubicado.prop('disabled', true);
+                causa_no_ubicado.prop('required', false);
+            }
+        });
+    </script>
+
+    <script  src="{% static "js/validaciones_empleo_estatal.js" %}"></script>
+
+{% endblock %}
+
+

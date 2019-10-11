@@ -1,0 +1,125 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Listado: Causales de no Aceptación</div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"
+                       id="tabla_gestion">
+                    <thead>
+                    <tr>
+                        <th>Causa</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for causa in causales_no_aceptacion %}
+                        <tr>
+                            <td>{{ causa.causa }}</td>
+                            <td class="opciones_gestion" align="center">
+                                <button id="{{ causa.id }}" class="btn btn-info modal-causales_no_aceptacion"
+                                        data-toggle="modal" data-target="#modal_modificar_causal_no_aceptacion"
+                                        onclick="Objeto.__init__({{ causa.id }},'causales_no_aceptacion','modal_modificar_causal_no_aceptacion').modificar();">
+                                      <span class="glyphicon glyphicon-pencil">
+                                      </span>
+                                </button>
+
+                                <button id="{{ causa.id }}" class="btn btn-danger modal-causales_no_aceptacion"
+                                        data-toggle="modal" data-target="#modal_eliminar_causal_no_aceptacion"
+                                        onclick="Objeto.__init__({{ causa.id }},'causales_no_aceptacion','modal_eliminar_causal_no_aceptacion').eliminar();">
+                                      <span class="glyphicon glyphicon-trash">
+                                      </span>
+                                </button>
+
+{#                                <button id="{{ nivel_escolar.id }}" class="btn btn-success modal-centros_estudios"#}
+{#                                        data-toggle="modal" data-target="#modal_activar_nivel_escolar"#}
+{#                                        onclick="Objeto.__init__({{ nivel_escolar.id }},'niveles_escolares','modal_activar_nivel_escolar').activar();">#}
+{#                                      <span class="glyphicon glyphicon-plus-sign">#}
+{#                                      </span>#}
+{#                                </button>#}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success btn_gestion" href="{% url 'registrar_causal_no_aceptacion'%}">
+                <span class="glyphicon glyphicon-plus"></span> Registrar causa
+            </a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_causal_no_aceptacion" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de eliminar la causa de no aceptación seleccionada</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_modificar_causal_no_aceptacion" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar la causa de no aceptación seleccionada</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{#    <div class="modal fade" id="modal_activar_nivel_escolar" role="dialog">#}
+{#        <div class="modal-dialog">#}
+{#            <!-- Modal content-->#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h4 class="modal-title modal_activar">Confirmación de activar</h4>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <p>Está seguro de activar el nivel escolar seleccionado</p>#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <a type="submit" class="btn btn-default">Aceptar</a>#}
+{#                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+{% endblock %}

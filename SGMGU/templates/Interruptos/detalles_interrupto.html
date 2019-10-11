@@ -1,0 +1,492 @@
+{% extends "EmpleoEstatal/TecnicosMedios_ObrerosCalificados_EscuelasOficio/listar_tm_oc_eo.html" %}
+
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+
+{% block section_superior %}
+
+{% endblock %}
+
+
+
+{% block titulo_tabla %}
+    <div class="modal fade" id="modal_eliminar_interrupto" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de baja</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block contenido_tabla %}
+    <div class="row panel panel-primary">
+        <div class="panel-heading"> Datos de la entidad: {{ interrupto.entidad }}.</div>
+
+        <div class="panel-body">
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+
+                    {% if autorizado  and interrupto.fecha_registro.month == mes_actual and user.perfil_usuario.categoria.nombre == "interrupto" %}
+
+                        <li>
+                            <a class=" btn_gestion " href="/interruptos/{{ interrupto.id }}/modificar">
+                                <span class="glyphicon glyphicon-pencil"></span> Modificar</a>
+                        </li>
+
+                        <li>
+                            <a class=" btn_gestion modal-eliminar_interrupto" id="{{ interrupto.id }}"
+                               data-toggle="modal" data-target="#modal_eliminar_interrupto"
+                               onclick="Objeto.__init__({{ interrupto.id }},'interruptos','modal_eliminar_interrupto').eliminar();">
+                                <span class="glyphicon glyphicon-trash"></span> Eliminar
+                            </a>
+                        </li>
+
+                    {% endif %}
+
+{#                    <li>#}
+{#                       <a  href="/interruptos/{{ interrupto.id }}/informe_valorativo"><span class="glyphicon glyphicon-download-alt"></span> Informe valorativo</a>#}
+{#                   </li>#}
+
+                    <li><a class=" btn_gestion " href="/interruptos">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Ir atrás
+                    </a></li>
+
+                </ul>
+            </div>
+            <div id="id_datos_interrupto" class="datos_interrupto">
+                <h4 class="text-center">Datos:</h4>
+                <p><strong>Organismo:</strong> {{ interrupto.organismo }}</p>
+                <p><strong>Entidad:</strong> {{ interrupto.entidad }}</p>
+                <p><strong>Municipio:</strong> {{ interrupto.municipio }}</p>
+                <p><strong>Aplica proceso:</strong> {% if interrupto.aplica_proceso == 'S' %} Sí {% else %}
+                    No {% endif %}</p>
+                {% if interrupto.causa_interrupcion.all %}
+                    <p><strong>Causa(s) de interrupción:</strong> {{ interrupto.causa_interrupcion.all|join:'. ' }}</p>
+                {% endif %}
+                <div class="col-md-12">
+                    <table style="align-content: center;" class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Causa A</th>
+                                <th class="text-center">Causa B</th>
+                                <th class="text-center">Causa C</th>
+                                <th class="text-center">Causa D</th>
+                                <th class="text-center">Causa E</th>
+                                <th class="text-center">Causa F</th>
+                                <th class="text-center">Causa G</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_rotura }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_falta_piezas }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_accion_lluvia }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_falta_energia }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_orden_paralizacion_temporal }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_paralizacion_reparacion }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.causa_interrupcion_otras_causas }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p><strong>Actividad(s):</strong> {{ interrupto.actividad_nueva.all|join:'. ' }}</p>
+                <div class="col-md-12">
+                    <table style="align-content: center;" class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Trabajadores directos</th>
+                                <th class="text-center">Trabajadores indirectos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center">
+                                {{ interrupto.actividad_directos }}
+                            </td>
+                            <td style="text-align: center">
+                                {{ interrupto.actividad_indirectos }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                {% if interrupto.causal_no_reubicacion.all %}
+                    <p><strong>Causa(s) de no reubicación:</strong> {{ interrupto.causal_no_reubicacion.all|join:'. ' }}</p>
+                {% endif %}
+                {% if interrupto.otras_causas_no_reubicacion %}
+                    <p><strong>Otra(s) causa(s) de no reubicación:</strong> {{ interrupto.otras_causas_no_reubicacion }}
+                    </p>
+                {% endif %}
+                <p><strong>Total de trabajadores (entidad):</strong> {{ interrupto.total_trabajadores_entidad }}</p>
+                <p><strong>Total de interruptos (entidad):</strong> {{ interrupto.total_interruptos_entidad }}</p>
+
+
+                <hr>
+
+                <div class="row col-md-12">
+                    <table style="align-content: center; margin-left: 15px; margin-right: 25px;"
+                           class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 200px">TOTALES</th>
+                            <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                            <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                            <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                            <th class="text-center" style="width: 200px">Más de 1 año</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center"><b>Reubicados temporal (dentro de la entidad):</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_reubicadostemporal_misma_entidad }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_reubicadostemporal_misma_entidad }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_reubicadostemporal_misma_entidad }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_reubicadostemporal_misma_entidad }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Reubicados temporal (fuera de la entidad y dentro del
+                                organismo):</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_reubicadostemporal_mismo_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_reubicadostemporal_mismo_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_reubicadostemporal_mismo_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_reubicadostemporal_mismo_organismo }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Reubicados temporal (otro organismo):</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_reubicadostemporal_otro_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_reubicadostemporal_otro_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_reubicadostemporal_otro_organismo }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_reubicadostemporal_otro_organismo }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_cobrandogarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Sin garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_singarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_baja }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.hastatreintadias_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.entretreintaysesentadias_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdesesentayunanno_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.masdeunanno_propuestoadisponibles }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row col-md-12">
+
+                    <table style="align-content: center; margin-left: 15px; margin-right: 25px;"
+                           class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 200px">TOTALES (Femenino)</th>
+                            <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                            <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                            <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                            <th class="text-center" style="width: 200px">Más de 1 año</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center"><b>Reubicados temporal:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_hastatreintadias_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_entretreintaysesentadias_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdesesentayunanno_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdeunanno_reubicadostemporal }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_hastatreintadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_entretreintaysesentadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdesesentayunanno_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdeunanno_cobrandogarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Sin garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_hastatreintadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_entretreintaysesentadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdesesentayunanno_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdeunanno_singarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_hastatreintadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_entretreintaysesentadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdesesentayunanno_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdeunanno_baja }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_hastatreintadias_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_entretreintaysesentadias_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdesesentayunanno_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.f_masdeunanno_propuestoadisponibles }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-md-12">
+
+                    <table style="align-content: center;"
+                           class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 200px">TOTALES (Jóvenes)</th>
+                            <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                            <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                            <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                            <th class="text-center" style="width: 200px">Más de 1 año</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td class="text-center"><b>Reubicados temporal:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_hastatreintadias_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_entretreintaysesentadias_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_reubicadostemporal }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdeunanno_reubicadostemporal }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_hastatreintadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_entretreintaysesentadias_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_cobrandogarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdeunanno_cobrandogarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Sin garantía salarial:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_hastatreintadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_entretreintaysesentadias_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_singarantiasalarial }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdeunanno_singarantiasalarial }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_hastatreintadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_entretreintaysesentadias_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_baja }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdeunanno_baja }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_hastatreintadias_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdesesentayunanno_propuestoadisponibles }}
+                            </td>
+                            <td style="text-align-last: center">
+                                {{ interrupto.jovenes_masdeunanno_propuestoadisponibles }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <p class="text-muted"><span class="glyphicon glyphicon-time"></span> Registrado
+                el {{ interrupto.fecha_registro }}.</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+

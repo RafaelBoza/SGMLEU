@@ -1,0 +1,174 @@
+{% extends "General/index.html" %} {% block encabezado %}
+
+<header class="row">
+    {% if messages %} {% for message in messages %}
+    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+    {% endfor %} {% endif %}
+</header>
+{% endblock %} {% block section_superior %}
+<div class="panel panel-primary">
+    <div class="panel-heading">Listado de existencias</div>
+
+    <div class="panel-body">
+        <div class="panel-body-superior">
+            <div class="btn-group btn_group pull-left">
+                <a class="btn btn-success btn_gestion" href="/existencias/registrar_existencia">
+                    <span class="glyphicon glyphicon-plus"></span> Registrar existencia
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3 pull-right">
+                    <form method="post" action="/existencias/buscar">{% csrf_token %} {% if busqueda%}
+                        <div class="div_panel_busqueda_existencia">
+                            <input disabled type="text" name="texto_existencia" class="" value="{{ texto }}">
+                            <a href="/existencias" class="">Limpiar</a>
+                        </div>
+
+                        {% else %}
+
+                        <div class="div_panel_busqueda_existencia">
+                            <input placeholder="Escriba aquí" type="text" name="texto_existencia" class="">
+                            <input type="submit" class="" value="Buscar">
+                        </div>
+
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /input-group -->
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="usar_DataTable_3 table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+
+                    <tr>
+                        <th>Identificador</th>
+                        <th>Organismo</th>
+                        <th>Entidad</th>
+                        <th>Carrera</th>
+                        <th>Municipio</th>
+                        <th>Contrato</th>
+                        <th>Rango de Edad</th>
+                        <th>Cantidad</th>
+                        <th>Año</th>
+                        <th id="opciones_gestion_titulo">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for existencia in existencias %}
+                    <tr>
+                        <td>{{ existencia.id_ocupados }}</td>
+                        <td>{{ existencia.id_organismo }}</td>
+                        <td>{{ existencia.id_codigo_entidad }}</td>
+                        <td>{{ existencia.id_cod_carrera}}</td>
+                        <td>{{ existencia.id_municipio_ocupado }}</td>
+                        <td>{{ existencia.id_tipo_plaza }}</td>
+                        <td>{{ existencia.id_rango_edad }}</td>
+                        <td>{{ existencia.cant_graduados }}</td>
+                        <td>{{ existencia.ano_realizacion }}</td>
+
+
+                        <td class="opciones_gestion">
+                            <button id="{{ existencia.id_ocupados  }}" class="btn btn-info modal-existencia" data-toggle="modal" data-target="#modal_modificar_existencia" onclick="Objeto.__init__({{ existencia.id_ocupados }},'existencias','modal_modificar_existencia').modificar();">
+                                  <span class="glyphicon glyphicon-pencil">
+                                  </span>
+                              </button>
+
+                            <button id="{{ existencia.id_ocupados  }}" class="btn btn-danger modal-existencia" data-toggle="modal" data-target="#modal_eliminar_existencia" onclick="Objeto.__init__({{ existencia.id_ocupados }},'existencias','modal_eliminar_existencia').eliminar();">
+                                  <span class="glyphicon glyphicon-trash">
+                                  </span>
+                              </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% block paginate %}
+        <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+            {% if existencias.has_previous %}
+            <li>
+                <a href="?pagina={{ existencias.previous_page_number }}" aria-label="Previous">
+                            Anterior
+                        </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                            Anterior
+                        </a>
+            </li>
+            {% endif %} {% if paginas %} {% for pagina in paginas %} {% if pagina == existencias.number %}
+            <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+            {% else %}
+            <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+            {% endif %} {% endfor %} {% else %}
+            <li class="active"><a href="?pagina=1">1</a></li>
+            {% endif %} {% if existencias.has_next %}
+            <li>
+                <a href="?pagina={{ existencias.next_page_number }}" aria-label="Next">
+                            Próximo
+                        </a>
+            </li>
+            {% else %}
+
+            <li class="disabled">
+                <a href="#" aria-label="Next">
+                            Próximo
+                        </a>
+            </li>
+            {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="modal_eliminar_existencia" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de eliminar la existencia seleccionada</p>
+            </div>
+            <div class="modal-footer">
+                <a type="submit" class="btn btn-default">Aceptar</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal_modificar_existencia" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de modificar la existencia seleccionada</p>
+            </div>
+            <div class="modal-footer">
+                <a type="submit" class="btn btn-default">Aceptar</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}

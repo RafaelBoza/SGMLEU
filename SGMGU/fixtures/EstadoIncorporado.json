@@ -1,0 +1,29 @@
+[
+  {
+    "model": "SGMGU.EstadoIncorporado",
+    "pk": 1,
+    "fields": {
+      "estado": "Sí",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.EstadoIncorporado",
+    "pk": 2,
+    "fields": {
+      "estado": "No",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.EstadoIncorporado",
+    "pk": 3,
+    "fields": {
+      "estado": "Lo dejó",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

@@ -1,0 +1,27 @@
+{% extends "existencias/gestion_existencia.html" %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+{% block section_superior %}
+    <div class="col-xs-8 placeholder" id="div_registrar_existencia" style="margin-left:10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_accion }} Existencia</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="registrar_existencia"
+                          enctype="multipart/form-data">{% csrf_token %} {% include "General/Forms_Sinippets_Geforza/form_snippet_existencia.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <button class="btn btn-default" type="reset"><span></span> Limpiar</button>
+                            <a class="btn btn-success btn_gestion" href="/existencias"><span
+                                    class="glyphicon glyphicon-arrow-left"> </span> Atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %} {% block titulo_tabla %} {% endblock %} {% block contenido_tabla %} {% endblock %}

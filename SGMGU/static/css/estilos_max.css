@@ -1,0 +1,25 @@
+.modal-header-demanda{
+  padding: 15px 25px;
+  color: white;
+  background-color: #0d8ec8;
+  font-style:normal;
+  font-weight:900;
+  font-size:5em;
+  font-family:"Arial Black";
+}
+
+.modal-body-demanda{
+    overflow-y: scroll;
+    max-height: 750px;
+}
+
+.modal-content-demanda{
+    width: 1200px;
+}
+
+.modal-footer-demanda{
+    background-color: #2C4257;
+    height: 40px;
+}
+
+

@@ -1,0 +1,1342 @@
+{% with form.organismo as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="{{ field.name }}" id="id_{{ field.name }}" class="form-control">
+                    <option value="{{ organismo.id }}" selected>{{ organismo }}</option>
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+{% with form.municipio as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+{% with form.entidad as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="{{ field.name }}" id="id_{{ field.name }}" class="form-control" required
+                        {% if not form.municipio.value %}disabled{% endif %}>
+                    <option value="">---------</option>
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+{% with form.aplica_proceso as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+<div class="row">
+    {% with form.total_trabajadores_entidad as field %}
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="id_{{ field.name }}" style="font-size: 15px"
+                           class="label label-default control-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <p class="help-block">{{ field.help_text }} </p>
+                </div>
+            </div>
+    {% endwith %}
+
+    <div class="col-md-1"></div>
+
+    {% with form.total_interruptos_entidad as field %}
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="id_{{ field.name }}" style="font-size: 15px"
+                           class="label label-default control-label">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <ul class="errorlist">
+                            {% for error in field.errors %}
+                                <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    <p class="help-block">{{ field.help_text }} </p>
+                </div>
+            </div>
+    {% endwith %}
+</div>
+
+{% with form.causa_interrupcion as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+<table style="align-content: center;" class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+    <thead>
+        <tr>
+            <th class="text-center">Causa A</th>
+            <th class="text-center">Causa B</th>
+            <th class="text-center">Causa C</th>
+            <th class="text-center">Causa D</th>
+            <th class="text-center">Causa E</th>
+            <th class="text-center">Causa F</th>
+            <th class="text-center">Causa G</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            {% with form.causa_interrupcion_rotura as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_falta_piezas as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_accion_lluvia as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_falta_energia as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_orden_paralizacion_temporal as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_paralizacion_reparacion as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.causa_interrupcion_otras_causas as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+{% with form.actividad_nueva as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+<table style="align-content: center;" class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+    <thead>
+        <tr>
+            <th class="text-left">Trabajadores directos</th>
+            <th class="text-left">Trabajadores indirectos</th>
+{#            <th class="text-center">Todos los trabajadores</th>#}
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            {% with form.actividad_directos as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div>
+                            {{ field }}
+                            {% if field.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field.errors %}
+                                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+        <td>
+            {% with form.actividad_indirectos as field %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            {{ field }}
+                            {% if field.errors %}
+                                <ul class="errorlist">
+                                    {% for error in field.errors %}
+                                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        </td>
+{#        <td>#}
+{#            {% with form.actividad_todos as field %}#}
+{#                <div class="row">#}
+{#                    <div class="col-md-6">#}
+{#                        <div class="form-group">#}
+{#                            {{ field }}#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endwith %}#}
+{#        </td>#}
+    </tr>
+    </tbody>
+</table>
+
+{% with form.causal_no_reubicacion as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+{% with form.otras_causas_no_reubicacion as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+<hr/>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <table style="align-content: center;"
+               class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 200px">TOTALES</th>
+                <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                <th class="text-center" style="width: 200px">Más de 1 año</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Reubicados temporal (dentro de la entidad):</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_reubicadostemporal_misma_entidad as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_reubicadostemporal_misma_entidad as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_reubicadostemporal_misma_entidad as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_reubicadostemporal_misma_entidad as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>Reubicados temporal (fuera de la entidad y dentro del organismo):</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_reubicadostemporal_mismo_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_reubicadostemporal_mismo_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_reubicadostemporal_mismo_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_reubicadostemporal_mismo_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center"><b>Reubicados temporal (otro organismo):</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_reubicadostemporal_otro_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_reubicadostemporal_otro_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_reubicadostemporal_otro_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_reubicadostemporal_otro_organismo as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Sin garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.hastatreintadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.entretreintaysesentadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdesesentayunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.masdeunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <table style="align-content: center;"
+               class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 200px">TOTALES (Femenino)</th>
+                <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                <th class="text-center" style="width: 200px">Más de 1 año</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Reubicados temporal:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.f_hastatreintadias_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_entretreintaysesentadias_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdesesentayunanno_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdeunanno_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.f_hastatreintadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_entretreintaysesentadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdesesentayunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdeunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Sin garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.f_hastatreintadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_entretreintaysesentadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdesesentayunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdeunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.f_hastatreintadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_entretreintaysesentadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdesesentayunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdeunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.f_hastatreintadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_entretreintaysesentadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdesesentayunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.f_masdeunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <table style="align-content: center;"
+               class="table table-striped table-bordered dt-responsive nowrap gestion_ubicado">
+            <thead>
+            <tr>
+                <th class="text-center" style="width: 200px">TOTALES (Jóvenes)</th>
+                <th class="text-center" style="width: 200px">Hasta 30 días</th>
+                <th class="text-center" style="width: 200px">Entre 30 y 60 días</th>
+                <th class="text-center" style="width: 200px">Más de 60 dias y menos de 1 año</th>
+                <th class="text-center" style="width: 200px">Más de 1 año</th>
+            </tr>
+            </thead>
+            <tbody>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Reubicados temporal:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_hastatreintadias_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_entretreintaysesentadias_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdesesentayunanno_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdeunanno_reubicadostemporal as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Cobrando garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_hastatreintadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_entretreintaysesentadias_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdesesentayunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdeunanno_cobrandogarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Sin garantía salarial:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_hastatreintadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_entretreintaysesentadias_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdesesentayunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdeunanno_singarantiasalarial as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Baja por no aceptar reubicación:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_hastatreintadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_entretreintaysesentadias_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdesesentayunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdeunanno_baja as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            {#            <tr>#}
+            {#                <td>--</td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#                <td></td>#}
+            {#            </tr>#}
+            <tr>
+                <td class="text-center"><b>Propuesto a disponibles:</b></td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_hastatreintadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_entretreintaysesentadias_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdesesentayunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+                <td style="text-align-last: center">
+                    {% with form.jovenes_masdeunanno_propuestoadisponibles as field %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{#{% with form.informe_valorativo as field %}#}
+{#    <div class="row">#}
+{#        <div class="col-sm-12">#}
+{#            <div class="form-group">#}
+{#                <label for="id_{{ field.name }}" style="font-size: 15px"#}
+{#                       class="label label-default control-label">{{ field.label }}</label>#}
+{#                {{ field }}#}
+{#                {% if field.errors %}#}
+{#                    <ul class="errorlist">#}
+{#                        {% for error in field.errors %}#}
+{#                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                {% endif %}#}
+{#                <pmodel class="help-block">{{ field.help_text }} </pmodel>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endwith %}#}

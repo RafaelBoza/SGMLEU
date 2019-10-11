@@ -1,0 +1,123 @@
+{% extends "EmpleoEstatal/Desvinculados/gestion_desvinculados.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_form }}</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="ubicar_desvinculado">{% csrf_token %}
+
+                        {% include "EmpleoEstatal/Desvinculados/ubicar_desvinculado_form.html" %}
+
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <a class="btn btn-default" href="{% url 'ubicar_desvinculado' id_desvinculado %}"> Limpiar </a>
+                            <a class="btn btn-success btn_gestion" href="{% url 'listar_desvinculados' %}">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var organismo = $('#id_organismo'),
+            ubicacion = $('#id_ubicacion'),
+            municipio_entidad = $('#id_municipio_entidad'),
+            entidad = $('#id_entidad');
+
+        ubicacion.on('change', function () {
+            if(ubicacion.val() === "1" || ubicacion.val() === "3"){
+                organismo.prop('disabled', false);
+                organismo.prop('required', true);
+            }
+            else{
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+            }
+          });
+
+        organismo.on('change', function(){
+            if($(this).val() === ''){
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+            }else{
+                municipio_entidad.prop('disabled', false);
+                municipio_entidad.prop('required', true);
+            }
+        });
+
+    </script>
+
+    <script>
+
+        $(document).on('ready', function () {
+
+            var municipio = $('#id_municipio_entidad'),
+                entidad = $('#id_entidad'),
+                municipios_entidades = [];
+                municipio.find('option').each(function (k, v) {
+                    municipios_entidades.push(v);
+                });
+
+            function seleccionar_entidades() {
+
+
+                $.ajax({
+                    data: {'id_organismo': organismo.val(), 'id_municipio': municipio.val()},
+                    url: '/peticion_ajax/filtrar_entidades_empleo_estatal/',
+                    type: 'get',
+                    success: function (entidades) {
+                        var html = '';
+                        html += '<option value="">-------</option>';
+                        for (var i = 0; i < entidades.length; i++) {
+                            html += '<option value=' + entidades[i].codigo_ent + '>' + entidades[i].e_nombre + '</option>';
+                        }
+                        entidad.html(html);
+                    }
+                })
+            }
+
+            if (municipio.val() !== ''){
+                 seleccionar_entidades();
+            }
+
+            municipio.on('change', function(){
+
+                if($(this).val() === ''){
+                    entidad.prop('disabled', true);
+                }else{
+                    entidad.prop('disabled', false);
+
+                    seleccionar_entidades();
+                }
+            });
+
+
+        });
+
+    </script>
+
+{% endblock %}
+
+

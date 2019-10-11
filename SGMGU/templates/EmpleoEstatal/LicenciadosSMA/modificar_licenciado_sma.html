@@ -1,0 +1,78 @@
+{% extends "EmpleoEstatal/LicenciadosSMA/listar_licenciados_sma.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header></header> {% endblock %} {% block section_superior %}
+
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Modificar Licenciado del SMA</div>
+            <div class="panel-body">
+                {% if form_licenciados %}
+                    <form method="post" id="modificar_licenciado_sma" enctype="multipart/form-data">{% csrf_token %}
+                        {% include "EmpleoEstatal/LicenciadosSMA/form_modificar.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <button class="btn btn-default" type="reset"> Limpiar</button>
+                            <a class="btn btn-success btn_gestion" href="/licenciados_sma">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var causa_no_aceptacion = $('#id_causa_no_aceptacion'),
+            ubicacion = $('#id_ubicacion'),
+            acepto_oferta = $('#id_acepto_oferta');
+
+        $('#id_recibio_oferta').on('change', function () {
+
+            if ($(this).val() === 'False') {
+                acepto_oferta.prop('disabled', true);
+                acepto_oferta.prop('required', false);
+
+                causa_no_aceptacion.prop('disabled', true);
+                causa_no_aceptacion.prop('required', false);
+
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+            }
+            else {
+                acepto_oferta.prop('disabled', false);
+                acepto_oferta.prop('required', true);
+            }
+        });
+
+        acepto_oferta.on('change', function () {
+
+            if ($(this).val() === 'S') {
+
+                causa_no_aceptacion.prop('disabled', true);
+                causa_no_aceptacion.prop('required', false);
+                ubicacion.prop('disabled', false);
+                ubicacion.prop('required', true);
+            }
+            else if ($(this).val() === 'N') {
+                causa_no_aceptacion.prop('disabled', false);
+                causa_no_aceptacion.prop('required', true);
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+            }
+            else if ($(this).val() === '') {
+                causa_no_aceptacion.prop('disabled', true);
+                causa_no_aceptacion.prop('required', false);
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+            }
+        });
+
+    </script>
+
+    <script src="{% static "js/empleo_estatal/seleccionar_carreras.js" %}"></script>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+[
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 1,
+    "fields": {
+      "causa": "No existe oferta de empleo",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 2,
+    "fields": {
+      "causa": "No le gusta las ofertas que hay",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 3,
+    "fields": {
+      "causa": "Incapacitado temporalmente",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },{
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 4,
+    "fields": {
+      "causa": "Sancionado por los tribunales",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 5,
+    "fields": {
+      "causa": "No está interesado en trabajar",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 6,
+    "fields": {
+      "causa": "Traslado de municipio o provincia",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoIncorporado",
+    "pk": 7,
+    "fields": {
+      "causa": "Lo dejó",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

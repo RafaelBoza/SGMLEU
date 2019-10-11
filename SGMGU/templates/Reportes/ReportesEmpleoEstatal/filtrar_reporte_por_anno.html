@@ -1,0 +1,45 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Exportar: Reporte nominal</div>
+            <div class="panel-body">
+                <form method="post" id="filtrar_municipio">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="id_anno" style="font-size: 15px"
+                                       class="label label-default control-label">Años</label>
+                                <select name="anno" id="id_anno" class="form-control" required="required">
+                                    <option value="">---------</option>
+                                    {% for anno in annos %}
+                                        <option value="{{ anno }}">{{ anno }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" name="aceptar" type="submit"> Exportar excel</button>
+                        <a class="btn btn-success btn_gestion" href="{% url 'reportes' %}">
+                            <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

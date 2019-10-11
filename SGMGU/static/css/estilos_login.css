@@ -1,0 +1,86 @@
+#body_login {
+      padding-top: 50px;
+      padding-bottom: 40px;
+      background-image: url("../img/egresados fondo 3.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+}
+
+
+
+
+
+.form-signin {
+    max-width: 400px;
+    background-color:  #ffffff;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 2px;
+    margin-top: 17%;
+    border: 2px ridge #a8a8a8;
+
+}
+
+
+
+
+.form-signin .form-signin-heading {
+    margin-bottom: 20px;
+    text-align: left;
+    color: #262626 !important;
+    font-family: "Microsoft Sans Serif" !important;
+}
+
+
+
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.form-signin input[type="text"], .form-signin input[type="password"]{
+    border: 1px solid #00519a;
+    border-radius: 2px;
+    height: 40px;
+}
+
+.btn_login{
+    padding: 6px !important;
+    border-radius: 1px !important;
+    background-color: #0067b8 !important;
+    border-color: #0067b8 !important;
+    color: white;
+}
+
+.btn_login:hover{
+    background-color: #00519a !important;
+    border-color: #00519a !important;
+     color: white;
+}
+
+.logo_login{
+    width: 180px;
+    height: 40px;
+    display: block;
+    margin-left: -5px;
+    margin-bottom: -10px;
+}

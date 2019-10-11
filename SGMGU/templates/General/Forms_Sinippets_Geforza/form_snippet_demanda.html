@@ -1,0 +1,110 @@
+{% with form.organismo as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="organismo" id="organismo" class="form-control"
+                        {% if not field.value %}{% endif %}>
+                    <option value="">---------</option>
+                    {% for org in lista_organismos_por_usuario %}
+                        <option value="{{ org.id }}"
+                                {% if org.id|striptags == organismo|striptags %}selected{% endif %}
+                        >{{ org.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+{% with form.entidad as field %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                <select name="entidad" id="entidad" class="form-control"
+                        {% if not field.value %}{% endif %}>
+                    <option value="">---------</option>
+                    {% for ent in lista_entidades_por_usuario %}
+                        <option value="{{ ent.id_codigo_entidad }}"
+                                {% if ent.id_codigo_entidad|striptags == entidad|striptags %}selected{% endif %}
+                        >{{ ent.e_nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    </div>
+{% endwith %}
+
+{% for field in form %}
+
+    {% if forloop.counter0 > 1 %}
+
+        <label for="id_{{ field.name }}" style="font-size: 15px"
+               class="label label-default control-label">{{ field.label }}</label>
+
+        <div class="form-group has-feedback">
+            {{ field }}
+        </div>
+        {% if field.errors %}
+
+            <ul class="errorlist">
+                {% for error in field.errors %}
+                    <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+
+        {% endif %}
+
+        <p class="help-block">{{ field.help_text }} </p>
+
+    {% endif %}
+
+
+{% endfor %}
+
+{% if form_perfil %}
+
+    {% for field in form_perfil %}
+
+        {% if forloop.counter0 > 1 %}
+            <label for="id_{{ field.name }}" style="font-size: 12px"
+                   class="label label-default control-label">{{ field.label }}</label>
+
+            <div class="form-group has-feedback">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+
+                <ul class="errorlist">
+                    {% for error in field.errors %}
+                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                    {% endfor %}
+
+                </ul>
+
+            {% endif %}
+
+            <p class="help-block">{{ field.help_text }} </p>
+        {% endif %}
+
+    {% endfor %}
+{% endif %}

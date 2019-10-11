@@ -1,0 +1,220 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+        <div class="panel-body">
+            {#        BUSQUEDA         #}
+            <div class="row">
+                <div class="col-xs-3 pull-right">
+                    <div class="input-group">
+                        {% if busqueda %}
+                            <input value="{{ valor_busqueda }}" disabled type="number" id="ci_buscar"
+                                   class="form-control" aria-label="..." placeholder="Escriba el CI"
+                                   style="height:32px;">
+                        {% else %}
+                            <input type="text" id="ci_buscar" class="form-control" aria-label="..."
+                                   placeholder="Escriba el CI" style="height:32px;">
+                        {% endif %}
+                        <div class="input-group-btn">
+                            {% if busqueda %}
+                                <a type="button" class="btn btn-default btn_normal" href="/tecnicosmedios_obreroscalificados_escuelasoficio"><span
+                                        class="glyphicon glyphicon-refresh"></span> Limpiar</a>
+                            {% else %}
+                                <button type="button" class="btn btn-default btn_normal"
+                                        onclick="Objeto.__init__('','tecnicosmedios_obreroscalificados_escuelasoficio','ci_buscar').buscar('ci');"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#     FIN   BUSQUEDA         #}
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" %}
+
+                        <li><a class=" btn_gestion " href="{% url 'registrar_tm_oc_eo' %}">
+                            <span class="glyphicon glyphicon-plus"></span> Registrar
+                        </a></li>
+
+                    {% endif %}
+
+                    {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                        <li><a class=" btn_gestion " href="{% url 'reportes_tm_oc_eo' %}">
+                            <span class="glyphicon glyphicon-th-list"></span> Reportes
+                        </a></li>
+
+                    {% endif %}
+
+                </ul>
+            </div>
+            <div class="table-responsive">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado"
+                       cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nombre y Apellidos</th>
+                        <th title="Carnet de Identidad">CI</th>
+                        <th title="Fuente de procedencia">Fuente</th>
+                        <th title="Municipio donde solicita empleo">M. Solicita Emp.</th>
+                        <th>Provincia</th>
+                        <th>Estado</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for var in tm_oc_eo %}
+                        <tr>
+                            <td>{{ var.nombre_apellidos }}</td>
+                            <td>{{ var.ci }}</td>
+                            <td>{{ var.fuente_procedencia }}</td>
+                            <td>{{ var.municipio_solicita_empleo }}</td>
+                            <td>{{ var.municipio_solicita_empleo.provincia }}</td>
+                            <td>
+                                {% if var.activo %}
+                                    <span class="label label-success">Activo</span>
+                                {% else %}
+                                    <span class="label label-danger">Baja</span>
+                                {% endif %}
+                            </td>
+                            <td class="opciones_gestion" align="center">
+
+                                {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "dmt" %}
+
+                                    <a href="/tecnicosmedios_obreroscalificados_escuelasoficio/{{ var.id }}"
+                                       class="btn btn-success"
+                                       title="Detalles"><span class="glyphicon glyphicon-search"></span></a>
+
+{#                                    <a href="/tecnicosmedios_obreroscalificados_escuelasoficio/{{ var.id }}/modificar"#}
+{#                                       class="btn btn-info" title="Modificar"><span#}
+{#                                            class="glyphicon glyphicon-pencil"></span></a>#}
+
+                                    {% if var.activo %}
+                                        <button id="{{ var.id }}" class="btn btn-danger modal-tm_oc_eo"
+                                                title="Dar baja"
+                                                data-toggle="modal" data-target="#modal_dar_baja_tm_oc_eo"
+                                                onclick="Objeto.__init__({{ var.id }},'tecnicosmedios_obreroscalificados_escuelasoficio','modal_dar_baja_tm_oc_eo').dar_baja();">
+                                          <span class="glyphicon glyphicon-trash">
+                                          </span>
+                                        </button>
+                                    {% endif %}
+
+                                {% endif %}
+
+                                {% if user.perfil_usuario.categoria.nombre == "dpt_ee" %}
+
+                                    <a href="/tecnicosmedios_obreroscalificados_escuelasoficio/{{ var.id }}"
+                                       class="btn btn-success"
+                                       title="Detalles"><span class="glyphicon glyphicon-search"></span></a>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                    {% if tm_oc_eo.has_previous %}
+                        <li>
+                            <a href="?pagina={{ tm_oc_eo.previous_page_number }}" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if paginas %}
+                        {% for pagina in paginas %}
+                            {% if pagina == tm_oc_eo.number %}
+                                <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% else %}
+                                <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <li class="active"><a href="?pagina=1">1</a></li>
+                    {% endif %}
+
+                    {% if tm_oc_eo.has_next %}
+                        <li>
+                            <a href="?pagina={{ tm_oc_eo.next_page_number }}" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% else %}
+
+                        <li class="disabled">
+                            <a href="#" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_dar_baja_tm_oc_eo" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de darle baja al egresado seleccionado?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_modificar_tm_oc_eo" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar el egresado seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

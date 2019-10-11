@@ -1,0 +1,173 @@
+[
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 1,
+    "fields": {
+      "nombre": "Licenciados del SMA",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 2,
+    "fields": {
+      "nombre": "Egresados de establecimientos penitenciarios",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 3,
+    "fields": {
+      "nombre": "Sancionados sin internamiento",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 4,
+    "fields": {
+      "nombre": "Personas sin vínculo laboral",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 5,
+    "fields": {
+      "nombre": "Egresados universitarios",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 6,
+    "fields": {
+      "nombre": "Egresados técnicos medios",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 7,
+    "fields": {
+      "nombre": "Egresados obreros calificados",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 8,
+    "fields": {
+      "nombre": "Egresados escuelas de oficio",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 9,
+    "fields": {
+      "nombre": "Egresados de escuelas especiales",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 10,
+    "fields": {
+      "nombre": "Egresados de escuelas de conducta",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 11,
+    "fields": {
+      "nombre": "Egresados de la EFI",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 12,
+    "fields": {
+      "nombre": "Menores incapacitados para el estudio por dictamen médico",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 13,
+    "fields": {
+      "nombre": "Menores desvinculados del SNE por bajo rendimiento",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 14,
+    "fields": {
+      "nombre": "Menores con dictamen del CDO-MININT",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 15,
+    "fields": {
+      "nombre": "Personas con discapacidad",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 16,
+    "fields": {
+      "nombre": "Mujeres de riesgo controladas por la FMC",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 17,
+    "fields": {
+      "nombre": "Mujeres de riesgo controladas por al PNR",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 18,
+    "fields": {
+      "nombre": "Hombres de riesgo controlados por la PNR",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.FuenteProcedencia",
+    "pk": 19,
+    "fields": {
+      "nombre": "Proxenetas de riesgo controlados por la PNR",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

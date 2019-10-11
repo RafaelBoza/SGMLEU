@@ -1,0 +1,210 @@
+{% extends "General/index.html" %} {% block encabezado %}
+
+    <header>
+
+    </header>
+{% endblock %} {% block section_superior %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">Listado de Demanda</div>
+
+        <div class="panel-body">
+            <div class="panel-body-superior">
+                <div class="btn-group btn_group pull-left">
+                    <a class="btn btn-success btn_gestion" href="/demandas/registrar_demanda">
+                        <span class="glyphicon glyphicon-plus"></span> Registrar Demanda
+                    </a>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-3 pull-right">
+                        <form method="post" action="/demandas/buscar">{% csrf_token %} {% if busqueda %}
+                            <div class="div_panel_busqueda_demanda">
+                                <input disabled type="text" name="texto_demanda" class="" value="{{ texto }}">
+                                <a href="/demandas" class="">Limpiar</a>
+                            </div>
+
+                        {% else %}
+                            <div class="div_panel_busqueda_demanda">
+                                <input placeholder="Escriba aquí" type="text" name="texto_demanda" class="">
+                                <input type="submit" class="" value="Buscar">
+                            </div>
+                        {% endif %}
+                        </form>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="usar_DataTable_3 table table-striped table-bordered dt-responsive nowrap"
+                       id="demanda_table" cellspacing="0" width="100%">
+                    <thead>
+
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Organismo</th>
+                        <th>Entidad</th>
+                        <th>Municipio</th>
+                        <th>Carrera</th>
+                        <th>Realización</th>
+                        <th>{{ annos.anno1 }}</th>
+                        <th>{{ annos.anno2 }}</th>
+                        <th>{{ annos.anno3 }}</th>
+                        <th>{{ annos.anno4 }}</th>
+                        <th>{{ annos.anno5 }}</th>
+                        <th>{{ annos.anno6 }}</th>
+                        <th>{{ annos.anno7 }}</th>
+                        <th>{{ annos.anno8 }}</th>
+                        <th>{{ annos.anno9 }}</th>
+                        <th>{{ annos.anno10 }}</th>
+
+                        <th id="opciones_gestion_titulo">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for demanda in demandas %}
+                        <tr>
+
+                            <td>{{ demanda.codigo_demanda }}</td>
+                            <td>{{ demanda.organismo }}</td>
+                            <td>{{ demanda.entidad }}</td>
+                            <td>{{ demanda.municipio_entidad }}</td>
+                            <td>{{ demanda.carrera }}</td>
+                            <td>{{ demanda.anno_realizacion }}</td>
+                            <td>{{ demanda.anno_mas_uno }}</td>
+                            <td>{{ demanda.anno_mas_dos }}</td>
+                            <td>{{ demanda.anno_mas_tres }}</td>
+                            <td>{{ demanda.anno_mas_cuatro }}</td>
+                            <td>{{ demanda.anno_mas_cinco }}</td>
+                            <td>{{ demanda.anno_mas_seis }}</td>
+                            <td>{{ demanda.anno_mas_siete }}</td>
+                            <td>{{ demanda.anno_mas_ocho }}</td>
+                            <td>{{ demanda.anno_mas_nueve }}</td>
+                            <td>{{ demanda.anno_mas_diez }}</td>
+
+                            <!--td>{{ demanda.get_codigo_mes }}</td>
+                        <td>{{ demanda.get_tipo_display }}</td-->
+
+
+                            <td class="opciones_gestion">
+                                <button id="{{ demanda.codigo_demanda }}" class="btn btn-info modal-demanda"
+                                        data-toggle="modal" data-target="#modal_modificar_demanda"
+                                        onclick="Objeto.__init__({{ demanda.codigo_demanda }},'demandas','modal_modificar_demanda').modificar();">
+                                  <span class="glyphicon glyphicon-pencil">
+                                  </span>
+                                </button>
+
+                                <button id="{{ demanda.codigo_demanda }}" class="btn btn-danger modal-demanda"
+                                        data-toggle="modal" data-target="#modal_eliminar_demanda"
+                                        onclick="Objeto.__init__({{ demanda.codigo_demanda }},'demandas','modal_eliminar_demanda').eliminar();">
+                                  <span class="glyphicon glyphicon-trash">
+                                  </span>
+                                </button>
+
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                    {% if demandas.has_previous %}
+                        <li>
+                            <a href="?pagina={{ demandas.previous_page_number }}" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% endif %} {% if paginas %} {% for pagina in paginas %} {% if pagina == demandas.number %}
+                    <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                {% else %}
+                    <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                {% endif %} {% endfor %} {% else %}
+                    <li class="active"><a href="?pagina=1">1</a></li>
+                {% endif %} {% if demandas.has_next %}
+                    <li>
+                        <a href="?pagina={{ demandas.next_page_number }}" aria-label="Next">
+                            Próximo
+                        </a>
+                    </li>
+                {% else %}
+
+                    <li class="disabled">
+                        <a href="#" aria-label="Next">
+                            Próximo
+                        </a>
+                    </li>
+                {% endif %}
+                </ul>
+            {% endblock %}
+        </div>
+
+    </div>
+
+    <div class="modal fade " id="gestion-demanda" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_demanda" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de eliminar la demanda seleccionada</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form method="post">
+        <div class="modal fade" id="modal_modificar_demanda" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Está seguro de modificar la demanda seleccionada</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a type="submit" class="btn btn-default">Aceptar</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <p>
+        <button type="button" class="btn btn-primary js-create-demanda">
+            {#onclick="clickPrueba()"#}
+            <span class="glyphicon glyphicon-plus"></span>Click Prueba
+        </button>
+    </p>
+
+    <div id="prueba"></div>
+    <div class="prueba"></div>
+
+
+
+
+{% endblock %}

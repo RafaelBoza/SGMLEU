@@ -1,0 +1,52 @@
+[
+  {
+    "model": "SGMGU.Discapacidad",
+    "pk": 1,
+    "fields": {
+      "nombre": "Físico motora (LFM)",
+      "asociacion": 1,
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Discapacidad",
+    "pk": 2,
+    "fields": {
+      "nombre": "Auditiva (Sordo, Hipoacúsico)",
+      "asociacion": 2,
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Discapacidad",
+    "pk": 3,
+    "fields": {
+      "nombre": "Visual (Débil visual, ciego)",
+      "asociacion": 3,
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.Discapacidad",
+    "pk": 4,
+    "fields": {
+      "nombre": "Intelectual (RML, RMM)",
+      "asociacion": null,
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+    {
+    "model": "SGMGU.Discapacidad",
+    "pk": 5,
+    "fields": {
+      "nombre": "Enfermedad mental no intelectual",
+      "asociacion": null,
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  }
+]

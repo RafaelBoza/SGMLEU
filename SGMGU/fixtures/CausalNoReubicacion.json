@@ -1,0 +1,38 @@
+[
+  {
+    "model": "SGMGU.CausalNoReubicacion",
+    "pk": 1,
+    "fields": {
+      "causa": "No es posible reubicar en otro puesto dentro de la entidad",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:01"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoReubicacion",
+    "pk": 2,
+    "fields": {
+      "causa": "No es posible reubicar en otra entidad del organismo",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:02"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoReubicacion",
+    "pk": 3,
+    "fields": {
+      "causa": "No es posible reubicar en una entidad de otro organismo",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:03"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoReubicacion",
+    "pk": 4,
+    "fields": {
+      "causa": "No existen ofertas de empleo en la dirección de trabajo",
+      "activo": "True",
+      "fecha_registro": "2018-06-13 16:48:03"
+    }
+  }
+]

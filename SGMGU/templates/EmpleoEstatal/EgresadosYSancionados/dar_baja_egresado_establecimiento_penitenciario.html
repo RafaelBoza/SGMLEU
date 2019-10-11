@@ -1,0 +1,52 @@
+{% extends "EmpleoEstatal/EgresadosYSancionados/listar_egresados_establecimientos_penitenciarios.html" %}
+
+{% block encabezado %}
+    <header></header> {% endblock %} {% block section_superior %}
+
+    <div class="col-xs-8 placeholder">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Dar baja al Egresado del Establecimiento Penitenciario</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="dar_baja_egresado_establecimiento_penitenciario"
+                          enctype="multipart/form-data">{% csrf_token %}
+                        {% with form.dar_baja as field %}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="id_dar_baja" style="font-size: 15px"
+                                               class="label label-default control-label">Causa de baja</label>
+                                        <select name="dar_baja" id="id_dar_baja" class="form-control"
+                                                {% if not field.value %}required{% endif %}>
+                                            <option value="">---------</option>
+                                            {% for causa in causales_baja %}
+                                                <option value="{{ causa.id }}"
+                                                        {% if causa.id|striptags == id_dar_baja %}selected{% endif %}>{{ causa.causa }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% if field.errors %}
+                                            <ul class="errorlist">
+                                                {% for error in field.errors %}
+                                                    <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                        <p class="help-block">{{ field.help_text }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endwith %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <button class="btn btn-default" type="reset"> Limpiar</button>
+                            <a class="btn btn-success btn_gestion" href="/egresados_establecimientos_penitenciarios">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %} {% block titulo_tabla %} {% endblock %} {% block contenido_tabla %} {% endblock %}

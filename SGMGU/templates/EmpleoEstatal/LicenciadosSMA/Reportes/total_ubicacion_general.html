@@ -1,0 +1,96 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+{% block titulo_tabla %}
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Reportes: Ubicación General (Total)</div>
+
+        <div class="dropdown dropwdown_opciones_detalle">
+            <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+                {% if user.perfil_usuario.categoria.nombre == "administrador" or user.perfil_usuario.categoria.nombre == "especialista" %}
+                    <li><a class=" btn_gestion modal-licenciado_sma" id="{{ licenciado_sma.id }}"
+                           data-toggle="modal" data-target="#modal_modificar_licenciado_sma"
+                           onclick="Objeto.__init__({{ licenciado_sma.id }},'licenciados_sma','modal_modificar_licenciado_sma').modificar();">
+                        <span class="glyphicon glyphicon-pencil"></span> Modificar
+                    </a></li>
+                {% endif %}
+
+                <li><a class=" btn_gestion " href="/licenciados_sma/reportes">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Ir atrás
+                </a></li>
+
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div id="listar_licenciados_sma" class="tab-pane fade in active">
+                <br>
+                <div class="table-responsive" style="margin: 20px;">
+                    <table class="reportes_licenciados_sma table table-striped table-bordered table-hover nowrap"
+                           cellspacing="0" style="width: 100%; max-width: 100%; overflow: auto">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Provincia/Municipio</th>
+                            <th>Controlados</th>
+                            <th>Femenino</th>
+                            <th>Ubicados</th>
+                            <th>Femenino</th>
+                            <th>Empleo Estatal</th>
+                            <th>TPCP</th>
+                            <th>DL 300</th>
+                            <th>Otra no Estatal</th>
+                            <th>No Ubicado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for rep in reportes %}
+
+                            <tr>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ lic_sma }}</td>
+                                <td>{{ lic_sma }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ rep.pop }}</td>
+                                <td>{{ lic_sma }}</td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer" style="overflow: hidden">
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

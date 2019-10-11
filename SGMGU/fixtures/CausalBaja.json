@@ -1,0 +1,101 @@
+[
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 1,
+    "fields": {
+      "causa": "Traslado de provincia",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 2,
+    "fields": {
+      "causa": "Traslado de municipio",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 3,
+    "fields": {
+      "causa": "Salida o en trámites de salida del país",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 4,
+    "fields": {
+      "causa": "Fallecido",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 5,
+    "fields": {
+      "causa": "Error",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 6,
+    "fields": {
+      "causa": "Sancionados por los tribunales",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 7,
+    "fields": {
+      "causa": "Incapacitado temporal (más de 1 año)",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 8,
+    "fields": {
+      "causa": "Revocado",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 9,
+    "fields": {
+      "causa": "Extinción de la sanción",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 10,
+    "fields": {
+      "causa": "Baja automática por el sistema",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  },
+  {
+    "model": "SGMGU.CausalBaja",
+    "pk": 11,
+    "fields": {
+      "causa": "Cumplimiento del año de seguimiento",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00"
+    }
+  }
+]

@@ -1,0 +1,173 @@
+{% extends "General/index.html" %} {% block encabezado %}
+
+<header class="row">
+    {% if messages %} {% for message in messages %}
+    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+    {% endfor %} {% endif %}
+</header>
+{% endblock %} {% block section_superior %}
+<div class="panel panel-primary">
+    <div class="panel-heading">Listado de fluctuaciones</div>
+
+    <div class="panel-body">
+        <div class="panel-body-superior">
+            <div class="btn-group btn_group pull-left">
+                <a class="btn btn-success btn_gestion" href="/fluctuaciones/registrar_fluctuacion">
+                    <span class="glyphicon glyphicon-plus"></span> Registrar fluctuación
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-3 pull-right">
+                    <form method="post" action="/fluctuaciones/buscar">{% csrf_token %} {% if busqueda%}
+                        <div class="div_panel_busqueda_fluctuacion">
+                            <input disabled type="text" name="texto_fluctuacion" class="" value="{{ texto }}">
+                            <a href="/fluctuaciones" class="">Limpiar</a>
+                        </div>
+
+                        {% else %}
+
+                        <div class="div_panel_busqueda_fluctuacion">
+                            <input placeholder="Escriba aquí" type="text" name="texto_fluctuacion" class="">
+                            <input type="submit" class="" value="Buscar">
+                        </div>
+
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /input-group -->
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="usar_DataTable_3 table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
+                <thead>
+
+                    <tr>
+                        <th>Identificador</th>
+                        <th>Organismo</th>
+                        <th>Entidad</th>
+                        <th>Municipio</th>
+                        <th>Causal</th>
+                        <th>Carrera</th>
+                        <th>Cantidad</th>
+                        <th>Año</th>
+                        <th id="opciones_gestion_titulo">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for fluctuacion in fluctuaciones %}
+                    <tr>
+                        <td>{{ fluctuacion.id_fluctuacion }}</td>
+                        <td>{{ fluctuacion.id_organismo }}</td>
+                        <td>{{ fluctuacion.id_entidad }}</td>
+                        <td>{{ fluctuacion.id_munic_entidad}}</td>
+                        <td>{{ fluctuacion.id_causal }}</td>
+                        <td>{{ fluctuacion.id_carrera }}</td>
+                        <td>{{ fluctuacion.cantidad }}</td>
+                        <td>{{ fluctuacion.anno_realizacion }}</td>
+
+
+
+                        <td class="opciones_gestion">
+                            <button id="{{ fluctuacion.id_fluctuacion  }}" class="btn btn-info modal-fluctuacion" data-toggle="modal" data-target="#modal_modificar_fluctuacion" onclick="Objeto.__init__({{ fluctuacion.id_fluctuacion }},'fluctuaciones','modal_modificar_fluctuacion').modificar();">
+                                  <span class="glyphicon glyphicon-pencil">
+                                  </span>
+                              </button>
+
+                            <button id="{{ fluctuacion.id_fluctuacion  }}" class="btn btn-danger modal-fluctuacion" data-toggle="modal" data-target="#modal_eliminar_fluctuacion" onclick="Objeto.__init__({{ fluctuacion.id_fluctuacion }},'fluctuaciones','modal_eliminar_fluctuacion').eliminar();">
+                                  <span class="glyphicon glyphicon-trash">
+                                  </span>
+                              </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% block paginate %}
+        <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+            {% if fluctuaciones.has_previous %}
+            <li>
+                <a href="?pagina={{ fluctuaciones.previous_page_number }}" aria-label="Previous">
+                            Anterior
+                        </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                            Anterior
+                        </a>
+            </li>
+            {% endif %} {% if paginas %} {% for pagina in paginas %} {% if pagina == fluctuaciones.number %}
+            <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+            {% else %}
+            <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+            {% endif %} {% endfor %} {% else %}
+            <li class="active"><a href="?pagina=1">1</a></li>
+            {% endif %} {% if fluctuaciones.has_next %}
+            <li>
+                <a href="?pagina={{ fluctuaciones.next_page_number }}" aria-label="Next">
+                            Próximo
+                        </a>
+            </li>
+            {% else %}
+
+            <li class="disabled">
+                <a href="#" aria-label="Next">
+                            Próximo
+                        </a>
+            </li>
+            {% endif %}
+        </ul>
+        {% endblock %}
+    </div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="modal_eliminar_fluctuacion" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de eliminar la fluctuación seleccionada</p>
+            </div>
+            <div class="modal-footer">
+                <a type="submit" class="btn btn-default">Aceptar</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="modal_modificar_fluctuacion" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+            </div>
+            <div class="modal-body">
+                <p>Está seguro de modificar la fluctuación seleccionada</p>
+            </div>
+            <div class="modal-footer">
+                <a type="submit" class="btn btn-default">Aceptar</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,92 @@
+[
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 1,
+    "fields": {
+      "causa": "No existe oferta de empleo",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 2,
+    "fields": {
+      "causa": "No le gusta las ofertas que hay",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 3,
+    "fields": {
+      "causa": "Incapacitado temporalmente para el empleo (menos de 1 año)",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 4,
+    "fields": {
+      "causa": "Sancionados por los tribunales",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 5,
+    "fields": {
+      "causa": "No está interesado en trabajar",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 6,
+    "fields": {
+      "causa": "Trámite de traslado de provincia o municipio",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 7,
+    "fields": {
+      "causa": "No autorizado por los padres",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 8,
+    "fields": {
+      "causa": "Al cuidado de un familiar",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 9,
+    "fields": {
+      "causa": "No hay ofertas acorde a su discapacidad (solo para los discapacitados)",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  },
+  {
+    "model": "SGMGU.CausalNoUbicado",
+    "pk": 10,
+    "fields": {
+      "causa": "Lo dejó",
+      "activo": "True",
+      "fecha_registro": "2017-11-13 16:48:00.568"
+    }
+  }
+]

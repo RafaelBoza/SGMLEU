@@ -1,0 +1,99 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">Listado: Categorías de usuario</div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"
+                       id="tabla_gestion">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categoria in categorias_usuario %}
+                        <tr>
+                            <td>{{ categoria.nombre }}</td>
+                            <td class="opciones_gestion" align="center">
+                                <button id="{{ categoria.id }}" class="btn btn-info modal-categoria"
+                                        data-toggle="modal" data-target="#modal_modificar_categoria_usuario"
+                                        onclick="Objeto.__init__({{ categoria.id }},'categorias_usuario','modal_modificar_categoria_usuario').modificar();">
+                                      <span class="glyphicon glyphicon-pencil">
+                                      </span>
+                                </button>
+
+                                <button id="{{ categoria.id }}" class="btn btn-danger modal-categoria"
+                                        data-toggle="modal" data-target="#modal_eliminar_categoria_usuario"
+                                        onclick="Objeto.__init__({{ categoria.id }},'categorias_usuario','modal_eliminar_categoria_usuario').eliminar();">
+                                      <span class="glyphicon glyphicon-trash">
+                                      </span>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success btn_gestion" href="{% url 'registrar_categoria_usuario' %}">
+                <span class="glyphicon glyphicon-plus"></span> Registrar categoría
+            </a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_categoria_usuario" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_eliminar">Confirmación de eliminación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de eliminar la categoría seleccionada</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_modificar_categoria_usuario" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_modificar">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar la categoría seleccionada</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
