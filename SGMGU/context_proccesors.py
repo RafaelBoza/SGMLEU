@@ -43,16 +43,6 @@ def menu(request):
              },
             {'name':'Inhabilitaciones','url':reverse('inhabilitaciones'),'icon':'glyphicon glyphicon-briefcase','visible':['administrador','juridico']},
 
-            # NO PONER
-            # {'name':'GeForza','url':reverse('geforza'),'icon':'glyphicon glyphicon-briefcase','visible':['administrador','especialista'],
-            #    'menu':[
-            #         {'name':'Demanda','url':reverse('demandas'),'icon':'glyphicon glyphicon-chevron-right','visible':['administrador','especialista']},
-            #         {'name':'Existencia','url':reverse('existencias'),'icon':'glyphicon glyphicon-chevron-right','visible':['administrador','especialista']},
-            #         {'name':'Fluctuación','url':reverse('fluctuaciones'),'icon':'glyphicon glyphicon-chevron-right','visible':['administrador','especialista']},
-            #
-            #    ]
-            #  },
-
             # ---------------codigo de daniel (INICIO)---------------
             {'name': 'Empleo Estatal', 'url': reverse('menu_empleo_estatal'), 'icon': 'glyphicon glyphicon-briefcase','visible': ['administrador', 'dpt_ee', 'dmt'],
              'menu': [
@@ -73,6 +63,8 @@ def menu(request):
          'menu': [
              {'name': 'Organismos Autorizados', 'url': reverse('gestion_organismos_autorizados'),'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
          ]},
+
+        {'name': 'Seguimiento a jóvenes que abandonan estudios en el NS', 'url': reverse('gestion_jovenes_abandonan_nivel_superior'), 'icon': 'glyphicon glyphicon-briefcase', 'visible': ['administrador', 'trabajador_social_joven_abandona', 'universidad_joven_abandona', 'dmt_joven_abandona']},
 
         # ---------------codigo de daniel (FIN)---------------
 
@@ -106,6 +98,7 @@ def menu(request):
                    {'name': 'Causales de interrupción', 'url': reverse('causales_interrupcion'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
                    {'name': 'Causales de no reincorporación', 'url': reverse('causales_no_reincorporacion'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
                    {'name': 'Actividades de interrupción', 'url': reverse('actividades_interrupto'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
+                   {'name': 'Causales no requieren empleo', 'url': reverse('gestion_causales_no_requieren_empleo'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador']},
             #
             #        # Daniel - fin
             #

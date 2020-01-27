@@ -10,6 +10,7 @@ import datetime
 from django.db.models import Q
 
 
+
 @login_required()
 @permission_required(['administrador', 'interrupto'])
 def gestion_interruptos(request):

@@ -1,0 +1,140 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'registrar_joven_abandona_nivel_superior' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Registrar
+                    </a>
+                </div>
+
+                <div class="col-xs-3 pull-right">
+                    <form action="" method="GET">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" name="q"
+                                   aria-label="..." placeholder="Buscar..." style="height:32px;"
+                                   value="{{ request.GET.q }}">
+                            <div class="input-group-btn">
+
+                                <button type="submit" class="btn btn-default btn_normal"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado"
+                       cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th width="100">CI</th>
+                        <th>Municipio</th>
+                        <th>Carrera que abandona</th>
+                        <th>Estado</th>
+                        <th class="text-center" width="80">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for joven in jovenes %}
+                        <tr>
+                            <td>{{ joven.nombre_apellidos }}</td>
+                            <td>{{ joven.ci }}</td>
+                            <td>{{ joven.municipio_residencia__nombre }}</td>
+                            <td>{{ joven.carrera_abandona__nombre }}</td>
+                            <td class="text-center" width="10%">
+                                {% if joven.activo %}
+                                    {#                        <i class="icon-check text-success"></i>#}
+                                    <span class="label label-success">Activo</span>
+                                {% else %}
+                                    {#                        <i class="icon-close text-danger"></i>#}
+                                    <span class="label label-danger">Baja</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url 'detalles_joven_abandona_nivel_superior' joven.id %}" id="{{ expediente_pend.id }}" class="btn btn-warning">
+                                    <span class="glyphicon glyphicon-plus"></span> Detalles</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                {% if jovenes.has_previous or jovenes.has_next %}
+                    <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                        {% if jovenes.has_previous %}
+                            <li>
+                                <a href="?pagina={{ jovenes.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% endif %}
+                        <li class="disabled"><a>Página {{ jovenes.number }} de {{ jovenes.paginator.num_pages }}</a></li>
+
+                        {% if jovenes.has_next %}
+                            <li>
+                                <a href="?pagina={{ jovenes.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_joven_abandona" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

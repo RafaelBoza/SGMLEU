@@ -116,6 +116,30 @@ h2 {
     color: #3b3b3b;
 }
 
+.datos_joven_abandona {
+    display: inline-block;
+    width: 99%;
+    float: left;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.datos_joven_abandona_ts {
+    display: inline-block;
+    width: 99%;
+    float: left;
+    height: 250px;
+    overflow-y: auto;
+}
+
+.datos_joven_abandona_dmt {
+    display: inline-block;
+    width: 99%;
+    float: left;
+    height: 300px;
+    overflow-y: auto;
+}
+
 .datos_graduado {
     float: left;
     height: 450px;

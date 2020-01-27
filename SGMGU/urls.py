@@ -1,6 +1,7 @@
 from django.conf.urls import  include, url
 
 from django.contrib import admin
+
 admin.autodiscover()
 from SGMGU.views.views_usuarios import *
 from SGMGU.views.views_expedientes import *
@@ -41,6 +42,7 @@ from SGMGU.views.Nomencladores.views_categorias_usuario import *
 from SGMGU.views.Nomencladores.views_causales_interrupcion import *
 from SGMGU.views.Nomencladores.views_actividad_interrupto import *
 from SGMGU.views.Nomencladores.views_causales_no_reincorporacion import *
+from SGMGU.views.Nomencladores.views_causales_no_requieren_empleo import *
 # ---------------------------------------------------------------------------------
 
 # EMPLEO ESTATAL-------------------------------------------------------------------
@@ -130,6 +132,8 @@ from SGMGU.views.ReportesInterruptos.views_interruptos_causas_interrupcion impor
 from SGMGU.views.ReportesInterruptos.views_interruptos_causas_interrupcion_sin_entidades import *
 from SGMGU.views.ReportesInterruptos.views_interruptos_reubicados import *
 # ----------------------------------------------------------------------------------
+
+from SGMGU.views.SeguimientoJovenesAbandonanNS.views_seguimiento_jovenes_ans_ import *
 
 # DESCARGAR GFORZA-----------------------------------------------------------
 from SGMGU.views.views_descargar_gforza import *
@@ -755,6 +759,23 @@ urlpatterns = [
     url(r'^reportes/interruptos_por_causas_interrupcion_sin_entidades$', interruptos_por_causas_interrupcion_sin_entidades, name='interruptos_por_causas_interrupcion_sin_entidades'),
     url(r'^reportes/interruptos_reubicados$', interruptos_situacion_duracion, name='interruptos_situacion_duracion'),
 
+
+    # SEGUIMIENTO A JOVENES QUE ABANDONAN EL NIVEL SUPERIOR
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior$', gestion_jovenes_abandonan_nivel_superior, name='gestion_jovenes_abandonan_nivel_superior'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/registrar$', registrar_joven_abandona_nivel_superior, name='registrar_joven_abandona_nivel_superior'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/eliminar$', eliminar_joven_abandona_nivel_superior, name='eliminar_joven_abandona_nivel_superior'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/modificar$', modificar_joven_abandona_nivel_superior, name='modificar_joven_abandona_nivel_superior'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/proceso_trabajo_social$', proceso_trabajador_social_jans, name='proceso_trabajador_social_jans'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/proceso_direccion_trabajo$', proceso_direccion_empleo_jans, name='proceso_direccion_empleo_jans'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/control$', proceso_control_jans, name='proceso_control_jans'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)$', detalles_joven_abandona_nivel_superior, name='detalles_joven_abandona_nivel_superior'),
+
+    # ASOCIACIONES
+    url(r'^causales_no_requieren_empleo$', gestion_causales_no_requieren_empleo, name='gestion_causales_no_requieren_empleo'),
+    url(r'^causales_no_requieren_empleo/registrar$', registrar_causal_no_requiere_empleo, name='registrar_causal_no_requiere_empleo'),
+    # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/eliminar$', eliminar_causal_no_requiere_empleo),
+    # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/modificar$', modificar_causal_no_requiere_empleo),
+    # # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/activar$', activar_causal_no_requiere_empleo),
 
     # DESCARGAR GFORZA
     url(r'^descargar_gforza', descargar_gforza, name='descargar_gforza'),

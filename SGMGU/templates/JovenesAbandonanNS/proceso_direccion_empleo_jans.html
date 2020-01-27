@@ -1,0 +1,109 @@
+{% extends "JovenesAbandonanNS/gestion_jovenes_abandonan_nivel_superior.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-9 placeholder" style="margin-left: 10%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{ nombre_form }}</div>
+            <div class="panel-body">
+                {% if form %}
+                    <form method="post" id="proceso_dmt_joven_abandona_ns" enctype="multipart/form-data">{% csrf_token %}
+                        {% include "JovenesAbandonanNS/form_proceso_direccion_empleo_jans.html" %}
+                        <div class="pull-right">
+                            <button class="btn btn-primary" type="submit"> Aceptar</button>
+                            <a class="btn btn-success btn_gestion" href="{% url 'detalles_joven_abandona_nivel_superior' id_joven %}">
+                                <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                            </a>
+                        </div>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        var ubicacion = $('#id_ubicacion'),
+            organismo = $('#id_organismo'),
+            municipio_entidad = $('#id_municipio_entidad'),
+            entidad = $('#id_entidad');
+
+        $('#id_ubicado').on('change', function () {
+            var causa = $('#id_causa_no_ubicacion');
+
+            if ($(this).val() === 'N') {
+                causa.prop('disabled', false);
+                causa.prop('required', true);
+
+                ubicacion.prop('disabled', true);
+                ubicacion.prop('required', false);
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+            }
+            else{
+                causa.prop('disabled', true);
+                causa.prop('required', false);
+
+                ubicacion.prop('disabled', false);
+                ubicacion.prop('required', true);
+
+                if(ubicacion.val() === "1" || ubicacion.val() === "3"){
+                    organismo.prop('disabled', false);
+                    organismo.prop('required', true);
+
+                    if(organismo.val() !== ""){
+                        municipio_entidad.prop('disabled', false);
+                        municipio_entidad.prop('required', true);
+                        entidad.prop('disabled', false);
+                        entidad.prop('required', true);
+                    }
+                    else{
+                        municipio_entidad.prop('disabled', true);
+                        municipio_entidad.prop('required', false);
+                        entidad.prop('disabled', true);
+                        entidad.prop('required', false);
+                    }
+
+                }
+                else{
+                    organismo.prop('disabled', true);
+                    organismo.prop('required', false);
+                }
+            }
+        });
+
+        ubicacion.on('change', function () {
+            if(ubicacion.val() === "1" || ubicacion.val() === "3"){
+                organismo.prop('disabled', false);
+                organismo.prop('required', true);
+            }
+            else{
+                organismo.prop('disabled', true);
+                organismo.prop('required', false);
+                municipio_entidad.prop('disabled', true);
+                municipio_entidad.prop('required', false);
+                entidad.prop('disabled', true);
+                entidad.prop('required', false);
+            }
+        });
+
+    </script>
+
+    <script src="{% static "js/validaciones_empleo_estatal.js" %}"></script>
+
+{% endblock %}
+
+

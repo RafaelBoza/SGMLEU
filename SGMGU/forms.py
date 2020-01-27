@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.template.context_processors import request
 
+from SGMGU.views.utiles import obtener_mes
+
 __author__ = 'Rolando.Morales'
 
 from django import forms
@@ -134,6 +136,13 @@ class RegistroUserForm(forms.Form):
             attrs={'class': 'form-control',
                    'style': 'visibility:hidden',
                    }))
+    universidad = forms.ModelChoiceField(
+        queryset=Centro_estudio.objects.all().order_by("nombre"),
+        required=False,
+        widget=forms.Select(
+            attrs={'class': 'form-control',
+                   'style': 'visibility:hidden',
+                   }))
 
     foto = forms.ImageField(required=False)
 
@@ -174,11 +183,12 @@ class ModificarUserPerfilForm(forms.ModelForm):
 
     class Meta:
         model = Perfil_usuario
-        fields = ["organismo", "telefono", "foto", "categoria", "provincia", "municipio"]
+        fields = ["organismo", "telefono", "foto", "categoria", "provincia", "municipio", "universidad"]
         widgets = {
             "organismo": forms.Select(attrs={"class": "form-control"}),
             "categoria": forms.Select(attrs={"class": "form-control"}),
-            "provincia": forms.Select(attrs={"class": "form-control"})
+            "provincia": forms.Select(attrs={"class": "form-control"}),
+            "universidad": forms.Select(attrs={"class": "form-control"})
         }
 
 
@@ -2913,5 +2923,219 @@ class InterruptosForm(forms.ModelForm):
         self.fields['actividad_nueva'].queryset = ActividadInterrupto.objects.filter(activo=True)
         # self.fields['actividad'].queryset = ActividadInterrupto.objects.filter(activo=True)
         self.fields['causal_no_reubicacion'].queryset = CausalNoReubicacion.objects.filter(activo=True)
+
+
+class JovenAbandonanNSForm(forms.ModelForm):
+    class Meta:
+        model = JovenAbandonanNS
+        fields = [
+            "nombre_apellidos",
+            "ci",
+            "sexo",
+            "municipio_residencia",
+            "direccion_particular",
+            "nivel_escolar",
+            "carrera_abandona",
+            "centro_estudio",
+            "anno_abandona",
+            "reincorporado_educacion",
+            "causa_baja_ns",
+            "anno_baja",
+            "mes_baja",
+            "dia_baja",
+        ]
+        widgets = {
+            "nombre_apellidos": forms.TextInput(attrs={"class": "form-control"}),
+            "ci": forms.TextInput(attrs={"class": "form-control"}),
+            'municipio_residencia': forms.Select(attrs={'class': 'form-control'}),
+            "direccion_particular": forms.Textarea(attrs={"class": "form-control", 'rows': 3}),
+            'nivel_escolar': forms.Select(attrs={'class': 'form-control'}),
+            'carrera_abandona': forms.Select(attrs={'class': 'form-control'}),
+            'centro_estudio': forms.Select(attrs={'class': 'form-control'}),
+            'causa_baja_ns': forms.Select(attrs={'class': 'form-control'}),
+        }
+        labels = {
+            "carrera_abandona": "Carrera que abandona",
+            "centro_estudio": "Centro de estudio",
+            "causa_baja_ns": "Causa de baja del nivel superior"
+        }
+
+    sexo = forms.ChoiceField(choices=(
+                                ("", "---------"),
+                                ("m", "Masculino"),
+                                ("f", "Femenino")),
+                             widget=forms.Select(
+                             attrs={"class": "form-control"}), label='Sexo', required=True)
+
+    anno_abandona = forms.ChoiceField(choices=(
+                                            ("", "---------"),
+                                            (1, "Primero"),
+                                            (2, "Segundo"),
+                                            (3, "Tercero"),
+                                            (4, "Cuarto"),
+                                            (5, "Quinto"),
+                                            (6, "Sexto")),
+                                      widget=forms.Select(attrs={"class": "form-control"}),
+                                      label='Año en que abandona')
+
+    reincorporado_educacion = forms.ChoiceField(choices=(
+                                                    ("", "---------"),
+                                                    (0, "Curso diurno"),
+                                                    (1, "Curso por encuentro"),
+                                                    (2, "Curso a distancia"),
+                                                    (3, 'Tecnico Superior de Ciclo Corto'),
+                                                    (4, 'No Reincorporado')),
+                                                widget=forms.Select(
+                                                attrs={"class": "form-control"}), label='Reincorporado a educación superior', required=True)
+
+    ANNOS_BAJA = (("", "---------"),)
+    for anno in range(2000, datetime.today().year + 1):
+        ANNOS_BAJA = ANNOS_BAJA + ((anno, anno),)
+
+    anno_baja = forms.ChoiceField(choices=ANNOS_BAJA,
+                                  widget=forms.Select(attrs={"class": "form-control"}),
+                                  label='Año de baja')
+
+    MESES_BAJA = (("", "---------"),)
+    for mes in range(1, 13):
+        MESES_BAJA = MESES_BAJA + ((mes, obtener_mes(mes)),)
+
+    mes_baja = forms.ChoiceField(choices=MESES_BAJA,
+                                 widget=forms.Select(attrs={"class": "form-control"}),
+                                 label='Mes de baja')
+
+    DIAS_BAJA = (("", "---------"),)
+    for dia in range(1, 32):
+        DIAS_BAJA = DIAS_BAJA + ((dia, dia),)
+
+    dia_baja = forms.ChoiceField(choices=DIAS_BAJA,
+                                 widget=forms.Select(attrs={"class": "form-control"}),
+                                 label='Día de baja')
+
+    def __init__(self, *args, **kwargs):
+        super(JovenAbandonanNSForm, self).__init__(*args, **kwargs)
+        self.fields['nivel_escolar'].queryset = NivelEscolar.objects.filter(activo=True, id__in=[4, 6])
+        self.fields['carrera_abandona'].queryset = Carrera.objects.filter(activo=True, tipo='ns')
+        self.fields['causa_baja_ns'].queryset = CausalBaja.objects.filter(activo=True, id__in=[11, 12, 13, 14, 15, 16, 17])
+
+
+class ProcesoTrabajadorSocialJANSForm(forms.ModelForm):
+    class Meta:
+        model = ProcesoTrabajadorSocialJANS
+        fields = [
+            'rectificar_causa_baja',
+            'requiere_empleo',
+            'oficio_conoce',
+            'causa_no_requiere_empleo',
+            'observaciones_empleo'
+        ]
+        widgets = {
+            'rectificar_causa_baja': forms.Select(attrs={'class': 'form-control'}),
+            'oficio_conoce': forms.Select(attrs={'class': 'form-control'}),
+            'causa_no_requiere_empleo': forms.Select(attrs={'class': 'form-control'}),
+            "observaciones_empleo": forms.Textarea(attrs={"class": "form-control", 'rows': 3}),
+        }
+        labels = {
+            "rectificar_causa_baja": "Rectificar causa de la baja",
+            "oficio_conoce": "Oficio que conoce",
+            'causa_no_requiere_empleo': "Causa no requiere empleo",
+            'observaciones_empleo': "Observaciones para el empleo"
+        }
+
+    requiere_empleo = forms.ChoiceField(choices=(
+                            ("", "---------"),
+                            ("S", "Sí"),
+                            ("N", "No")),
+                             widget=forms.Select(
+                             attrs={"class": "form-control"}), label='Requiere empleo', required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(ProcesoTrabajadorSocialJANSForm, self).__init__(*args, **kwargs)
+        self.fields['rectificar_causa_baja'].queryset = CausalBaja.objects.filter(activo=True, id__in=[11, 12, 13, 14, 15, 16, 17])
+        self.fields['oficio_conoce'].queryset = Carrera.objects.filter(activo=True, tipo='oc')
+        self.fields['causa_no_requiere_empleo'].queryset = CausalNoRequiereEmpleo.objects.filter(activo=True,  id__in=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+
+class ProcesoDireccionMEmpleoJANSForm(forms.ModelForm):
+    class Meta:
+        model = ProcesoDireccionMEmpleoJANS
+        fields = [
+            'ubicado',
+            'ubicacion',
+            'organismo',
+            'municipio_entidad',
+            'entidad',
+            'causa_no_ubicacion'
+        ]
+        widgets = {
+            'ubicacion': forms.Select(attrs={'class': 'form-control'}),
+            'organismo': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'municipio_entidad': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'entidad': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'causa_no_ubicacion': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+
+        }
+        labels = {
+            "ubicacion": "Ubicación",
+            "municipio_entidad": "Municipio de la entidad",
+            'causa_no_ubicacion': "Causa no ubicación",
+        }
+
+    ubicado = forms.ChoiceField(choices=(("S", "Sí"), ("N", "No")),
+                                         widget=forms.Select(
+                                         attrs={"class": "form-control"}), label='Ubicado', required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(ProcesoDireccionMEmpleoJANSForm, self).__init__(*args, **kwargs)
+        self.fields['ubicacion'].queryset = Ubicacion.objects.filter(activo=True)
+        self.fields['organismo'].queryset = Organismo.objects.filter(activo=True)
+        self.fields['entidad'].queryset = Entidad.objects.filter(estado=True)
+        self.fields['causa_no_ubicacion'].queryset = CausalNoUbicado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+
+
+class ControlJovenAbandonanNSForm(forms.ModelForm):
+    class Meta:
+        model = ControlJovenAbandonanNS
+        fields = [
+            'incorporado',
+            'ubicacion',
+            'organismo',
+            'municipio',
+            'entidad',
+            'causa_no_incorporado'
+        ]
+        widgets = {
+            'incorporado': forms.Select(attrs={'class': 'form-control'}),
+            'ubicacion': forms.Select(attrs={'class': 'form-control'}),
+            'organismo': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'municipio': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'entidad': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+            'causa_no_incorporado': forms.Select(attrs={'class': 'form-control', 'disabled': 'disabled'}),
+
+        }
+        labels = {
+            "ubicacion": "Ubicación",
+            "municipio": "Municipio de la entidad",
+            'causa_no_incorporado': "Causa no incorporado",
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ControlJovenAbandonanNSForm, self).__init__(*args, **kwargs)
+        self.fields['incorporado'].queryset = EstadoIncorporado.objects.filter(activo=True, id__in=[1, 2])
+        self.fields['ubicacion'].queryset = Ubicacion.objects.filter(activo=True)
+        self.fields['organismo'].queryset = Organismo.objects.filter(activo=True)
+        self.fields['entidad'].queryset = Entidad.objects.filter(estado=True)
+        self.fields['causa_no_incorporado'].queryset = CausalNoIncorporado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 7])
+
+
+class CausalNoRequiereEmpleoForm(forms.ModelForm):
+    class Meta:
+        model = CausalNoRequiereEmpleo
+        fields = ["causa"]
+        widgets = {
+            'causa': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escriba la causa'}),
+        }
+
 
                 # ----------------codigo de daniel (FIN)--------------

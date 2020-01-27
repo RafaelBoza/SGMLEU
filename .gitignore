@@ -10,3 +10,8 @@
 *.exe
 *.init
 .idea/
+*.log
+*__dev.py
+*__prod.py
+*.xml
+db.sqlite3

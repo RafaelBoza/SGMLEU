@@ -70,6 +70,17 @@ class MunicipioEntidad(models.Model):
         ordering = ["nombre"]
 
 
+class Centro_estudio(models.Model):
+    codigo_mes = models.CharField(max_length=100, blank=True, null=True)
+    nombre = models.CharField(max_length=1000)
+    siglas = models.CharField(max_length=20, blank=True, null=True)
+    activo = models.BooleanField(default=True)
+    provincia = models.ForeignKey(Provincia, blank=True, null=True)
+
+    def __unicode__(self):
+        return "%s" % (self.nombre)
+
+
 class Perfil_usuario(models.Model):
     usuario = models.OneToOneField(User)
     foto = models.ImageField(upload_to='uploads/img_usuarios/', blank=True, null=True)
@@ -78,6 +89,7 @@ class Perfil_usuario(models.Model):
     categoria = models.ForeignKey(Categoria_usuario)
     provincia = models.ForeignKey(Provincia, blank=True, null=True)
     municipio = models.ForeignKey(Municipio, blank=True, null=True)
+    universidad = models.ForeignKey(Centro_estudio, blank=True, null=True)
     activo = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -94,17 +106,6 @@ class Notificacion(models.Model):
     texto = models.TextField(blank=True, null=True)
     fecha = models.DateTimeField(auto_now_add=True)
     revisado = models.BooleanField(default=False)
-
-
-class Centro_estudio(models.Model):
-    codigo_mes = models.CharField(max_length=100, blank=True, null=True)
-    nombre = models.CharField(max_length=1000)
-    siglas = models.CharField(max_length=20, blank=True, null=True)
-    activo = models.BooleanField(default=True)
-    provincia = models.ForeignKey(Provincia, blank=True, null=True)
-
-    def __unicode__(self):
-        return "%s" % (self.nombre)
 
 
 class Carrera(models.Model):
@@ -1537,6 +1538,139 @@ class Interruptos(models.Model):
         ordering = ["id"]
 
 
+class CausalNoRequiereEmpleo(models.Model):
+    causa = models.CharField(max_length=255)
+    activo = models.BooleanField(default=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def __unicode__(self):
+        return self.causa
+
+
+def validacion_ci_joven_abandona_ns(value):
+    if not re.match(u'[0-9]{2}((0[1-9])|(1[0-2]))((0[1-9])|([1-2][0-9])|(3[0-1]))[0-9]{5}$', value):
+        raise ValidationError(
+            'CI incorrecto.')
+    ci = int(value)
+    fecha = ci / 100000
+    anno = fecha / 10000
+    mes = (fecha / 100) % 100
+    dia = fecha % 100
+    if str(mes) == '2':
+        if anno % 4 == 0 and dia > 29:
+            raise ValidationError('CI incorrecto.')
+        if anno % 4 != 0 and dia > 28:
+            raise ValidationError('CI incorrecto.')
+
+
+class JovenAbandonanNS(models.Model):
+
+    REINCORPORADO_EDUCACION = [
+        (0, 'Curso diurno'),
+        (1, 'Curso por encuentro'),
+        (2, 'Curso a distancia'),
+        (3, 'Tecnico Superior de Ciclo Corto'),
+        (4, 'No Reincorporado'),
+    ]
+
+    GET_SEXO = [
+        ('m', 'Masculino'),
+        ('f', 'Femenino'),
+    ]
+
+    GET_ANNO_ABANDONA = [
+        (1, "Primero"),
+        (2, "Segundo"),
+        (3, "Tercero"),
+        (4, "Cuarto"),
+        (5, "Quinto"),
+        (6, "Sexto")
+    ]
+
+    nombre_apellidos = models.CharField(max_length=255)
+    ci = models.CharField(max_length=11, unique=True, validators=[validacion_ci_joven_abandona_ns])
+    sexo = models.CharField(max_length=1)
+    municipio_residencia = models.ForeignKey(Municipio, related_name='municipio_residencia_joven_abandona_ns')
+    direccion_particular = models.CharField(max_length=255)
+    nivel_escolar = models.ForeignKey(NivelEscolar)
+    centro_estudio = models.ForeignKey(Centro_estudio)
+    carrera_abandona = models.ForeignKey(Carrera)
+    anno_abandona = models.IntegerField()
+    reincorporado_educacion = models.IntegerField()  # preguntar si es un campo obligatorio
+    causa_baja_ns = models.ForeignKey(CausalBaja)
+    anno_baja = models.IntegerField()
+    mes_baja = models.IntegerField()
+    dia_baja = models.IntegerField()
+    activo = models.BooleanField(default=True)
+
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    fecha_modificad = models.DateTimeField(auto_now=True)
+
+    def reincorporado_edu(self):
+        return dict(JovenAbandonanNS.REINCORPORADO_EDUCACION)[self.reincorporado_educacion]
+
+    def get_sexo(self):
+        return dict(JovenAbandonanNS.GET_SEXO)[self.sexo]
+
+    def get_anno_abandona(self):
+        return dict(JovenAbandonanNS.GET_ANNO_ABANDONA)[self.anno_abandona]
+
+    def __unicode__(self):
+        return self.nombre_apellidos
+
+    # def __str__(self):
+    #     return self.nombre_apellidos
+
+
+class ProcesoTrabajadorSocialJANS(models.Model):
+
+    SI_NO = [
+        ('S', 'Sí'),
+        ('N', 'No'),
+    ]
+
+    joven_abandona = models.ForeignKey(JovenAbandonanNS)
+    rectificar_causa_baja = models.ForeignKey(CausalBaja)
+    requiere_empleo = models.CharField(max_length=1, choices=SI_NO)
+    oficio_conoce = models.ForeignKey(Carrera, blank=True, null=True)
+    causa_no_requiere_empleo = models.ForeignKey(CausalNoRequiereEmpleo, blank=True, null=True)
+    observaciones_empleo = models.CharField(max_length=255, blank=True, null=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def get_requiere_empleo(self):
+        return dict(ProcesoTrabajadorSocialJANS.SI_NO)[self.requiere_empleo]
+
+
+class ProcesoDireccionMEmpleoJANS(models.Model):
+
+    SI_NO = [
+        ('S', 'Sí'),
+        ('N', 'No'),
+    ]
+
+    joven_abandona = models.ForeignKey(JovenAbandonanNS)
+    ubicado = models.CharField(max_length=1, choices=SI_NO)
+    ubicacion = models.ForeignKey(Ubicacion, blank=True, null=True)
+    organismo = models.ForeignKey(Organismo, blank=True, null=True)
+    municipio_entidad = models.ForeignKey(Municipio, blank=True, null=True)
+    entidad = models.ForeignKey(Entidad, blank=True, null=True)
+    causa_no_ubicacion = models.ForeignKey(CausalNoUbicado, blank=True, null=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def get_ubicado(self):
+        return dict(ProcesoDireccionMEmpleoJANS.SI_NO)[self.ubicado]
+
+
+class ControlJovenAbandonanNS(models.Model):
+
+    incorporado = models.ForeignKey(EstadoIncorporado, blank=True, null=True)
+    ubicacion = models.ForeignKey(Ubicacion, blank=True, null=True)
+    organismo = models.ForeignKey(Organismo, blank=True, null=True)
+    entidad = models.ForeignKey(Entidad, blank=True, null=True)
+    municipio = models.ForeignKey(Municipio, blank=True, null=True)
+    causa_no_incorporado = models.ForeignKey(CausalNoIncorporado, blank=True, null=True)
+    joven_abandona = models.ForeignKey(JovenAbandonanNS)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
 
 
                     # ---------------codigo de daniel (FIN)---------------
