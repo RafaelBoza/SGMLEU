@@ -10,3 +10,4 @@
 *.exe
 *.init
 .idea/
+*.sqlite3
