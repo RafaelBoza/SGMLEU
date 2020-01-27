@@ -11,3 +11,7 @@
 *.init
 .idea/
 *.sqlite3
+*.log
+*__dev.py
+*__prod.py
+*.xml

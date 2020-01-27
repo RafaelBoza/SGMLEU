@@ -54,6 +54,7 @@ def registrar_usuario(request):
             categoria = cleaned_data.get('categoria')
             provincia = cleaned_data.get('provincia')
             municipio = cleaned_data.get('municipio')
+            universidad = cleaned_data.get('universidad')
             user_model = User.objects.create_user(username=username, password=password)
             user_model.email = email
             user_model.first_name=first_name
@@ -67,6 +68,7 @@ def registrar_usuario(request):
             user_profile.categoria=categoria
             user_profile.provincia=provincia
             user_profile.municipio=municipio
+            user_profile.universidad=universidad
             user_profile.save()
             messages.add_message(request, messages.SUCCESS, "El usuario ha sido registrado con éxito.")
             return redirect('/usuarios')

@@ -1,0 +1,200 @@
+{% extends "EmpleoEstatal/Desvinculados/listar_desvinculados.html" %}
+
+
+{% block encabezado %}
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.level == 40 %}
+                    <p class="mensaje_error"><span class="mensaje_error glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% else %}
+                    <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}
+                    </p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </header>
+{% endblock %}
+
+
+
+{% block section_superior %}
+
+{% endblock %}
+
+
+
+{% block titulo_tabla %}
+    <div class="modal fade" id="modal_eliminar_joven_abandona" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_modificar_desvinculado" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_reporte_title">Confirmación de modificación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Está seguro de modificar el desvinculado seleccionado</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block contenido_tabla %}
+    <div class="row panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+
+        <div class="panel-body">
+            <div class="dropdown dropwdown_opciones_detalle">
+                <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-left usar_disenno_new">
+                    {% if categoria == "administrador" or categoria == "trabajador_social_joven_abandona" %}
+                        <li>
+                            <a class=" btn_gestion"
+                               href="{% url 'proceso_trabajador_social_jans' joven_abandona.id %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span> Proceso trabajador social
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if categoria == "administrador" or categoria == "dmt_joven_abandona" %}
+                        <li>
+                            <a class=" btn_gestion"
+                               href="{% url 'proceso_direccion_empleo_jans' joven_abandona.id %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span> Proceso dirección empleo
+                            </a>
+                        </li>
+                        <li>
+                            <a class=" btn_gestion"
+                               href="{% url 'proceso_control_jans' joven_abandona.id %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span> Control
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if categoria == "administrador" or categoria == "universidad_joven_abandona" %}
+                        <li>
+                            <a class=" btn_gestion"
+                               href="{% url 'modificar_joven_abandona_nivel_superior' joven_abandona.id %}">
+                                <span class="glyphicon glyphicon-pencil"></span> Modificar
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if categoria == "administrador" %}
+                        <li>
+                            <a class="btn_gestion modal-eliminar_joven_abandona" id="{{ joven_abandona.id }}"
+                                   data-toggle="modal" data-target="#modal_eliminar_joven_abandona"
+                                   onclick="Objeto.__init__({{ joven_abandona.id }},'seguimiento_jovenes_abandonan_nivel_superior','modal_eliminar_joven_abandona').eliminar();">
+                                <span class="glyphicon glyphicon-trash"></span> Dar baja
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    <li><a class=" btn_gestion " href="{% url 'gestion_jovenes_abandonan_nivel_superior' %}">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Ir atrás
+                    </a></li>
+
+                </ul>
+            </div>
+            <div id="datos_exp" class="datos_joven_abandona">
+                <h4 class="text-center">Datos:</h4>
+                <p><strong>Nombre y apellidos:</strong> {{ joven_abandona.nombre_apellidos }}</p>
+                <p><strong>Carnet de identidad:</strong> {{ joven_abandona.ci }}</p>
+                <p><strong>Edad:</strong> {{ edad }}</p>
+                <p><strong>Sexo:</strong> {{ joven_abandona.get_sexo }}</p>
+                <p><strong>Dirección de residencia:</strong> {{ joven_abandona.direccion_particular }}, {{ joven_abandona.municipio_residencia }}, {{ joven_abandona.municipio_residencia.provincia }}</p>
+                <p><strong>Nivel escolar:</strong> {{ joven_abandona.nivel_escolar }}</p>
+                <p><strong>Carrera que abandona:</strong> {{ joven_abandona.carrera_abandona }}</p>
+                <p><strong>Año en que abandona:</strong> {{ joven_abandona.get_anno_abandona }}</p>
+                <p><strong>Reincorporado a educación:</strong> {{ joven_abandona.reincorporado_edu }}</p>
+                <p><strong>Fecha de baja:</strong> {{ joven_abandona.dia_baja }}/{{ joven_abandona.mes_baja }}/{{ joven_abandona.anno_baja }}</p>
+                <p><strong>Fecha de registro:</strong> {{ joven_abandona.fecha_registro }}</p>
+            </div>
+            {% if proceso_realizado_trabajador_social %}
+                <br/>
+                <div id="datos_exp" class="datos_joven_abandona_ts">
+                    <h4 class="text-center">Proceso realizado por el trabajador social:</h4>
+                    {% for proceso_ts in proceso_realizado_trabajador_social %}
+                         <p><strong>Rectificar causa de la baja:</strong> {{ proceso_ts.rectificar_causa_baja }}</p>
+                         <p><strong>Requiere empleo:</strong> {{ proceso_ts.get_requiere_empleo }}</p>
+                        {% if proceso_ts.oficio_conoce  %}<p><strong>Oficio que conoce:</strong> {{ proceso_ts.oficio_conoce }}</p>{% endif %}
+                        {% if proceso_ts.causa_no_requiere_empleo  %}<p><strong>Causa no requiere empleo:</strong> {{ proceso_ts.causa_no_requiere_empleo }}</p>{% endif %}
+                        {% if proceso_ts.observaciones_empleo  %}<p><strong>Observaciones para el empleo:</strong> {{ proceso_ts.observaciones_empleo }}</p>{% endif %}
+                         <p><strong>Fecha:</strong> {{ proceso_ts.fecha_registro }}</p>
+                        {% if not forloop.last %}
+                            <p><strong>------------------------</strong></p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if proceso_realizado_direccion_m_empleo %}
+                <br/>
+                <div id="datos_exp" class="datos_joven_abandona_dmt">
+                    <h4 class="text-center">Proceso realizado por la dirección de empleo:</h4>
+                    {% for proceso_dmt in proceso_realizado_direccion_m_empleo %}
+                         <p><strong>Ubicado:</strong> {{ proceso_dmt.get_ubicado }}</p>
+                        {% if proceso_dmt.ubicacion  %}<p><strong>Ubicación:</strong> {{ proceso_dmt.ubicacion }}</p>{% endif %}
+                        {% if proceso_dmt.organismo  %}<p><strong>Organismo:</strong> {{ proceso_dmt.organismo }}</p>{% endif %}
+                        {% if proceso_dmt.municipio_entidad  %}<p><strong>Municipio de la entidad:</strong> {{ proceso_dmt.municipio_entidad }}</p>{% endif %}
+                        {% if proceso_dmt.entidad  %}<p><strong>Entidad:</strong> {{ proceso_dmt.entidad }}</p>{% endif %}
+                        {% if proceso_dmt.causa_no_ubicacion  %}<p><strong>Causa de no ubicado:</strong> {{ proceso_dmt.causa_no_ubicacion }}</p>{% endif %}
+                         <p><strong>Fecha:</strong> {{ proceso_dmt.fecha_registro }}</p>
+                        {% if not forloop.last %}
+                            <p><strong>------------------------</strong></p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if control_realizado_direccion_m_empleo %}
+                <br/>
+                <div id="datos_exp" class="datos_joven_abandona_dmt">
+                    <h4 class="text-center">Control realizado por la dirección de empleo:</h4>
+                    {% for proceso_dmt in control_realizado_direccion_m_empleo %}
+                         <p><strong>Incorporado:</strong> {{ proceso_dmt.incorporado.estado }}</p>
+                        {% if proceso_dmt.ubicacion  %}<p><strong>Ubicación:</strong> {{ proceso_dmt.ubicacion }}</p>{% endif %}
+                        {% if proceso_dmt.organismo  %}<p><strong>Organismo:</strong> {{ proceso_dmt.organismo }}</p>{% endif %}
+                        {% if proceso_dmt.municipio_entidad  %}<p><strong>Municipio de la entidad:</strong> {{ proceso_dmt.municipio_entidad }}</p>{% endif %}
+                        {% if proceso_dmt.entidad  %}<p><strong>Entidad:</strong> {{ proceso_dmt.entidad }}</p>{% endif %}
+                        {% if proceso_dmt.causa_no_incorporado  %}<p><strong>Causa de no incorporado:</strong> {{ proceso_dmt.causa_no_incorporado }}</p>{% endif %}
+                         <p><strong>Fecha:</strong> {{ proceso_dmt.fecha_registro }}</p>
+                        {% if not forloop.last %}
+                            <p><strong>------------------------</strong></p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="panel-footer">
+            <p class="text-muted"><span class="glyphicon glyphicon-time"></span> Registrado
+                el {{ joven_abandona.fecha_registro }}.</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
