@@ -769,6 +769,7 @@ urlpatterns = [
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/proceso_direccion_trabajo$', proceso_direccion_empleo_jans, name='proceso_direccion_empleo_jans'),
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/control$', proceso_control_jans, name='proceso_control_jans'),
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)$', detalles_joven_abandona_nivel_superior, name='detalles_joven_abandona_nivel_superior'),
+    url(r'^jovenes_abandonan_nivel_superior/importar$', importar_jovenes_abandonan),
 
     # ASOCIACIONES
     url(r'^causales_no_requieren_empleo$', gestion_causales_no_requieren_empleo, name='gestion_causales_no_requieren_empleo'),
