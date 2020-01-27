@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
-
+import xml.etree.ElementTree as ET
 from SGMGU.forms import *
 from django.contrib.auth.decorators import login_required
 from SGMGU.views.utiles import *
 import datetime
 from django.db.models import Q
+from django.http import HttpResponse
+import xlrd
 
 
 @login_required()
@@ -19,7 +21,6 @@ def gestion_jovenes_abandonan_nivel_superior(request):
     municipio = perfil_usuario.municipio
     categoria = perfil_usuario.categoria.nombre
     fecha_actual = datetime.datetime.today()
-    anno_actual = fecha_actual.year
 
     q = request.GET.get("q")
 
@@ -318,3 +319,46 @@ def desactivar_joven_abandona_nivel_superior(request, id_joven):
     messages.add_message(request, messages.SUCCESS, "Desactivado con éxito.")
 
     return redirect('/seguimiento_jovenes_abandonan_nivel_superior')
+
+
+@login_required
+@permission_required(['administrador', 'universidad_joven_abandona'])
+def importar_jovenes_abandonan(request):
+
+    if request.method == 'POST':
+        errors = []
+        xml_file = request.FILES['jovenes_abandonan_file']
+
+        if xml_file.name.split(".")[-1] != 'xml':
+            messages.add_message(request, messages.ERROR, "El archivo subido es incorrecto")
+            return redirect('/seguimiento_jovenes_abandonan_nivel_superior')
+        else:
+            book = ET.parse(xml_file).getroot()
+            print(book)
+
+            #                                        #
+            # AQUI VA EL CODIGO PARA PARSEAR EL XML  #
+            #                                        #
+
+        if len(errors) > 0:
+            response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = "attachment; filename=Errores_encontrados_al_importar_jovenes_que_abandonan.xlsx"
+            book = Workbook(response, {'in_memory': True})
+            bold = book.add_format({'bold': True, 'border': 1})
+            format = book.add_format({'border': 1})
+            sheet = book.add_worksheet("Errores")
+
+            sheet.set_column('A:A', 10)
+            sheet.set_column('B:B', 80)
+            sheet.write(0, 0,  "No.Fila",bold)
+            sheet.write(0, 1,  "Error",bold)
+
+            for i, error in enumerate(errors):
+                sheet.write(i + 1, 0, unicode(error[0]), format)
+                sheet.write(i + 1, 1, error[1].decode('utf-8'), format)
+            book.close()
+            messages.add_message(request, messages.SUCCESS, "XML importado.   NOTA: Ocurrieron algunos errores al importar el XML.")
+            return response
+        else:
+            messages.add_message(request, messages.SUCCESS, "XML importado con éxito.")
+            return redirect("/seguimiento_jovenes_abandonan_nivel_superior")
