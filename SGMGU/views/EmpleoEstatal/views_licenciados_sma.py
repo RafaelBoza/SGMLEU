@@ -15,8 +15,8 @@ def listado_licenciados_sma(request, errors=None):
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
 
-    lic = LicenciadosSMA.objects.filter(municipio_residencia__nombre='Cotorro', activo=False).first()
-    print("CI: ", lic.ci)
+    # lic = LicenciadosSMA.objects.filter(municipio_residencia__nombre='Cotorro', activo=False).first()
+    # print("CI: ", lic.ci)
 
     # cantidad = 0
     # controlados_incorporados = 0
