@@ -413,6 +413,7 @@ urlpatterns = [
         name='re_incorporar_licenciado_sma'),
     url(r'^licenciados_sma/ci/(?P<ci>[\d]+)$', buscar_ci_licenciados_sma),
     url(r'^licenciados_sma/arreglar_errores$', arreglar_errores, name="arreglar_errores"),
+    url(r'^licenciados_sma/habilitar_usando_ci', habilitar_licenciado_sma, name="habilitar_licenciado_sma"),
 
     # REPORTES (Licenciados del SMA)
     url(r'^licenciados_sma/reportes$', reportes_licenciados_sma, name="reportes_licenciados_sma"),

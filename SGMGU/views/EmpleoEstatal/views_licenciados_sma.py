@@ -15,6 +15,9 @@ def listado_licenciados_sma(request, errors=None):
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
 
+    lic = LicenciadosSMA.objects.filter(municipio_residencia__nombre='Cotorro', activo=False).first()
+    print("CI: ", lic.ci)
+
     # cantidad = 0
     # controlados_incorporados = 0
     # lic = LicenciadosSMA.objects.filter(mes_entrevista='Junio', anno_entrevista=2018, activo=True)
@@ -513,6 +516,43 @@ def control_licenciado_sma(request, id_licenciado_sma):
 
 
 @login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_licenciado_sma(request):
+
+    ci_licenciado_sma = str(request.GET.get("ci_licenciado_sma", ""))
+    errors = []
+    context = {
+        'nombre_form': "Habilitar licenciado del SMA"
+    }
+
+    if ci_licenciado_sma != "":
+        try:
+            licenciado_sma = LicenciadosSMA.objects.filter(ci=ci_licenciado_sma)
+            if licenciado_sma.count() != 0:
+                licenciado = licenciado_sma.first()
+                if not licenciado.activo:
+                    licenciado.activo = True
+                    licenciado.causa_baja = None
+                    licenciado.fecha_baja = None
+                    licenciado.save()
+
+                    messages.add_message(request, messages.SUCCESS, "El licenciado del sma ha sido habilitado con éxito.")
+                    return redirect('/licenciados_sma')
+                else:
+                    errors.append("El licenciado del sma con CI {} ya se encuentra habilitado.".format(ci_licenciado_sma))
+            else:
+                errors.append("El licenciado del sma con CI {} no se encuentra registrado.".format(ci_licenciado_sma))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando licenciado del SMA: {}, {}".format(e.args, e.message))
+
+    context['ci_licenciado_sma'] = ci_licenciado_sma
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/LicenciadosSMA/habilitar_licenciado_sma.html", context)
+
+
+@login_required
 @permission_required(['administrador', 'dpt_ee', 'dmt'])
 def reportes_licenciados_sma(request):
     return render(request, "EmpleoEstatal/LicenciadosSMA/Reportes/reportes_licenciados_sma.html")
@@ -525,6 +565,8 @@ def arreglar_errores(request):
     # No recibieron oferta
     lic = LicenciadosSMA.objects.filter(recibio_oferta=False, activo=True)
     for l in lic:
+        l.recibio_oferta=True
+        l.acepto_oferta='S'
         l.ubicacion = Ubicacion.objects.get(id=1)
         l.save()
 
