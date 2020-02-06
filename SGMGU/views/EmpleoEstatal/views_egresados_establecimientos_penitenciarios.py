@@ -263,6 +263,43 @@ def re_incorporar_egresado_establecimiento_penitenciario(request, id_egresado_es
 
 
 @login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_egresado_establecimiento_penitenciario(request):
+
+    print("CI: ", EgresadosEstablecimientosPenitenciarios.objects.filter(activo=False, municipio_residencia__nombre='Bayamo').first().ci)
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = EgresadosEstablecimientosPenitenciarios.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if not persona.activo:
+                    persona.activo = True
+                    persona.causa_baja = None
+                    persona.fecha_baja = None
+                    persona.save()
+
+                    messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                    return redirect('/egresados_establecimientos_penitenciarios')
+                else:
+                    errors.append("CI {} ya se encuentra habilitado.".format(ci))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando egresado de establecimiento penitenciario / sancionado: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/EgresadosYSancionados/habilitar_egresados_establecimientos_penitenciarios.html", context)
+
+
+@login_required
 @permission_required(['administrador'])
 def reportes_egresados_establecimientos_penitenciarios(request):
     return render(request, "EmpleoEstatal/EgresadosYSancionados/Reportes/reportes_egresados_ep.html")

@@ -500,6 +500,9 @@ urlpatterns = [
         re_incorporar_egresado_establecimiento_penitenciario,
         name='re_incorporar_egresado_establecimiento_penitenciario'),
     url(r'^egresados_establecimientos_penitenciarios/ci/(?P<ci>[\d]+)$', buscar_ci_egresados_sancionados),
+    url(r'^egresados_establecimientos_penitenciarios/habilitar_usando_ci', habilitar_egresado_establecimiento_penitenciario,
+        name="habilitar_egresado_establecimiento_penitenciario"),
+
     # REPORTES
     url(r'^egresados_establecimientos_penitenciarios/reportes$', reportes_egresados_establecimientos_penitenciarios,
         name="reportes_egresados_establecimientos_penitenciarios"),

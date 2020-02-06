@@ -25,6 +25,13 @@
         <div class="panel-body">
             {#        BUSQUEDA         #}
             <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'habilitar_egresado_establecimiento_penitenciario' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Habilitar
+                    </a>
+                </div>
+
                 <div class="col-xs-3 pull-right">
                     <div class="input-group">
                         {% if busqueda %}
@@ -37,24 +44,13 @@
                         {% endif %}
                         <div class="input-group-btn">
                             {% if busqueda %}
-                                <a type="button" class="btn btn-default btn_normal" href="/egresados_establecimientos_penitenciarios"><span
+                                <a type="button" class="btn btn-default btn_normal" href="{% url 'listar_egresados_establecimientos_penitenciarios' %}"><span
                                         class="glyphicon glyphicon-refresh"></span> Limpiar</a>
                             {% else %}
                                 <button type="button" class="btn btn-default btn_normal"
                                         onclick="Objeto.__init__('','egresados_establecimientos_penitenciarios','ci_buscar').buscar('ci');"><span
                                         class="glyphicon glyphicon-search"></span></button>
                             {% endif %}
-{#                            <button type="button" class="btn btn-default dropdown-toggle btn_normal"#}
-{#                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Otros <span#}
-{#                                    class="caret"></span></button>#}
-{#                            <ul class="dropdown-menu dropdown-menu-right usar_disenno_new">#}
-{#                                <li><a href="/disponibles/buscar_disponibles_carrera"><span#}
-{#                                        class="glyphicon glyphicon-search"></span> Por carrera</a></li>#}
-{#                                <li><a href="/disponibles/buscar_disponibles_municipio_residencia"><span#}
-{#                                        class="glyphicon glyphicon-search"></span> Por municipio de residencia</a></li>#}
-{#                                <li><a href="/disponibles/buscar_disponibles_centro_estudio"><span#}
-{#                                        class="glyphicon glyphicon-search"></span> Por centro de estudio</a></li>#}
-{#                            </ul>#}
                         </div>
                     </div>
                 </div>
