@@ -46,7 +46,7 @@ def listado_desvinculados(request):
                         Desvinculado.objects.filter(municipio_solicita_empleo__provincia=request.user.perfil_usuario.provincia,
                                                     activo=True)
     else:
-        desvinculados = Desvinculado.objects.filter(activo=False)
+        desvinculados = Desvinculado.objects.all()
 
     desvinculados = paginar(request, desvinculados)
     paginas = crear_lista_pages(desvinculados)
@@ -246,8 +246,7 @@ def habilitar_desvinculado(request):
             busqueda = Desvinculado.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                municipio_solicita_empleo = str(request.user.perfil_usuario.municipio.nombre)
-                if str(persona.municipio_solicita_empleo.nombre) == municipio_solicita_empleo:
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_solicita_empleo.nombre) == str(request.user.perfil_usuario.municipio.nombre):
                     if not persona.activo:
                         persona.activo = True
                         persona.causa_baja = None

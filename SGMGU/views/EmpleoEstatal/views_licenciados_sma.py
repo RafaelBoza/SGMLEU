@@ -530,8 +530,7 @@ def habilitar_licenciado_sma(request):
             busqueda = LicenciadosSMA.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                municipio_residencia = str(request.user.perfil_usuario.municipio.nombre)
-                if str(persona.municipio_residencia.nombre) == municipio_residencia:
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_residencia.nombre) == str(request.user.perfil_usuario.municipio.nombre):
                     if not persona.activo:
                         persona.activo = True
                         persona.causa_baja = None

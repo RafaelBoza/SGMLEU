@@ -590,6 +590,7 @@ urlpatterns = [
     url(r'^tecnicosmedios_obreroscalificados_escuelasoficio/(?P<id_tm_oc_eo>[\d]+)/re_incorporar',
         re_incorporar_tm_oc_eo, name='re_incorporar_tm_oc_eo'),
     url(r'^tecnicosmedios_obreroscalificados_escuelasoficio/ci/(?P<ci>[\d]+)$', buscar_ci_tm_oc_eo),
+    url(r'^tecnicosmedios_obreroscalificados_escuelasoficio/habilitar_usando_ci', habilitar_tm_oc_eo, name="habilitar_tm_oc_eo"),
     # REPORTES
     url(r'^tecnicosmedios_obreroscalificados_escuelasoficio/reportes$', reportes_tm_oc_eo, name="reportes_tm_oc_eo"),
 

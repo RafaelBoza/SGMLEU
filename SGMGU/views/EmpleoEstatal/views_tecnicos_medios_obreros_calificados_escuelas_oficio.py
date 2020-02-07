@@ -322,6 +322,46 @@ def re_incorporar_tm_oc_eo(request, id_tm_oc_eo):
 
 
 @login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_tm_oc_eo(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = TMedioOCalificadoEOficio.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_solicita_empleo.nombre) == str(request.user.perfil_usuario.municipio.nombre):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/tecnicosmedios_obreroscalificados_escuelasoficio')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_solicita_empleo))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando desvinculado: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/TecnicosMedios_ObrerosCalificados_EscuelasOficio/habilitar_tm_oc_eo.html", context)
+
+
+
+
+@login_required
 @permission_required(['administrador'])
 def reportes_tm_oc_eo(request):
     return render(request,
