@@ -679,6 +679,8 @@ urlpatterns = [
         name="modificar_persona_riesgo"),
     url(r'^personas_riesgo/(?P<id_persona_riesgo>[\d]+)$', detalle_persona_riesgo, name='detalle_persona_riesgo'),
     url(r'^personas_riesgo/(?P<id_persona_riesgo>[\d]+)/re_incorporar', re_incorporar_persona_riesgo, name='re_incorporar_persona_riesgo'),
+    url(r'^personas_riesgo/ci/(?P<ci>[\d]+)$', buscar_ci_persona_riesgo),
+    url(r'^personas_riesgo/habilitar_usando_ci', habilitar_persona_riesgo, name="habilitar_persona_riesgo"),
     # REPORTES
     url(r'^personas_riesgo/reportes$', reportes_personas_riesgo, name="reportes_personas_riesgo"),
 

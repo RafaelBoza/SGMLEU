@@ -71,10 +71,42 @@ def listado_personas_riesgo(request):
     else:
         personas_riesgo = PersonasRiesgo.objects.all()
 
+    personas_riesgo = paginar(request, personas_riesgo)
+    paginas = crear_lista_pages(personas_riesgo)
+    nombre_pag = "Listado: Personas de Riesgo"
+
     return render(request, "EmpleoEstatal/PersonasRiesgo/listar_personas_riesgo.html", locals())
 
 
-# TODO: hacer el buscar
+@login_required
+@permission_required(['administrador', 'dpt_ee', 'dmt'])
+def buscar_ci_persona_riesgo(request, ci):
+    anno_actual = datetime.datetime.today().year
+    categoria_usuario = request.user.perfil_usuario.categoria.nombre
+    municipio_usuario = request.user.perfil_usuario.municipio
+    provincia_usuario = request.user.perfil_usuario.provincia
+
+    if categoria_usuario == 'dmt':
+        personas_riesgo = PersonasRiesgo.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                       fecha_registro__year=anno_actual) | \
+                          PersonasRiesgo.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                       activo=True)
+    elif categoria_usuario == 'dpt_ee':
+        personas_riesgo = PersonasRiesgo.objects.filter(ci__contains=ci,
+                                                       municipio_solicita_empleo__provincia=provincia_usuario,
+                                                       fecha_registro__year=anno_actual) | \
+                          PersonasRiesgo.objects.filter(ci__contains=ci,
+                                                       municipio_solicita_empleo__provincia=provincia_usuario,
+                                                       activo=True)
+    else:
+        personas_riesgo = PersonasRiesgo.objects.filter(ci__contains=ci)
+
+        personas_riesgo = paginar(request, personas_riesgo)
+    paginas = crear_lista_pages(personas_riesgo)
+    context = {'personas_riesgo': personas_riesgo, 'nombre_pag': "Listado por ci: %s" % ci,
+               'busqueda': 'si', "valor_busqueda": ci, 'paginas': paginas}
+    return render(request, "EmpleoEstatal/PersonasRiesgo/listar_personas_riesgo.html", context)
+
 
 @login_required()
 @permission_required(['administrador', 'dmt'])
@@ -208,6 +240,45 @@ def re_incorporar_persona_riesgo(request, id_persona_riesgo):
         form = HistorialPersonaRiesgoForm()
     context = {'form': form, 'nombre_form': "Re-incorporar", 'id_persona_riesgo': id_persona_riesgo}
     return render(request, "EmpleoEstatal/PersonasRiesgo/re_incorporar.html", context)
+
+
+@login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_persona_riesgo(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = PersonasRiesgo.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/personas_riesgo')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando persona de riesgo: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/PersonasRiesgo/habilitar_persona_riesgo.html", context)
 
 
 @login_required

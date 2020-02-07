@@ -55,7 +55,6 @@ def listado_licenciados_sma(request, errors=None):
 
     licenciados_sma = paginar(request, licenciados_sma)
     paginas = crear_lista_pages(licenciados_sma)
-
     context = {'errors': errors, 'licenciados_sma': licenciados_sma, 'nombre_pag': "Listado: Licenciados del SMA",
                'tab': 'listar_licenciados_sma', 'paginas': paginas}
     return render(request, "EmpleoEstatal/LicenciadosSMA/listar_licenciados_sma.html", context)

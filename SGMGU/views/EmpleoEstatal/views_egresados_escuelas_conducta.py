@@ -49,9 +49,6 @@ def listado_egresados_escuelas_conducta(request):
     paginas = crear_lista_pages(egresados)
     nombre_pag = "Listado: Egresados de escuelas de conducta"
 
-    provincias = Provincia.objects.all()
-    municipios = Municipio.objects.all()
-
     return render(request, "EmpleoEstatal/EgresadosEscuelasConducta/listar_egresados_escuelas_conducta.html", locals())
 
 
