@@ -665,6 +665,8 @@ urlpatterns = [
         name="modificar_discapacitado"),
     url(r'^discapacitados/(?P<id_discapacitado>[\d]+)$', detalle_discapacitado, name='detalle_discapacitado'),
     url(r'^discapacitados/(?P<id_discapacitado>[\d]+)/re_incorporar', re_incorporar_discapacitado, name='re_incorporar_discapacitado'),
+    url(r'^discapacitados/ci/(?P<ci>[\d]+)$', buscar_ci_discapacitado),
+    url(r'^discapacitados/habilitar_usando_ci', habilitar_discapacitado, name="habilitar_discapacitado"),
     # REPORTES
     url(r'^discapacitados/reportes$', reportes_discapacitados, name="reportes_discapacitados"),
 

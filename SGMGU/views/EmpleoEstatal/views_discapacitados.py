@@ -34,14 +34,6 @@ def listado_discapacitados(request):
             # elapsed_time = time.time() - start_time
             # print("Tiempo transcurrido: %.10f segundos." % elapsed_time)
 
-    # --------------------------------------------------------------------------------------------------------
-    # print PersonasRiesgo.objects.filter(fuente_procedencia_id=19,activo=True).count()
-    # print PersonasRiesgo.objects.filter(fuente_procedencia_id=19,activo=True, fecha_registro__year=2019).count()
-    # print PersonasRiesgo.objects.filter(fuente_procedencia_id=19,activo=True).exclude(fecha_registro__year=2019).count()
-    #
-    # print PersonasRiesgo.objects.filter(fuente_procedencia_id=19,ubicado=False, causa_no_ubicado__id=1, activo=True).exclude(fecha_registro__year=2019).count()
-    # --------------------------------------------------------------------------------------------------------
-
     if request.user.perfil_usuario.categoria.nombre == 'dmt':
         discapacitados = Discapacitados.objects.filter(municipio_solicita_empleo=request.user.perfil_usuario.municipio,
                                                        fecha_registro__year=anno_actual) | \
@@ -55,10 +47,41 @@ def listado_discapacitados(request):
     else:
         discapacitados = Discapacitados.objects.all()
 
+    discapacitados = paginar(request, discapacitados)
+    paginas = crear_lista_pages(discapacitados)
+    nombre_pag = "Listado: Discapacitados"
+
     return render(request, "EmpleoEstatal/Discapacitados/listar_discapacitados.html", locals())
 
 
-# TODO: hacer el buscar
+@login_required
+@permission_required(['administrador', 'dpt_ee', 'dmt'])
+def buscar_ci_discapacitado(request, ci):
+    anno_actual = datetime.datetime.today().year
+    categoria_usuario = request.user.perfil_usuario.categoria.nombre
+    municipio_usuario = request.user.perfil_usuario.municipio
+    provincia_usuario = request.user.perfil_usuario.provincia
+
+    if categoria_usuario == 'dmt':
+        discapacitados = Discapacitados.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                       fecha_registro__year=anno_actual) | \
+                         Discapacitados.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                       activo=True)
+    elif categoria_usuario == 'dpt_ee':
+        discapacitados = Discapacitados.objects.filter(ci__contains=ci,
+                                                       municipio_solicita_empleo__provincia=provincia_usuario,
+                                                       fecha_registro__year=anno_actual) | \
+                         Discapacitados.objects.filter(ci__contains=ci,
+                                                       municipio_solicita_empleo__provincia=provincia_usuario,
+                                                       activo=True)
+    else:
+        discapacitados = Discapacitados.objects.filter(ci__contains=ci)
+
+    discapacitados = paginar(request, discapacitados)
+    paginas = crear_lista_pages(discapacitados)
+    context = {'discapacitados': discapacitados, 'nombre_pag': "Listado por ci: %s" % ci,
+               'busqueda': 'si', "valor_busqueda": ci, 'paginas': paginas}
+    return render(request, "EmpleoEstatal/Discapacitados/listar_discapacitados.html", context)
 
 
 @login_required()
@@ -192,6 +215,45 @@ def re_incorporar_discapacitado(request, id_discapacitado):
         form = HistorialDiscapacitadoForm()
     context = {'form': form, 'nombre_form': "Re-incorporar", 'id_discapacitado': id_discapacitado}
     return render(request, "EmpleoEstatal/Discapacitados/re_incorporar.html", context)
+
+
+@login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_discapacitado(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = Discapacitados.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/discapacitados')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando discapacitado: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/Discapacitados/habilitar_discapacitado.html", context)
 
 
 @login_required
