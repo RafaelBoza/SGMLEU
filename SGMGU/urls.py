@@ -627,6 +627,8 @@ urlpatterns = [
     url(r'^egresados_escuelas_conducta/(?P<id_egresado_escuela_conducta>[\d]+)/re_incorporar',
         re_incorporar_egresado_escuela_conducta, name='re_incorporar_egresado_escuela_conducta'),
     url(r'^egresados_escuelas_conducta/ci/(?P<ci>[\d]+)$', buscar_ci_egresados_escuelas_conducta),
+    url(r'^egresados_escuelas_conducta/habilitar_usando_ci', habilitar_egresado_escuela_conducta,
+        name="habilitar_egresado_escuela_conducta"),
     # REPORTES
     url(r'^egresados_escuelas_conducta/reportes$', reportes_egresados_escuelas_conducta,
         name="reportes_egresados_escuelas_conducta"),

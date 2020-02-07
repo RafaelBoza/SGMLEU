@@ -225,8 +225,6 @@ def re_incorporar_egresado_escuela_especial(request, id_egresado_escuela_especia
 @permission_required(['administrador', 'dmt'])
 def habilitar_egresados_escuelas_especiales(request):
 
-    print(EgresadosEscuelasEspeciales.objects.filter(activo=False, municipio_solicita_empleo__nombre='Bayamo').first().ci)
-
     ci = str(request.GET.get("ci", ""))
     errors = []
     context = {}

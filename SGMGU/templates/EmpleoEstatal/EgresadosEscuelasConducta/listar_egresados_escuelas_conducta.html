@@ -19,6 +19,13 @@
         <div class="panel-body">
             {#        BUSQUEDA         #}
             <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'habilitar_egresado_escuela_conducta' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Habilitar
+                    </a>
+                </div>
+
                 <div class="col-xs-3 pull-right">
                     <div class="input-group">
                         {% if busqueda %}
