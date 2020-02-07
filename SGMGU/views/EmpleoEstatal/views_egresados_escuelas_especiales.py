@@ -222,6 +222,47 @@ def re_incorporar_egresado_escuela_especial(request, id_egresado_escuela_especia
 
 
 @login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_egresados_escuelas_especiales(request):
+
+    print(EgresadosEscuelasEspeciales.objects.filter(activo=False, municipio_solicita_empleo__nombre='Bayamo').first().ci)
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = EgresadosEscuelasEspeciales.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/egresados_escuelas_especiales')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando egresado de escuela especial: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/EgresadosEscuelasEspeciales/habilitar_egresado_escuelas_especiales.html", context)
+
+
+@login_required
 @permission_required(['administrador'])
 def reportes_egresados_escuelas_especiales(request):
     return render(request, "EmpleoEstatal/EgresadosEscuelasEspeciales/Reportes/reportes_egresados_escuelas_especiales.html")

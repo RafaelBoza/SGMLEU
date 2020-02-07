@@ -14,13 +14,7 @@ def listado_tm_oc_eo(request):
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
 
-    # tm = TMedioOCalificadoEOficio.objects.filter(fuente_procedencia_id=6, ubicado=False, causa_no_ubicado__id=1,
-    #                                              fecha_registro__year=2019)
-    # print tm.count()
-    # for t in tm:
-    #     print t.fecha_registro
-
-    start_time = time.time()
+    # start_time = time.time()
 
     if 11 <= dia_actual <= 18 and mes_actual == 1:
 
@@ -58,8 +52,8 @@ def listado_tm_oc_eo(request):
 
             ComprobacionAnualEmpleoEstatal.objects.create(fuente_procedencia_id=8, fecha_comprobacion=timezone.now())
 
-            elapsed_time = time.time() - start_time
-            print("Tiempo transcurrido: %.10f segundos." % elapsed_time)
+            # elapsed_time = time.time() - start_time
+            # print("Tiempo transcurrido: %.10f segundos." % elapsed_time)
 
     if request.user.perfil_usuario.categoria.nombre == 'dmt':
         tm_oc_eo = TMedioOCalificadoEOficio.objects.filter(municipio_solicita_empleo=request.user.perfil_usuario.municipio,
@@ -334,7 +328,8 @@ def habilitar_tm_oc_eo(request):
             busqueda = TMedioOCalificadoEOficio.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_solicita_empleo.nombre) == str(request.user.perfil_usuario.municipio.nombre):
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
                     if not persona.activo:
                         persona.activo = True
                         persona.causa_baja = None
@@ -346,13 +341,13 @@ def habilitar_tm_oc_eo(request):
                     else:
                         errors.append("CI {} ya se encuentra habilitado.".format(ci))
                 else:
-                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_solicita_empleo))
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
             else:
                 errors.append("CI {} no se encuentra registrado.".format(ci))
 
         except Exception as e:
             errors.append("Error. Vuelva a introducir el CI.")
-            print("Error habilitando desvinculado: {}, {}".format(e.args, e.message))
+            print("Error habilitando tm, oc, eo: {}, {}".format(e.args, e.message))
 
     context['ci'] = ci
     context['errors'] = errors

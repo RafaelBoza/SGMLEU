@@ -15,150 +15,6 @@ def listado_licenciados_sma(request, errors=None):
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
 
-    # lic = LicenciadosSMA.objects.filter(municipio_residencia__nombre='Cotorro', activo=False).first()
-    # print("CI: ", lic.ci)
-
-    # cantidad = 0
-    # controlados_incorporados = 0
-    # lic = LicenciadosSMA.objects.filter(mes_entrevista='Junio', anno_entrevista=2018, activo=True)
-    # print lic.count()
-    # controlado = ''
-    # l_incorporado = ''
-    # for indice, l in enumerate(lic):
-    #     c = ControlLicenciadosSMA.objects.filter(licenciado_sma_id=l.id)
-    #     if c.count() > 0:
-    #         cantidad += 1
-    #         controlado = 'Si controlado'
-    #         if c.last().incorporado == 'S':
-    #             controlados_incorporados += 1
-    #             l_incorporado = 'Si incorporado'
-    #         else:
-    #             l_incorporado = 'No incorporado'
-    #     else:
-    #         controlado = 'No controlado'
-    #         l_incorporado = 'No incorporado'
-    #     print "{} | {} | {} | {} | {} | {} | {}".format(str(indice + 1), l.ci, l.nombre_apellidos.encode('utf-8').strip(), l.municipio_residencia.provincia.nombre.encode('utf-8').strip(), l.municipio_residencia.nombre.encode('utf-8').strip(), controlado, l_incorporado)
-
-        # if li.incorporado == 'S':
-        #     cantidad += 1
-            # li.activo = False
-            # li.causa_baja = CausalBaja.objects.get(id=10)
-            # li.fecha_baja = fecha_actual
-    # print "controlados: ", cantidad
-    # print "controlados incorporados: ", controlados_incorporados
-
-    # cantidad_c = 0
-    # for li in lic:
-    #     controls = ControlLicenciadosSMA.objects.filter(licenciado_sma__id=li.id).order_by('id')
-    #     if controls.count() > 0:
-    #         ultimo_control = controls.last()
-    #         if ultimo_control.incorporado == 'S':
-    #             cantidad_c += 1
-    #             if li.ci == '98011719022':
-    #                 print "si tiene control"
-    #
-    # print cantidad_c
-
-    # listado = LicenciadosSMA.objects.filter(fecha_registro__year=anno_actual) | \
-    #             LicenciadosSMA.objects.filter(activo=True)
-    #
-    # print listado.filter(incorporado=2, municipio_residencia__id=38).count()
-    #
-    # for x in listado.filter(incorporado=2, causa_no_ubicado_id__in=[10], municipio_residencia__id=38):
-    #     print x.ci
-
-    # 1 caso no recibio oferta y si la acepto: 99100717229
-
-    # 75 casos aceptaron la oferta y no tienen ubicacion:
-    # ['97041017207', '96121919180', '98031721069', '97052517781', '96020318746', '97090317785', '97092216888',
-    #  '98100818026', '98101416762', '97062917145', '97051521062', '96080823329', '98070805783', '98080217140',
-    #  '98072316748', '98060518075', '97102616887', '97101417808', '97093017782', '98082818027', '98012318023',
-    #  '98072516801', '98063016802', '98061405869', '98071805867', '98100705883', '97022205867', '97110721387',
-    #  '98030721363', '98120921441', '98090821447', '98100717149', '98080317148', '98041919783', '96110506364',
-    #  '98011404863', '98101704589', '98101504701', '98021404603', '98121917186', '98032417546', '99041816984',
-    #  '98050817168', '98090517180', '99032816985', '97061417168', '98111617205', '99041317024', '98080217160',
-    #  '97100217140', '98080217144', '97050217165', '98101216803', '97091617146', '98111505864', '99020817624',
-    #  '96100319189', '95072547423', '98082512605', '98071615768', '98022516762', '99021517023', '98061217143',
-    #  '96121321387', '97111304829', '99022020443', '99012304421', '98102716783', '98120118022', '98071816745',
-    #  '98092105866', '98120804607', '97070812723', '98073112587', '98042421068']
-
-    # 34 casos no aceptaron la oferta y no tienen causa de no aceptacion:
-    # ['97040605463', '96112323487', '97113021086', '97110720983', '95121248166', '98101319245', '97121220904',
-    #  '91083124923', '97092505288', '97042104603', '98090122749', '97092904267', '98111920022', '98100901502',
-    #  '98050220028', '98072220028', '96051022360', '98070700708', '97040105641', '98032411142', '98040200901',
-    #  '96070526420', '98072122042', '97022620340', '96092218784', '95102541946', '97091508662', '98112021546',
-    #  '98091303625', '97083021462', '99052320903', '99020207485', '99021507549', '98101522903']
-
-    # 2 casos en mayabeque no incorporados por: "Al cuidado de un familiar": 98091621788, 97110404642
-    # 2 casos en mayabeque no incorporados por: "Lo dejo": 98041919783, 99022605722
-
-
-    # lic = LicenciadosSMA.objects.all()
-    # for l in lic:
-    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma__id=l.id).order_by('id')
-    #     if controles.count() > 0:
-    #         ultimo_control = controles.last()
-    #         if ultimo_control.incorporado == 'S':
-    #             l.incorporado = EstadoIncorporado.objects.get(id=1)
-    #         else:
-    #             l.incorporado = EstadoIncorporado.objects.get(id=2)
-    #         if ultimo_control.ubicacion:
-    #             l.ubicacion = ultimo_control.ubicacion
-    #         l.save()
-
-    # lic = LicenciadosSMA.objects.all()
-    # for l in lic:
-    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma__id=l.id).order_by('id')
-    #     if controles.count() > 0:
-    #         ultimo_control = controles.last()
-    #         l.organismo = ultimo_control.organismo
-    #         l.entidad = ultimo_control.entidad
-    #         l.municipio_entidad = ultimo_control.municipio
-    #         l.save()
-
-    # lic = LicenciadosSMA.objects.all()
-    # for l in lic:
-    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma__id=l.id).order_by('id')
-    #     if controles.count() > 0:
-    #         ultimo_control = controles.last()
-    #         l.causa_no_ubicado = ultimo_control.causa_no_ubicado
-    #         l.save()
-
-    # lic = LicenciadosSMA.objects.filter(activo=True)
-    # for l in lic:
-    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma__id=l.id).order_by('id')
-    #     if controles.count() > 0:
-    #         ultimo_control = controles.last()
-    #         if ultimo_control.incorporado == 'S' and ultimo_control.organismo is None and ultimo_control.ubicacion is not None:
-    #             if ultimo_control.ubicacion.id == 1:
-    #                 print l.ci
-
-    # -------------------------------------------------------------------------------------
-
-    # No recibieron oferta
-    # lic = LicenciadosSMA.objects.filter(recibio_oferta=False, activo=True)
-    # for l in lic:
-    #     l.ubicacion = Ubicacion.objects.get(id=1)
-    #     l.save()
-
-    # Recibieron oferta, no la aceptaron y no tienen ubicacion
-    # lic = LicenciadosSMA.objects.filter(recibio_oferta=True, acepto_oferta='N', ubicacion=None, activo=True)
-    # for l in lic:
-    #     l.ubicacion = Ubicacion.objects.get(id=1)
-    #     l.save()
-
-    # Recibio la oferta, acepto la oferta y no tiene ubicacion
-    # lic = LicenciadosSMA.objects.filter(recibio_oferta=True, acepto_oferta='S', ubicacion=None, activo=True)
-    # for l in lic:
-    #     l.ubicacion = Ubicacion.objects.get(id=1)
-    #     l.save()
-
-    # Recibieron oferta y dejaron vacio el campo de aceptar la oferta
-    # lic = LicenciadosSMA.objects.filter(recibio_oferta=True, acepto_oferta='', activo=True)
-    # for l in lic:
-    #     l.ubicacion = Ubicacion.objects.get(id=1)
-    #     l.save()
-
     if 11 <= dia_actual <= 18 and mes_actual == 1:
 
         comprobado = ComprobacionAnualEmpleoEstatal.objects.filter(fuente_procedencia_id=1,
@@ -519,8 +375,6 @@ def control_licenciado_sma(request, id_licenciado_sma):
 @permission_required(['administrador', 'dmt'])
 def habilitar_licenciado_sma(request):
 
-    print(LicenciadosSMA.objects.filter(activo=False, municipio_residencia__nombre='Bayamo').first().ci)
-
     ci = str(request.GET.get("ci", ""))
     errors = []
     context = {}
@@ -530,7 +384,8 @@ def habilitar_licenciado_sma(request):
             busqueda = LicenciadosSMA.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_residencia.nombre) == str(request.user.perfil_usuario.municipio.nombre):
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_residencia.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
                     if not persona.activo:
                         persona.activo = True
                         persona.causa_baja = None
@@ -542,7 +397,7 @@ def habilitar_licenciado_sma(request):
                     else:
                         errors.append("El licenciado del sma con CI {} ya se encuentra habilitado.".format(ci))
                 else:
-                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_residencia))
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_residencia.nombre.encode('utf-8').strip())))
             else:
                 errors.append("El licenciado del sma con CI {} no se encuentra registrado.".format(ci))
 

@@ -19,6 +19,13 @@
         <div class="panel-body">
             {#        BUSQUEDA         #}
             <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'habilitar_egresados_escuelas_especiales' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Habilitar
+                    </a>
+                </div>
+
                 <div class="col-xs-3 pull-right">
                     <div class="input-group">
                         {% if busqueda %}
@@ -31,7 +38,7 @@
                         {% endif %}
                         <div class="input-group-btn">
                             {% if busqueda %}
-                                <a type="button" class="btn btn-default btn_normal" href="/egresados_escuelas_especiales"><span
+                                <a type="button" class="btn btn-default btn_normal" href="{% url 'listar_egresados_escuelas_especiales' %}"><span
                                         class="glyphicon glyphicon-refresh"></span> Limpiar</a>
                             {% else %}
                                 <button type="button" class="btn btn-default btn_normal"

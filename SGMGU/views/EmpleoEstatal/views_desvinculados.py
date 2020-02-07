@@ -246,7 +246,8 @@ def habilitar_desvinculado(request):
             busqueda = Desvinculado.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                if request.user.perfil_usuario.categoria.nombre == 'administrador' or str(persona.municipio_solicita_empleo.nombre) == str(request.user.perfil_usuario.municipio.nombre):
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
                     if not persona.activo:
                         persona.activo = True
                         persona.causa_baja = None
@@ -258,7 +259,7 @@ def habilitar_desvinculado(request):
                     else:
                         errors.append("CI {} ya se encuentra habilitado.".format(ci))
                 else:
-                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_solicita_empleo))
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
             else:
                 errors.append("CI {} no se encuentra registrado.".format(ci))
 
