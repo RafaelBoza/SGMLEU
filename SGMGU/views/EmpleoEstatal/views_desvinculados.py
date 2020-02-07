@@ -46,7 +46,7 @@ def listado_desvinculados(request):
                         Desvinculado.objects.filter(municipio_solicita_empleo__provincia=request.user.perfil_usuario.provincia,
                                                     activo=True)
     else:
-        desvinculados = Desvinculado.objects.all()
+        desvinculados = Desvinculado.objects.filter(activo=False)
 
     desvinculados = paginar(request, desvinculados)
     paginas = crear_lista_pages(desvinculados)
@@ -231,6 +231,45 @@ def dar_baja_desvinculado(request, id_desvinculado):
         form = DarBajaDesvinculadoForm(instance=desvinculado)
     context = {'form': form}
     return render(request, "EmpleoEstatal/Desvinculados/dar_baja_desvinculado.html", context)
+
+
+@login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_desvinculado(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = Desvinculado.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                municipio_solicita_empleo = str(request.user.perfil_usuario.municipio.nombre)
+                if str(persona.municipio_solicita_empleo.nombre) == municipio_solicita_empleo:
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/desvinculados')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_solicita_empleo))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando desvinculado: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/Desvinculados/habilitar_desvinculado.html", context)
 
 
 @login_required

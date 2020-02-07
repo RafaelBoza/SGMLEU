@@ -573,6 +573,7 @@ urlpatterns = [
         name='re_incorporar_desvinculado'),
     url(r'^desvinculados/(?P<id_desvinculado>[\w]+)/ubicar_desvinculado', ubicar_desvinculado, name="ubicar_desvinculado"),
     url(r'^desvinculados/ci/(?P<ci>[\d]+)$', buscar_ci_desvinculados),
+    url(r'^desvinculados/habilitar_usando_ci', habilitar_desvinculado, name="habilitar_desvinculado"),
 
     # REPORTES
     url(r'^desvinculados/reportes$', reportes_desvinculados, name="reportes_desvinculados"),

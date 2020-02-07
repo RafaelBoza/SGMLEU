@@ -1,4 +1,4 @@
-{% extends "EmpleoEstatal/LicenciadosSMA/gestion_licenciados_sma.html" %}
+{% extends "EmpleoEstatal/Desvinculados/gestion_desvinculados.html" %}
 {% load staticfiles %}
 
 {% block encabezado %}
@@ -13,7 +13,7 @@
 {% block contenido_tabla %}
     <div class="col-xs-7 placeholder" style="margin-left: 17%">
         <div class="panel panel-primary">
-            <div class="panel-heading">Habilitar licenciado del SMA</div>
+            <div class="panel-heading">Habilitar</div>
             <div class="panel-body">
                 <form action="" method="GET">
                     <div class="row">
@@ -22,7 +22,6 @@
                                 <input type="text" class="form-control" name="ci"
                                        placeholder="Escriba el CI..." style="height:32px;"
                                        value="{{ ci }}"
-{#                                       onkeypress="return check(event)"#}
                                        pattern="[0-9]+" maxlength="11" minlength="11" required>
                                 <div style="padding-top: 5px">
                                     {% if errors %}
@@ -40,7 +39,7 @@
                         <button class="btn btn-primary" type="submit">
                             <span class="glyphicon glyphicon-ok-sign"></span> Habilitar
                         </button>
-                        <a class="btn btn-success btn_gestion" href="{% url 'listar_licenciados_sma' %}">
+                        <a class="btn btn-success btn_gestion" href="{% url 'listar_desvinculados' %}">
                             <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
                         </a>
                     </div>
@@ -48,21 +47,4 @@
             </div>
         </div>
     </div>
-
-{#    <script>#}
-{#        function check(e) {#}
-{#            tecla = (document.all) ? e.keyCode : e.which;#}
-{#            alert(tecla);#}
-{#            //Tecla de retroceso para borrar, siempre la permite#}
-{#            if (tecla == 8) {#}
-{#                return true;#}
-{#            }#}
-{##}
-{#            // Patron de entrada, en este caso solo acepta numeros y letras#}
-{#            patron = /[A-Za-z0-9]/;#}
-{#            tecla_final = String.fromCharCode(tecla);#}
-{#            return patron.test(tecla_final);#}
-{#        }#}
-{#    </script>#}
-
 {% endblock %}

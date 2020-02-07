@@ -266,8 +266,6 @@ def re_incorporar_egresado_establecimiento_penitenciario(request, id_egresado_es
 @permission_required(['administrador', 'dmt'])
 def habilitar_egresado_establecimiento_penitenciario(request):
 
-    print("CI: ", EgresadosEstablecimientosPenitenciarios.objects.filter(activo=False, municipio_residencia__nombre='Bayamo').first().ci)
-
     ci = str(request.GET.get("ci", ""))
     errors = []
     context = {}
@@ -277,16 +275,20 @@ def habilitar_egresado_establecimiento_penitenciario(request):
             busqueda = EgresadosEstablecimientosPenitenciarios.objects.filter(ci=ci)
             if busqueda.count() != 0:
                 persona = busqueda.first()
-                if not persona.activo:
-                    persona.activo = True
-                    persona.causa_baja = None
-                    persona.fecha_baja = None
-                    persona.save()
+                municipio_solicita_empleo = str(request.user.perfil_usuario.municipio.nombre)
+                if str(persona.municipio_solicita_empleo.nombre) == municipio_solicita_empleo:
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
 
-                    messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
-                    return redirect('/egresados_establecimientos_penitenciarios')
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/egresados_establecimientos_penitenciarios')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
                 else:
-                    errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_solicita_empleo))
             else:
                 errors.append("CI {} no se encuentra registrado.".format(ci))
 

@@ -519,35 +519,39 @@ def control_licenciado_sma(request, id_licenciado_sma):
 @permission_required(['administrador', 'dmt'])
 def habilitar_licenciado_sma(request):
 
-    ci_licenciado_sma = str(request.GET.get("ci_licenciado_sma", ""))
+    print(LicenciadosSMA.objects.filter(activo=False, municipio_residencia__nombre='Bayamo').first().ci)
+
+    ci = str(request.GET.get("ci", ""))
     errors = []
-    context = {
-        'nombre_form': "Habilitar licenciado del SMA"
-    }
+    context = {}
 
-    if ci_licenciado_sma != "":
+    if ci != "":
         try:
-            licenciado_sma = LicenciadosSMA.objects.filter(ci=ci_licenciado_sma)
-            if licenciado_sma.count() != 0:
-                licenciado = licenciado_sma.first()
-                if not licenciado.activo:
-                    licenciado.activo = True
-                    licenciado.causa_baja = None
-                    licenciado.fecha_baja = None
-                    licenciado.save()
+            busqueda = LicenciadosSMA.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                municipio_residencia = str(request.user.perfil_usuario.municipio.nombre)
+                if str(persona.municipio_residencia.nombre) == municipio_residencia:
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
 
-                    messages.add_message(request, messages.SUCCESS, "El licenciado del sma ha sido habilitado con éxito.")
-                    return redirect('/licenciados_sma')
+                        messages.add_message(request, messages.SUCCESS, "El licenciado del sma ha sido habilitado con éxito.")
+                        return redirect('/licenciados_sma')
+                    else:
+                        errors.append("El licenciado del sma con CI {} ya se encuentra habilitado.".format(ci))
                 else:
-                    errors.append("El licenciado del sma con CI {} ya se encuentra habilitado.".format(ci_licenciado_sma))
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, persona.municipio_residencia))
             else:
-                errors.append("El licenciado del sma con CI {} no se encuentra registrado.".format(ci_licenciado_sma))
+                errors.append("El licenciado del sma con CI {} no se encuentra registrado.".format(ci))
 
         except Exception as e:
             errors.append("Error. Vuelva a introducir el CI.")
             print("Error habilitando licenciado del SMA: {}, {}".format(e.args, e.message))
 
-    context['ci_licenciado_sma'] = ci_licenciado_sma
+    context['ci'] = ci
     context['errors'] = errors
     return render(request, "EmpleoEstatal/LicenciadosSMA/habilitar_licenciado_sma.html", context)
 
