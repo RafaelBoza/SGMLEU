@@ -15,8 +15,40 @@
 {% block section_superior %}
 
     <div class="panel panel-primary">
-        <div class="panel-heading">Listado: Egresados de la EFI</div>
+        <div class="panel-heading">{{ nombre_pag }}</div>
         <div class="panel-body">
+            {#        BUSQUEDA         #}
+            <div class="row">
+
+                <div class="col-xs-3 pull-left">
+                    <a class="btn btn-success btn_gestion" href="{% url 'habilitar_egresado_efi' %}">
+                        <span class="glyphicon glyphicon-plus"></span> Habilitar
+                    </a>
+                </div>
+
+                <div class="col-xs-3 pull-right">
+                    <div class="input-group">
+                        {% if busqueda %}
+                            <input value="{{ valor_busqueda }}" disabled type="number" id="ci_buscar"
+                                   class="form-control" aria-label="..." style="height:32px;">
+                        {% else %}
+                            <input type="text" id="ci_buscar" class="form-control" aria-label="..."
+                                   placeholder="Escriba el CI" style="height:32px;">
+                        {% endif %}
+                        <div class="input-group-btn">
+                            {% if busqueda %}
+                                <a type="button" class="btn btn-default btn_normal" href={% url 'listar_egresados_efi' %}><span
+                                        class="glyphicon glyphicon-refresh"></span> Limpiar</a>
+                            {% else %}
+                                <button type="button" class="btn btn-default btn_normal"
+                                        onclick="Objeto.__init__('','egresados_efi','ci_buscar').buscar('ci');"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {#     FIN   BUSQUEDA         #}
             <div class="dropdown dropwdown_opciones_detalle">
                 <a class="dropdown-toggle a_opciones_detalle" type="button" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-cog"></span>
@@ -42,8 +74,7 @@
                 </ul>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%"
-                       id="tabla_gestion">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>Nombre y Apellidos</th>
@@ -118,6 +149,49 @@
                     </tbody>
                 </table>
             </div>
+            {% block paginate %}
+                <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                    {% if egresados_efi.has_previous %}
+                        <li>
+                            <a href="?pagina={{ egresados_efi.previous_page_number }}" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                Anterior
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if paginas %}
+                        {% for pagina in paginas %}
+                            {% if pagina == egresados_efi.number %}
+                                <li class="active"><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% else %}
+                                <li><a href="?pagina={{ pagina }}">{{ pagina }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <li class="active"><a href="?pagina=1">1</a></li>
+                    {% endif %}
+
+                    {% if egresados_efi.has_next %}
+                        <li>
+                            <a href="?pagina={{ egresados_efi.next_page_number }}" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% else %}
+
+                        <li class="disabled">
+                            <a href="#" aria-label="Next">
+                                Próximo
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endblock %}
         </div>
     </div>
 

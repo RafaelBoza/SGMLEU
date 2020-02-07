@@ -640,6 +640,8 @@ urlpatterns = [
     url(r'^egresados_efi/(?P<id_egresado_efi>[\w]+)/modificar', modificar_egresado_efi, name="modificar_egresado_efi"),
     url(r'^egresados_efi/(?P<id_egresado_efi>[\d]+)$', detalle_egresado_efi, name='detalle_egresado_efi'),
     url(r'^egresados_efi/(?P<id_egresado_efi>[\d]+)/re_incorporar', re_incorporar_egresado_efi, name='re_incorporar_egresado_efi'),
+    url(r'^egresados_efi/ci/(?P<ci>[\d]+)$', buscar_ci_egresado_efi),
+    url(r'^egresados_efi/habilitar_usando_ci', habilitar_egresado_efi, name="habilitar_egresado_efi"),
     # REPORTES
     url(r'^egresados_efi/reportes$', reportes_egresados_efi, name="reportes_egresados_efi"),
 

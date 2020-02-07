@@ -46,10 +46,40 @@ def listado_egresados_efi(request):
     else:
         egresados_efi = EgresadosEFI.objects.all()
 
+    egresados_efi = paginar(request, egresados_efi)
+    paginas = crear_lista_pages(egresados_efi)
+    nombre_pag = "Listado: Egresados de la EFI"
     return render(request, "EmpleoEstatal/EgresadosEFI/listar_egresados_efi.html", locals())
 
 
-# TODO: hacer el buscar
+@login_required
+@permission_required(['administrador', 'dpt_ee', 'dmt'])
+def buscar_ci_egresado_efi(request, ci):
+    anno_actual = datetime.datetime.today().year
+    categoria_usuario = request.user.perfil_usuario.categoria.nombre
+    municipio_usuario = request.user.perfil_usuario.municipio
+    provincia_usuario = request.user.perfil_usuario.provincia
+
+    if categoria_usuario == 'dmt':
+        egresados_efi = EgresadosEFI.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                    fecha_registro__year=anno_actual) | \
+                        EgresadosEFI.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                                    activo=True)
+    elif categoria_usuario == 'dpt_ee':
+        egresados_efi = EgresadosEFI.objects.filter(ci__contains=ci,
+                                                    municipio_solicita_empleo__provincia=provincia_usuario,
+                                                    fecha_registro__year=anno_actual) | \
+                        EgresadosEFI.objects.filter(ci__contains=ci, municipio_solicita_empleo__provincia=provincia_usuario,
+                                                    activo=True)
+    else:
+        egresados_efi = EgresadosEFI.objects.filter(ci__contains=ci)
+
+    egresados_efi = paginar(request, egresados_efi)
+    paginas = crear_lista_pages(egresados_efi)
+    context = {'egresados_efi': egresados_efi, 'nombre_pag': "Listado por ci: %s" % ci,
+               'busqueda': 'si', "valor_busqueda": ci, 'paginas': paginas}
+    return render(request, "EmpleoEstatal/EgresadosEFI/listar_egresados_efi.html", context)
+
 
 @login_required()
 @permission_required(['administrador', 'dmt'])
@@ -182,6 +212,45 @@ def re_incorporar_egresado_efi(request, id_egresado_efi):
         form = HistorialEgresadosEFIForm()
     context = {'form': form, 'nombre_form': "Re-incorporar", 'id_egresado_efi': id_egresado_efi}
     return render(request, "EmpleoEstatal/EgresadosEFI/re_incorporar.html", context)
+
+
+@login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_egresado_efi(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = EgresadosEFI.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/egresados_efi')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando egresado de escuela de conducta: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/EgresadosEFI/habilitar_egresado_efi.html", context)
 
 
 @login_required()
