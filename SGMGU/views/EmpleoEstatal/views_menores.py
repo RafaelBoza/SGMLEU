@@ -69,12 +69,42 @@ def listado_menores(request):
                   Menores.objects.filter(municipio_solicita_empleo__provincia=request.user.perfil_usuario.provincia,
                                          activo=True)
     else:
-        menores = Menores.objects.all()
+        menores = Menores.objects.filter(activo=False)
 
+    menores = paginar(request, menores)
+    paginas = crear_lista_pages(menores)
+    nombre_pag = "Listado: Jóvenes de 15 y 16 años"
     return render(request, "EmpleoEstatal/Menores/listar_menores.html", locals())
 
 
-# TODO: hacer el buscar
+@login_required
+@permission_required(['administrador', 'dpt_ee', 'dmt'])
+def buscar_ci_menor(request, ci):
+    anno_actual = datetime.datetime.today().year
+    categoria_usuario = request.user.perfil_usuario.categoria.nombre
+    municipio_usuario = request.user.perfil_usuario.municipio
+    provincia_usuario = request.user.perfil_usuario.provincia
+
+    if categoria_usuario == 'dmt':
+        menores = Menores.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                         fecha_registro__year=anno_actual) | \
+                  Menores.objects.filter(ci__contains=ci, municipio_solicita_empleo=municipio_usuario,
+                                         activo=True)
+    elif categoria_usuario == 'dpt_ee':
+        menores = Menores.objects.filter(ci__contains=ci,
+                                         municipio_solicita_empleo__provincia=provincia_usuario,
+                                         fecha_registro__year=anno_actual) | \
+                  Menores.objects.filter(ci__contains=ci, municipio_solicita_empleo__provincia=provincia_usuario,
+                                         activo=True)
+    else:
+        menores = Menores.objects.filter(ci__contains=ci)
+
+    menores = paginar(request, menores)
+    paginas = crear_lista_pages(menores)
+    context = {'menores': menores, 'nombre_pag': "Listado por ci: %s" % ci,
+               'busqueda': 'si', "valor_busqueda": ci, 'paginas': paginas}
+    return render(request, "EmpleoEstatal/Menores/listar_menores.html", context)
+
 
 @login_required()
 @permission_required(['administrador', 'dmt'])
@@ -207,6 +237,45 @@ def re_incorporar_menor(request, id_menor):
         form = HistorialMenoresForm()
     context = {'form': form, 'nombre_form': "Re-incorporar", 'id_menor': id_menor}
     return render(request, "EmpleoEstatal/Menores/re_incorporar.html", context)
+
+
+@login_required
+@permission_required(['administrador', 'dmt'])
+def habilitar_menor(request):
+
+    ci = str(request.GET.get("ci", ""))
+    errors = []
+    context = {}
+
+    if ci != "":
+        try:
+            busqueda = Menores.objects.filter(ci=ci)
+            if busqueda.count() != 0:
+                persona = busqueda.first()
+                if request.user.perfil_usuario.categoria.nombre == 'administrador' or \
+                        str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip()) == str(request.user.perfil_usuario.municipio.nombre.encode('utf-8').strip()):
+                    if not persona.activo:
+                        persona.activo = True
+                        persona.causa_baja = None
+                        persona.fecha_baja = None
+                        persona.save()
+
+                        messages.add_message(request, messages.SUCCESS, "Habilitado con éxito.")
+                        return redirect('/menores')
+                    else:
+                        errors.append("CI {} ya se encuentra habilitado.".format(ci))
+                else:
+                    errors.append("CI {} pertenece al municipio {}.".format(ci, str(persona.municipio_solicita_empleo.nombre.encode('utf-8').strip())))
+            else:
+                errors.append("CI {} no se encuentra registrado.".format(ci))
+
+        except Exception as e:
+            errors.append("Error. Vuelva a introducir el CI.")
+            print("Error habilitando menor: {}, {}".format(e.args, e.message))
+
+    context['ci'] = ci
+    context['errors'] = errors
+    return render(request, "EmpleoEstatal/Menores/habilitar_menor.html", context)
 
 
 @login_required

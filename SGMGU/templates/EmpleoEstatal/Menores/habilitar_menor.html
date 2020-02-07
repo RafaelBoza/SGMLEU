@@ -1,0 +1,50 @@
+{% extends "EmpleoEstatal/Menores/listar_menores.html" %}
+{% load staticfiles %}
+
+{% block encabezado %}
+    <header class="row"></header>
+{% endblock %}
+
+{% block section_superior %}
+{% endblock %}
+
+{% block titulo_tabla %} {% endblock %}
+
+{% block contenido_tabla %}
+    <div class="col-xs-7 placeholder" style="margin-left: 17%">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Habilitar</div>
+            <div class="panel-body">
+                <form action="" method="GET">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="ci"
+                                       placeholder="Escriba el CI..." style="height:32px;"
+                                       value="{{ ci }}"
+                                       pattern="[0-9]+" maxlength="11" minlength="11" required>
+                                <div style="padding-top: 5px">
+                                    {% if errors %}
+                                        <ul class="errorlist">
+                                            {% for error in errors %}
+                                                <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <button class="btn btn-primary" type="submit">
+                            <span class="glyphicon glyphicon-ok-sign"></span> Habilitar
+                        </button>
+                        <a class="btn btn-success btn_gestion" href="{% url 'listar_menores' %}">
+                            <span class="glyphicon glyphicon-arrow-left"> </span> Ir atrás
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

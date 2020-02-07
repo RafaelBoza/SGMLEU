@@ -652,6 +652,8 @@ urlpatterns = [
     url(r'^menores/(?P<id_menor>[\w]+)/modificar', modificar_menor, name="modificar_menor"),
     url(r'^menores/(?P<id_menor>[\d]+)$', detalle_menor, name='detalle_menor'),
     url(r'^menores/(?P<id_menor>[\d]+)/re_incorporar', re_incorporar_menor, name='re_incorporar_menor'),
+    url(r'^menores/ci/(?P<ci>[\d]+)$', buscar_ci_menor),
+    url(r'^menores/habilitar_usando_ci', habilitar_menor, name="habilitar_menor"),
     # REPORTES
     url(r'^menores/reportes$', reportes_menores, name="reportes_menores"),
 

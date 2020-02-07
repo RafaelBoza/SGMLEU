@@ -246,7 +246,7 @@ def habilitar_egresado_efi(request):
 
         except Exception as e:
             errors.append("Error. Vuelva a introducir el CI.")
-            print("Error habilitando egresado de escuela de conducta: {}, {}".format(e.args, e.message))
+            print("Error habilitando egresado de la EFI: {}, {}".format(e.args, e.message))
 
     context['ci'] = ci
     context['errors'] = errors
