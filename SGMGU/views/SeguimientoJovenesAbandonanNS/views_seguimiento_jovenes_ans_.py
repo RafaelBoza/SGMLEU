@@ -2,6 +2,9 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 import xml.etree.ElementTree as ET
+
+from xlsxwriter import Workbook
+
 from SGMGU.forms import *
 from django.contrib.auth.decorators import login_required
 from SGMGU.views.utiles import *
@@ -328,12 +331,57 @@ def importar_jovenes_abandonan(request):
     if request.method == 'POST':
         errors = []
         xml_file = request.FILES['jovenes_abandonan_file']
+        carreras_no_existentes = []
 
         if xml_file.name.split(".")[-1] != 'xml':
             messages.add_message(request, messages.ERROR, "El archivo subido es incorrecto")
             return redirect('/seguimiento_jovenes_abandonan_nivel_superior')
         else:
+
             book = ET.parse(xml_file).getroot()
+            for estudiante in book.findall('Estudiantes'):
+                joven = JovenAbandonanNS()
+
+                try:
+                    carrera = Carrera.objects.filter(nombre=estudiante.find('carrera_abandona').text).first()
+                    if carrera is not None:
+                        joven.carrera_abandona = carrera
+                    else:
+                        if not carreras_no_existentes.__contains__(estudiante.find('carrera_abandona').text):
+                            carreras_no_existentes.append(estudiante.find('carrera_abandona').text)
+
+                    centro = Centro_estudio.objects.filter(nombre=estudiante.find('centro_estudio').text).first()
+                    if centro is not None:
+                        joven.centro_estudio = centro
+
+                    municipio = Municipio.objects.filter(codigo_mes=estudiante.find('municipio_residencia').text).first()
+                    if municipio is not None:
+                        joven.municipio_residencia = municipio
+
+                    nivel = NivelEscolar.objects.filter(id=estudiante.find('nivel_escolar').text).first()
+                    if nivel is not None:
+                        joven.nivel_escolar = nivel
+
+                    causa = CausalBaja.objects.filter(causa=estudiante.find('causa_baja').text).first() if estudiante.find('causa_baja') is not None else None
+                    if causa is not None:
+                        joven.causa_baja_ns = causa
+
+                    joven.direccion_particular = estudiante.find('direccion_particular').text if estudiante.find('direccion_particular') is not None else ''
+                    joven.ci = estudiante.find('ci').text if estudiante.find('ci') is not None else None
+                    joven.nombre_apellidos = estudiante.find('nombre_apellidos').text
+                    joven.sexo = estudiante.find('sexo').text
+                    joven.anno_abandona = estudiante.find('anno_abandona').text
+                    joven.reincorporado_educacion = estudiante.find('reincorporado').text
+                    joven.dia_baja = int(estudiante.find('fecha_baja').text.split('/')[0])
+                    joven.mes_baja = int(estudiante.find('fecha_baja').text.split('/')[1])
+                    joven.anno_baja = int(estudiante.find('fecha_baja').text.split('/')[2])
+
+                    if joven.ci is not None and carrera is not None and centro is not None and municipio is not None and nivel is not None and causa is not None:
+                        if JovenAbandonanNS.objects.filter(ci=joven.ci).first() is None:
+                            joven.save()
+                except Exception as ex:
+                    cosa = ex.message
+            print(carreras_no_existentes)
             print(book)
 
             #                                        #
