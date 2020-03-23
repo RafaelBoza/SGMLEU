@@ -1,0 +1,56 @@
+[
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 1,
+  "fields": {
+    "causa": "Enfermedad",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:22:45.507Z"
+  }
+},
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 2,
+  "fields": {
+    "causa": "Matrimonio",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:23:06.238Z"
+  }
+},
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 3,
+  "fields": {
+    "causa": "Embarazo",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:23:17.371Z"
+  }
+},
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 4,
+  "fields": {
+    "causa": "Menores bajo su responsabilidad",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:23:33.099Z"
+  }
+},
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 5,
+  "fields": {
+    "causa": "Sanci\u00f3n penal",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:23:55.555Z"
+  }
+},
+{
+  "model": "SGMGU.causaldesvinculacionns",
+  "pk": 6,
+  "fields": {
+    "causa": "Problemas personales o familiares",
+    "activo": true,
+    "fecha_registro": "2020-03-14T16:24:05.978Z"
+  }
+}
+]

@@ -1,5 +1,5 @@
-{% with form.rectificar_causa_baja as field %}
-    <div class="row">
+<div class="row">
+    {% with form.causa_desvinculacion as field %}
         <div class="col-sm-12">
             <div class="form-group">
                 <label for="id_{{ field.name }}" style="font-size: 15px"
@@ -15,81 +15,100 @@
                 <p class="help-block">{{ field.help_text }} </p>
             </div>
         </div>
-    </div>
-{% endwith %}
-<div class="row">
-{% with form.requiere_empleo as field %}
-    <div class="col-sm-12">
-        <div class="form-group">
-            <label for="id_{{ field.name }}" style="font-size: 15px"
-                   class="label label-default control-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <p class="help-block">{{ field.help_text }} </p>
-        </div>
-    </div>
-{% endwith %}
+    {% endwith %}
 </div>
 <div class="row">
-{% with form.oficio_conoce as field %}
-    <div class="col-sm-12">
-        <div class="form-group">
-            <label for="id_{{ field.name }}" style="font-size: 15px"
-                   class="label label-default control-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <p class="help-block">{{ field.help_text }} </p>
+    {% with form.reincorporado_educacion as field %}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
         </div>
-    </div>
-{% endwith %}
+    {% endwith %}
 </div>
 <div class="row">
-{% with form.causa_no_requiere_empleo as field %}
-    <div class="col-sm-12">
-        <div class="form-group">
-            <label for="id_{{ field.name }}" style="font-size: 15px"
-                   class="label label-default control-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <p class="help-block">{{ field.help_text }} </p>
+    {% with form.requiere_empleo as field %}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
         </div>
-    </div>
-{% endwith %}
+    {% endwith %}
 </div>
 <div class="row">
-{% with form.observaciones_empleo as field %}
-    <div class="col-sm-12">
-        <div class="form-group">
-            <label for="id_{{ field.name }}" style="font-size: 15px"
-                   class="label label-default control-label">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                <ul class="errorlist">
-                    {% for error in field.errors %}
-                        <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <p class="help-block">{{ field.help_text }} </p>
+    {% with form.oficio_conoce as field %}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
         </div>
-    </div>
-{% endwith %}
+    {% endwith %}
+</div>
+<div class="row">
+    {% with form.causa_no_requiere_empleo as field %}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    {% endwith %}
+</div>
+<div class="row">
+    {% with form.observaciones_empleo as field %}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label for="id_{{ field.name }}" style="font-size: 15px"
+                       class="label label-default control-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <p class="help-block">{{ field.help_text }} </p>
+            </div>
+        </div>
+    {% endwith %}
 </div>

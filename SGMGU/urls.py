@@ -43,6 +43,7 @@ from SGMGU.views.Nomencladores.views_causales_interrupcion import *
 from SGMGU.views.Nomencladores.views_actividad_interrupto import *
 from SGMGU.views.Nomencladores.views_causales_no_reincorporacion import *
 from SGMGU.views.Nomencladores.views_causales_no_requieren_empleo import *
+from SGMGU.views.Nomencladores.views_causales_desvinculacion_ns import *
 # ---------------------------------------------------------------------------------
 
 # EMPLEO ESTATAL-------------------------------------------------------------------
@@ -794,6 +795,12 @@ urlpatterns = [
     # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/eliminar$', eliminar_causal_no_requiere_empleo),
     # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/modificar$', modificar_causal_no_requiere_empleo),
     # # url(r'^causales_no_requieren_empleo/(?P<id_causa>[\w]+)/activar$', activar_causal_no_requiere_empleo),
+
+    # CAUSALES DE INTERRUPCION
+    url(r'^causales_desvinculacion_ns$', gestion_causales_desvinculacion_ns, name='causales_desvinculacion_ns'),
+    url(r'^causales_desvinculacion_ns/registrar$', registrar_causal_desvinculacion_ns, name='registrar_causal_desvinculacion_ns'),
+    url(r'^causales_desvinculacion_ns/(?P<id_causal_desvinculacion_ns>[\w]+)/modificar$', modificar_causal_desvinculacion_ns, name='modificar_causal_desvinculacion_ns'),
+    url(r'^causales_desvinculacion_ns/(?P<id_causal_desvinculacion_ns>[\w]+)/eliminar$', eliminar_causal_desvinculacion_ns),
 
     # DESCARGAR GFORZA
     url(r'^descargar_gforza', descargar_gforza, name='descargar_gforza'),

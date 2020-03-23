@@ -64,7 +64,7 @@ def menu(request):
              {'name': 'Organismos Autorizados', 'url': reverse('gestion_organismos_autorizados'),'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
          ]},
 
-        {'name': 'Seguimiento a jóvenes que abandonan estudios en el NS', 'url': reverse('gestion_jovenes_abandonan_nivel_superior'), 'icon': 'glyphicon glyphicon-briefcase', 'visible': ['administrador', 'trabajador_social_joven_abandona', 'universidad_joven_abandona', 'dmt_joven_abandona']},
+        {'name': 'Seguimiento a jóvenes que abandonan estudios en el NS', 'url': reverse('gestion_jovenes_abandonan_nivel_superior'), 'icon': 'glyphicon glyphicon-briefcase', 'visible': ['administrador', 'trabajador_social_joven_abandona', 'organismo', 'dmt', 'dpt_ee']},
 
         # ---------------codigo de daniel (FIN)---------------
 
@@ -99,7 +99,8 @@ def menu(request):
                    {'name': 'Causales de no reincorporación', 'url': reverse('causales_no_reincorporacion'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
                    {'name': 'Actividades de interrupción', 'url': reverse('actividades_interrupto'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
                    {'name': 'Causales no requieren empleo', 'url': reverse('gestion_causales_no_requieren_empleo'), 'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador']},
-            #
+                   {'name': 'Causales de desvinculación del NS', 'url': reverse('causales_desvinculacion_ns'),'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador']},
+                   #
             #        # Daniel - fin
             #
                ]

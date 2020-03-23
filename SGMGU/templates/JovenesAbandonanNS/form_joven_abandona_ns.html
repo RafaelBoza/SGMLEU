@@ -167,25 +167,6 @@
         </div>
     </div>
 {% endwith %}
-{% with form.reincorporado_educacion as field %}
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label for="id_{{ field.name }}" style="font-size: 15px"
-                       class="label label-default control-label">{{ field.label }}</label>
-                {{ field }}
-                {% if field.errors %}
-                    <ul class="errorlist">
-                        {% for error in field.errors %}
-                            <li style="color: #ac2925; font-size: 12px">{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                <p class="help-block">{{ field.help_text }} </p>
-            </div>
-        </div>
-    </div>
-{% endwith %}
 {% with form.causa_baja_ns as field %}
     <div class="row">
         <div class="col-sm-12">

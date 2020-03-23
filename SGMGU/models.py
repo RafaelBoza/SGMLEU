@@ -1563,15 +1563,16 @@ def validacion_ci_joven_abandona_ns(value):
             raise ValidationError('CI incorrecto.')
 
 
-class JovenAbandonanNS(models.Model):
+class CausalDesvinculacionNS(models.Model):
+    causa = models.CharField(max_length=255)
+    activo = models.BooleanField(default=True)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
 
-    REINCORPORADO_EDUCACION = [
-        (0, 'Curso diurno'),
-        (1, 'Curso por encuentro'),
-        (2, 'Curso a distancia'),
-        (3, 'Tecnico Superior de Ciclo Corto'),
-        (4, 'No Reincorporado'),
-    ]
+    def __unicode__(self):
+        return self.causa
+
+
+class JovenAbandonanNS(models.Model):
 
     GET_SEXO = [
         ('m', 'Masculino'),
@@ -1596,7 +1597,6 @@ class JovenAbandonanNS(models.Model):
     centro_estudio = models.ForeignKey(Centro_estudio)
     carrera_abandona = models.ForeignKey(Carrera)
     anno_abandona = models.IntegerField()
-    reincorporado_educacion = models.IntegerField()  # preguntar si es un campo obligatorio
     causa_baja_ns = models.ForeignKey(CausalBaja)
     anno_baja = models.IntegerField()
     mes_baja = models.IntegerField()
@@ -1604,10 +1604,7 @@ class JovenAbandonanNS(models.Model):
     activo = models.BooleanField(default=True)
 
     fecha_registro = models.DateTimeField(auto_now_add=True)
-    fecha_modificad = models.DateTimeField(auto_now=True)
-
-    def reincorporado_edu(self):
-        return dict(JovenAbandonanNS.REINCORPORADO_EDUCACION)[self.reincorporado_educacion]
+    fecha_modificado = models.DateTimeField(auto_now=True)
 
     def get_sexo(self):
         return dict(JovenAbandonanNS.GET_SEXO)[self.sexo]
@@ -1618,11 +1615,14 @@ class JovenAbandonanNS(models.Model):
     def __unicode__(self):
         return self.nombre_apellidos
 
-    # def __str__(self):
-    #     return self.nombre_apellidos
-
 
 class ProcesoTrabajadorSocialJANS(models.Model):
+
+    REINCORPORADO_EDUCACION = [
+        (0, 'Curso diurno'),
+        (1, 'Curso por encuentro'),
+        (2, 'Curso a distancia'),
+    ]
 
     SI_NO = [
         ('S', 'Sí'),
@@ -1630,12 +1630,16 @@ class ProcesoTrabajadorSocialJANS(models.Model):
     ]
 
     joven_abandona = models.ForeignKey(JovenAbandonanNS)
-    rectificar_causa_baja = models.ForeignKey(CausalBaja)
+    causa_desvinculacion = models.ForeignKey(CausalDesvinculacionNS)
+    reincorporado_educacion = models.IntegerField()
     requiere_empleo = models.CharField(max_length=1, choices=SI_NO)
     oficio_conoce = models.ForeignKey(Carrera, blank=True, null=True)
     causa_no_requiere_empleo = models.ForeignKey(CausalNoRequiereEmpleo, blank=True, null=True)
     observaciones_empleo = models.CharField(max_length=255, blank=True, null=True)
     fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def reincorporado_edu(self):
+        return dict(ProcesoTrabajadorSocialJANS.REINCORPORADO_EDUCACION)[self.reincorporado_educacion]
 
     def get_requiere_empleo(self):
         return dict(ProcesoTrabajadorSocialJANS.SI_NO)[self.requiere_empleo]

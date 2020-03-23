@@ -15,6 +15,31 @@ def listado_licenciados_sma(request, errors=None):
     mes_actual = fecha_actual.month
     dia_actual = fecha_actual.day
 
+    # licenciados_l = LicenciadosSMA.objects.filter(fecha_registro__year=2019, activo=True)
+    #
+    # ids = []
+    # for l in licenciados_l:
+    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma=l)
+    #     if controles.count() == 0:
+    #         ids.append(l.id)
+    #         print("{} | '{}' | {}".format(l.municipio_residencia.provincia, str(l.ci), l.nombre_apellidos.encode('utf-8')))
+    # print('Licenciados: {}'.format(ids.__len__()))
+
+    # ids = []
+    #
+    # for l in licenciados_l:
+    #     controles = ControlLicenciadosSMA.objects.filter(licenciado_sma=l)
+    #     if controles.count() > 0:
+    #         incorporado = False
+    #         for c in controles:
+    #             if incorporado:
+    #                 break
+    #             elif c.incorporado == 'S':
+    #                 ids.append(l.id)
+    #                 incorporado = True
+    #
+    # print('IDS: {}'.format(ids.__len__()))
+
     if 11 <= dia_actual <= 18 and mes_actual == 1:
 
         comprobado = ComprobacionAnualEmpleoEstatal.objects.filter(fuente_procedencia_id=1,

@@ -2938,7 +2938,6 @@ class JovenAbandonanNSForm(forms.ModelForm):
             "carrera_abandona",
             "centro_estudio",
             "anno_abandona",
-            "reincorporado_educacion",
             "causa_baja_ns",
             "anno_baja",
             "mes_baja",
@@ -2978,16 +2977,6 @@ class JovenAbandonanNSForm(forms.ModelForm):
                                       widget=forms.Select(attrs={"class": "form-control"}),
                                       label='Año en que abandona')
 
-    reincorporado_educacion = forms.ChoiceField(choices=(
-                                                    ("", "---------"),
-                                                    (0, "Curso diurno"),
-                                                    (1, "Curso por encuentro"),
-                                                    (2, "Curso a distancia"),
-                                                    (3, 'Tecnico Superior de Ciclo Corto'),
-                                                    (4, 'No Reincorporado')),
-                                                widget=forms.Select(
-                                                attrs={"class": "form-control"}), label='Reincorporado a educación superior', required=True)
-
     ANNOS_BAJA = (("", "---------"),)
     for anno in range(2000, datetime.today().year + 1):
         ANNOS_BAJA = ANNOS_BAJA + ((anno, anno),)
@@ -3023,24 +3012,35 @@ class ProcesoTrabajadorSocialJANSForm(forms.ModelForm):
     class Meta:
         model = ProcesoTrabajadorSocialJANS
         fields = [
-            'rectificar_causa_baja',
+            'causa_desvinculacion',
+            "reincorporado_educacion",
             'requiere_empleo',
             'oficio_conoce',
             'causa_no_requiere_empleo',
             'observaciones_empleo'
         ]
         widgets = {
-            'rectificar_causa_baja': forms.Select(attrs={'class': 'form-control'}),
+            'causa_desvinculacion': forms.Select(attrs={'class': 'form-control'}),
             'oficio_conoce': forms.Select(attrs={'class': 'form-control'}),
             'causa_no_requiere_empleo': forms.Select(attrs={'class': 'form-control'}),
             "observaciones_empleo": forms.Textarea(attrs={"class": "form-control", 'rows': 3}),
         }
         labels = {
-            "rectificar_causa_baja": "Rectificar causa de la baja",
+            "causa_desvinculacion": "Causa de la desvinculación del nivel superior",
             "oficio_conoce": "Oficio que conoce",
             'causa_no_requiere_empleo': "Causa no requiere empleo",
             'observaciones_empleo': "Observaciones para el empleo"
         }
+
+    reincorporado_educacion = forms.ChoiceField(choices=(
+                                               ("", "---------"),
+                                               (0, "Curso diurno"),
+                                               (1, "Curso por encuentro"),
+                                               (2, "Curso a distancia")),
+                                               widget=forms.Select(
+                                               attrs={"class": "form-control"}),
+                                               label='Reincorporado a educación superior',
+                                               required=True)
 
     requiere_empleo = forms.ChoiceField(choices=(
                             ("", "---------"),
@@ -3051,8 +3051,8 @@ class ProcesoTrabajadorSocialJANSForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProcesoTrabajadorSocialJANSForm, self).__init__(*args, **kwargs)
-        self.fields['rectificar_causa_baja'].queryset = CausalBaja.objects.filter(activo=True, id__in=[11, 12, 13, 14, 15, 16, 17])
-        self.fields['oficio_conoce'].queryset = Carrera.objects.filter(activo=True, tipo='oc')
+        self.fields['causa_desvinculacion'].queryset = CausalDesvinculacionNS.objects.filter(activo=True, id__in=[1,2,3,4,5,6])
+        self.fields['oficio_conoce'].queryset = Carrera.objects.filter(activo=True, tipo__in=['oc', 'nm'])
         self.fields['causa_no_requiere_empleo'].queryset = CausalNoRequiereEmpleo.objects.filter(activo=True,  id__in=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 
@@ -3090,7 +3090,7 @@ class ProcesoDireccionMEmpleoJANSForm(forms.ModelForm):
         self.fields['ubicacion'].queryset = Ubicacion.objects.filter(activo=True)
         self.fields['organismo'].queryset = Organismo.objects.filter(activo=True)
         self.fields['entidad'].queryset = Entidad.objects.filter(estado=True)
-        self.fields['causa_no_ubicacion'].queryset = CausalNoUbicado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+        self.fields['causa_no_ubicacion'].queryset = CausalNoUbicado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12])
 
 
 class ControlJovenAbandonanNSForm(forms.ModelForm):
@@ -3125,7 +3125,7 @@ class ControlJovenAbandonanNSForm(forms.ModelForm):
         self.fields['ubicacion'].queryset = Ubicacion.objects.filter(activo=True)
         self.fields['organismo'].queryset = Organismo.objects.filter(activo=True)
         self.fields['entidad'].queryset = Entidad.objects.filter(estado=True)
-        self.fields['causa_no_incorporado'].queryset = CausalNoIncorporado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 7])
+        self.fields['causa_no_incorporado'].queryset = CausalNoIncorporado.objects.filter(activo=True, id__in=[1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 
 class CausalNoRequiereEmpleoForm(forms.ModelForm):
@@ -3135,6 +3135,16 @@ class CausalNoRequiereEmpleoForm(forms.ModelForm):
         widgets = {
             'causa': forms.TextInput(
                 attrs={'class': 'form-control', 'placeholder': 'Escriba la causa'}),
+        }
+
+
+class CausalDesvinculacionNSForm(forms.ModelForm):
+    class Meta:
+        model = CausalDesvinculacionNS
+        fields = ["causa"]
+        widgets = {
+            'causa': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escriba la causa de desvinculación'}),
         }
 
 

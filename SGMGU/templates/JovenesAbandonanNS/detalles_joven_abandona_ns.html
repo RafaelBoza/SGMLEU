@@ -81,7 +81,7 @@
                             </a>
                         </li>
                     {% endif %}
-                    {% if categoria == "administrador" or categoria == "dmt_joven_abandona" %}
+                    {% if categoria == "administrador" or categoria == "dmt" %}
                         <li>
                             <a class=" btn_gestion"
                                href="{% url 'proceso_direccion_empleo_jans' joven_abandona.id %}">
@@ -95,7 +95,7 @@
                             </a>
                         </li>
                     {% endif %}
-                    {% if categoria == "administrador" or categoria == "universidad_joven_abandona" %}
+                    {% if categoria == "administrador" %}
                         <li>
                             <a class=" btn_gestion"
                                href="{% url 'modificar_joven_abandona_nivel_superior' joven_abandona.id %}">
@@ -128,8 +128,10 @@
                 <p><strong>Dirección de residencia:</strong> {{ joven_abandona.direccion_particular }}, {{ joven_abandona.municipio_residencia }}, {{ joven_abandona.municipio_residencia.provincia }}</p>
                 <p><strong>Nivel escolar:</strong> {{ joven_abandona.nivel_escolar }}</p>
                 <p><strong>Carrera que abandona:</strong> {{ joven_abandona.carrera_abandona }}</p>
+                <p><strong>Centro de estudio:</strong> {{ joven_abandona.centro_estudio }}</p>
                 <p><strong>Año en que abandona:</strong> {{ joven_abandona.get_anno_abandona }}</p>
                 <p><strong>Reincorporado a educación:</strong> {{ joven_abandona.reincorporado_edu }}</p>
+                <p><strong>Causa de baja del nivel superior:</strong> {{ joven_abandona.causa_baja_ns }}</p>
                 <p><strong>Fecha de baja:</strong> {{ joven_abandona.dia_baja }}/{{ joven_abandona.mes_baja }}/{{ joven_abandona.anno_baja }}</p>
                 <p><strong>Fecha de registro:</strong> {{ joven_abandona.fecha_registro }}</p>
             </div>
@@ -138,7 +140,7 @@
                 <div id="datos_exp" class="datos_joven_abandona_ts">
                     <h4 class="text-center">Proceso realizado por el trabajador social:</h4>
                     {% for proceso_ts in proceso_realizado_trabajador_social %}
-                         <p><strong>Rectificar causa de la baja:</strong> {{ proceso_ts.rectificar_causa_baja }}</p>
+                         <p><strong>Causa de la desvinculación del nivel superior:</strong> {{ proceso_ts.causa_desvinculacion }}</p>
                          <p><strong>Requiere empleo:</strong> {{ proceso_ts.get_requiere_empleo }}</p>
                         {% if proceso_ts.oficio_conoce  %}<p><strong>Oficio que conoce:</strong> {{ proceso_ts.oficio_conoce }}</p>{% endif %}
                         {% if proceso_ts.causa_no_requiere_empleo  %}<p><strong>Causa no requiere empleo:</strong> {{ proceso_ts.causa_no_requiere_empleo }}</p>{% endif %}

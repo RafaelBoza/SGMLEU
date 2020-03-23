@@ -2,9 +2,6 @@
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 import xml.etree.ElementTree as ET
-
-from xlsxwriter import Workbook
-
 from SGMGU.forms import *
 from django.contrib.auth.decorators import login_required
 from SGMGU.views.utiles import *
@@ -12,31 +9,21 @@ import datetime
 from django.db.models import Q
 from django.http import HttpResponse
 import xlrd
+import xml.dom.minidom
 
 
 @login_required()
-@permission_required(['administrador', 'trabajador_social_joven_abandona', 'universidad_joven_abandona', 'dmt_joven_abandona', 'dpt_ee'])
+@permission_required(['administrador', 'trabajador_social_joven_abandona', 'organismo', 'dmt', 'dpt_ee'])
 def gestion_jovenes_abandonan_nivel_superior(request):
 
     perfil_usuario = request.user.perfil_usuario
-    centro_estudio = perfil_usuario.universidad
     provincia = perfil_usuario.provincia
     municipio = perfil_usuario.municipio
     categoria = perfil_usuario.categoria.nombre
-    fecha_actual = datetime.datetime.today()
 
     q = request.GET.get("q")
 
-    if categoria == 'universidad_joven_abandona':
-        jovenes = JovenAbandonanNS.objects.filter(centro_estudio=centro_estudio). \
-            values('id', 'nombre_apellidos', 'ci', 'municipio_residencia__nombre', 'carrera_abandona__nombre', 'activo')
-        if q:
-            jovenes = jovenes.filter(
-                Q(nombre_apellidos__icontains=q) |
-                Q(ci__icontains=q)
-            )
-
-    elif categoria == 'trabajador_social_joven_abandona'or categoria == 'dmt_joven_abandona':
+    if categoria == 'trabajador_social_joven_abandona' or categoria == 'dmt':
         jovenes = JovenAbandonanNS.objects.filter(municipio_residencia=municipio). \
             values('id', 'nombre_apellidos', 'ci', 'municipio_residencia__nombre', 'carrera_abandona__nombre', 'activo')
         if q:
@@ -47,7 +34,7 @@ def gestion_jovenes_abandonan_nivel_superior(request):
 
     elif categoria == 'dpt_ee':
         jovenes = JovenAbandonanNS.objects.filter(municipio_residencia__provincia=provincia). \
-            values('id', 'nombre_apellidos', 'ci', 'municipio_residencia__nombre', 'carrera_abandona__nombre', 'activo')
+            values('id', 'nombre_apellidos', 'ci', 'municipio_residencia__provincia__nombre', 'carrera_abandona__nombre', 'activo')
         if q:
             jovenes = jovenes.filter(
                 Q(nombre_apellidos__icontains=q) |
@@ -62,6 +49,8 @@ def gestion_jovenes_abandonan_nivel_superior(request):
                 Q(nombre_apellidos__icontains=q) |
                 Q(ci__icontains=q)
             )
+    elif categoria == 'organismo':
+        jovenes = JovenAbandonanNS.objects.filter(id=0)
     else:
         return redirect('/logout')
 
@@ -79,7 +68,7 @@ def gestion_jovenes_abandonan_nivel_superior(request):
 
 
 @login_required()
-@permission_required(['administrador', 'universidad_joven_abandona'])
+@permission_required(['administrador', 'organismo'])
 def registrar_joven_abandona_nivel_superior(request):
 
     if request.method == 'POST':
@@ -112,7 +101,7 @@ def registrar_joven_abandona_nivel_superior(request):
 
 
 @login_required()
-@permission_required(['administrador', 'universidad_joven_abandona'])
+@permission_required(['administrador'])
 def modificar_joven_abandona_nivel_superior(request, id_joven):
 
     joven_abandona = JovenAbandonanNS.objects.get(id=id_joven)
@@ -171,10 +160,10 @@ def proceso_trabajador_social_jans(request, id_joven):
 
 
 @login_required()
-@permission_required(['administrador', 'dmt_joven_abandona'])
+@permission_required(['administrador', 'dmt'])
 def proceso_direccion_empleo_jans(request, id_joven):
 
-    ids_ubicaciones = [1, 2, 3, 4]
+    ids_ubicaciones = [1, 2, 4]
     ubicaciones = Ubicacion.objects.filter(activo=True, id__in=ids_ubicaciones)
     organismos = Organismo.objects.filter(activo=True)
     municipios = Municipio.objects.all()
@@ -218,13 +207,13 @@ def proceso_direccion_empleo_jans(request, id_joven):
 
 
 @login_required()
-@permission_required(['administrador', 'dmt_joven_abandona'])
+@permission_required(['administrador', 'dmt'])
 def proceso_control_jans(request, id_joven):
 
-    ids_ubicaciones = [1, 2, 3, 4]
-    ubicaciones = Ubicacion.objects.filter(activo=True, id__in=ids_ubicaciones)
-    organismos = Organismo.objects.filter(activo=True)
-    municipios = Municipio.objects.all()
+    # ids_ubicaciones = [1, 2, 3, 4]
+    # ubicaciones = Ubicacion.objects.filter(activo=True, id__in=ids_ubicaciones)
+    # organismos = Organismo.objects.filter(activo=True)
+    # municipios = Municipio.objects.all()
 
     if request.method == 'POST':
         form = ControlJovenAbandonanNSForm(request.POST)
@@ -243,9 +232,9 @@ def proceso_control_jans(request, id_joven):
                 'form': form,
                 'nombre_form': "Control realizado por la dirección de empleo",
                 "id_joven": id_joven,
-                'ubicaciones': ubicaciones,
-                'organismos': organismos,
-                'municipios': municipios
+                # 'ubicaciones': ubicaciones,
+                # 'organismos': organismos,
+                # 'municipios': municipios
             }
 
             return render(request, "JovenesAbandonanNS/proceso_control_jans.html", context)
@@ -256,9 +245,9 @@ def proceso_control_jans(request, id_joven):
         'form': form,
         'nombre_form': "Control realizado por la dirección de empleo",
         "id_joven": id_joven,
-        'ubicaciones': ubicaciones,
-        'organismos': organismos,
-        'municipios': municipios
+        # 'ubicaciones': ubicaciones,
+        # 'organismos': organismos,
+        # 'municipios': municipios
     }
 
     return render(request, "JovenesAbandonanNS/proceso_control_jans.html", context)
@@ -266,11 +255,12 @@ def proceso_control_jans(request, id_joven):
 
 
 @login_required()
-@permission_required(['administrador', 'trabajador_social_joven_abandona', 'universidad_joven_abandona', 'dmt_joven_abandona', 'dpt_ee'])
+@permission_required(['administrador', 'trabajador_social_joven_abandona', 'dmt', 'dpt_ee'])
 def detalles_joven_abandona_nivel_superior(request, id_joven):
 
     categoria = request.user.perfil_usuario.categoria.nombre
     joven_abandona = get_object_or_404(JovenAbandonanNS, id=id_joven)
+    print(joven_abandona.carrera_abandona)
 
     proceso_realizado_trabajador_social = ProcesoTrabajadorSocialJANS.objects.filter(joven_abandona=id_joven)
 
@@ -280,7 +270,7 @@ def detalles_joven_abandona_nivel_superior(request, id_joven):
 
     context = {
         'joven_abandona': joven_abandona,
-        'nombre_pag': "Datos del Joven: {}".format(joven_abandona.nombre_apellidos),
+        'nombre_pag': "Datos del Joven: {}".format(joven_abandona.nombre_apellidos.encode('utf-8').strip()),
         'edad': obtener_edad(joven_abandona.ci),
         'categoria': categoria,
         'proceso_realizado_trabajador_social': proceso_realizado_trabajador_social,
@@ -324,14 +314,27 @@ def desactivar_joven_abandona_nivel_superior(request, id_joven):
     return redirect('/seguimiento_jovenes_abandonan_nivel_superior')
 
 
+def find_error(joven):
+    if joven.ci is None:
+        return 'Carnet'
+    if joven.carrera_abandona is None:
+        return 'Carrera'
+    if joven.centro_estudio is None:
+        return 'Centro Estudio'
+    if joven.causa_baja_ns is None:
+        return 'Causa baja'
+    return ''
+
+
 @login_required
-@permission_required(['administrador', 'universidad_joven_abandona'])
+@permission_required(['administrador', 'organismo'])
 def importar_jovenes_abandonan(request):
 
     if request.method == 'POST':
         errors = []
         xml_file = request.FILES['jovenes_abandonan_file']
         carreras_no_existentes = []
+        no_insertados = []
 
         if xml_file.name.split(".")[-1] != 'xml':
             messages.add_message(request, messages.ERROR, "El archivo subido es incorrecto")
@@ -342,69 +345,66 @@ def importar_jovenes_abandonan(request):
             for estudiante in book.findall('Estudiantes'):
                 joven = JovenAbandonanNS()
 
-                try:
-                    carrera = Carrera.objects.filter(nombre=estudiante.find('carrera_abandona').text).first()
-                    if carrera is not None:
-                        joven.carrera_abandona = carrera
-                    else:
-                        if not carreras_no_existentes.__contains__(estudiante.find('carrera_abandona').text):
-                            carreras_no_existentes.append(estudiante.find('carrera_abandona').text)
+                carrera = Carrera.objects.filter(nombre=estudiante.find('carrera_abandona').text).first()
+                if carrera is not None:
+                    joven.carrera_abandona = carrera
+                else:
+                    if not carreras_no_existentes.__contains__(estudiante.find('carrera_abandona').text):
+                        carreras_no_existentes.append(estudiante.find('carrera_abandona').text)
 
-                    centro = Centro_estudio.objects.filter(nombre=estudiante.find('centro_estudio').text).first()
-                    if centro is not None:
-                        joven.centro_estudio = centro
+                centro = Centro_estudio.objects.filter(nombre=estudiante.find('centro_estudio').text).first()
+                if centro is not None:
+                    joven.centro_estudio = centro
 
-                    municipio = Municipio.objects.filter(codigo_mes=estudiante.find('municipio_residencia').text).first()
-                    if municipio is not None:
-                        joven.municipio_residencia = municipio
+                municipio = Municipio.objects.filter(codigo_mes=estudiante.find('municipio_residencia').text).first()
+                if municipio is not None:
+                    joven.municipio_residencia = municipio
 
-                    nivel = NivelEscolar.objects.filter(id=estudiante.find('nivel_escolar').text).first()
-                    if nivel is not None:
-                        joven.nivel_escolar = nivel
+                nivel = NivelEscolar.objects.filter(id=estudiante.find('nivel_escolar').text).first()
+                if nivel is not None:
+                    joven.nivel_escolar = nivel
 
-                    causa = CausalBaja.objects.filter(causa=estudiante.find('causa_baja').text).first() if estudiante.find('causa_baja') is not None else None
-                    if causa is not None:
-                        joven.causa_baja_ns = causa
+                causa = CausalBaja.objects.filter(causa=estudiante.find('causa_baja').text).first() if estudiante.find('causa_baja') is not None else None
+                if causa is not None:
+                    joven.causa_baja_ns = causa
 
-                    joven.direccion_particular = estudiante.find('direccion_particular').text if estudiante.find('direccion_particular') is not None else ''
-                    joven.ci = estudiante.find('ci').text if estudiante.find('ci') is not None else None
-                    joven.nombre_apellidos = estudiante.find('nombre_apellidos').text
-                    joven.sexo = estudiante.find('sexo').text
-                    joven.anno_abandona = estudiante.find('anno_abandona').text
-                    joven.reincorporado_educacion = estudiante.find('reincorporado').text
-                    joven.dia_baja = int(estudiante.find('fecha_baja').text.split('/')[0])
-                    joven.mes_baja = int(estudiante.find('fecha_baja').text.split('/')[1])
-                    joven.anno_baja = int(estudiante.find('fecha_baja').text.split('/')[2])
+                joven.direccion_particular = estudiante.find('direccion_particular').text if estudiante.find('direccion_particular') is not None else ''
+                joven.ci = estudiante.find('ci').text if estudiante.find('ci') is not None else None
+                joven.nombre_apellidos = estudiante.find('nombre_apellidos').text
+                joven.sexo = estudiante.find('sexo').text
+                joven.anno_abandona = estudiante.find('anno_abandona').text
+                # joven.reincorporado_educacion = estudiante.find('reincorporado').text
+                joven.dia_baja = int(estudiante.find('fecha_baja').text.split('/')[0])
+                joven.mes_baja = int(estudiante.find('fecha_baja').text.split('/')[1])
+                joven.anno_baja = int(estudiante.find('fecha_baja').text.split('/')[2])
 
-                    if joven.ci is not None and carrera is not None and centro is not None and municipio is not None and nivel is not None and causa is not None:
-                        if JovenAbandonanNS.objects.filter(ci=joven.ci).first() is None:
-                            joven.save()
-                except Exception as ex:
-                    cosa = ex.message
+                if joven.ci is not None and carrera is not None and centro is not None and municipio is not None and nivel is not None and causa is not None:
+                    if JovenAbandonanNS.objects.filter(ci=joven.ci).first() is None:
+                        joven.save()
+                else:
+                    no_insertados.append(joven.nombre_apellidos + ' - ' + find_error(joven))
+
             print(carreras_no_existentes)
-            print(book)
-
-            #                                        #
-            # AQUI VA EL CODIGO PARA PARSEAR EL XML  #
-            #                                        #
+            print(no_insertados)
 
         if len(errors) > 0:
+            pass
             response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
             response['Content-Disposition'] = "attachment; filename=Errores_encontrados_al_importar_jovenes_que_abandonan.xlsx"
-            book = Workbook(response, {'in_memory': True})
-            bold = book.add_format({'bold': True, 'border': 1})
-            format = book.add_format({'border': 1})
-            sheet = book.add_worksheet("Errores")
-
-            sheet.set_column('A:A', 10)
-            sheet.set_column('B:B', 80)
-            sheet.write(0, 0,  "No.Fila",bold)
-            sheet.write(0, 1,  "Error",bold)
-
-            for i, error in enumerate(errors):
-                sheet.write(i + 1, 0, unicode(error[0]), format)
-                sheet.write(i + 1, 1, error[1].decode('utf-8'), format)
-            book.close()
+            # book = Workbook(response, {'in_memory': True})
+            # bold = book.add_format({'bold': True, 'border': 1})
+            # format = book.add_format({'border': 1})
+            # sheet = book.add_worksheet("Errores")
+            #
+            # sheet.set_column('A:A', 10)
+            # sheet.set_column('B:B', 80)
+            # sheet.write(0, 0,  "No.Fila",bold)
+            # sheet.write(0, 1,  "Error",bold)
+            #
+            # for i, error in enumerate(errors):
+            #     sheet.write(i + 1, 0, unicode(error[0]), format)
+            #     sheet.write(i + 1, 1, error[1].decode('utf-8'), format)
+            # book.close()
             messages.add_message(request, messages.SUCCESS, "XML importado.   NOTA: Ocurrieron algunos errores al importar el XML.")
             return response
         else:
