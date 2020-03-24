@@ -1678,7 +1678,7 @@ class ControlJovenAbandonanNS(models.Model):
 
 
 class InterruptosCovid(models.Model):
-    municipio = models.ForeignKey(Municipio, blank=True, null=True)  # municipio de la entidad???
+    municipio = models.ForeignKey(Municipio)  # municipio de la entidad???
     organismo = models.ForeignKey(Organismo)
     entidad = models.ForeignKey(Entidad)
     total_trabajadores_entidad = models.IntegerField()
