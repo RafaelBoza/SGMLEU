@@ -1,0 +1,154 @@
+{% extends "General/index.html" %}
+
+{% block encabezado %}
+
+    <header class="row">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="mensaje_exito"><span class="mensaje_exito glyphicon glyphicon-ok"></span> {{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    </header>
+
+{% endblock %}
+
+{% block section_superior %}
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">{{ nombre_pag }}</div>
+        <div class="panel-body">
+            <div class="row">
+
+                {% if user.perfil_usuario.categoria.nombre == "dmt" or user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                    <div class="col-xs-3 pull-left">
+                        <a class="btn btn-success btn_gestion" href="{% url 'registrar_interrupto_covid' %}">
+                            <span class="glyphicon glyphicon-plus"></span> Registrar
+                        </a>
+                    </div>
+
+                {% endif %}
+
+                {% comment %}<div class="col-xs-3 pull-right">
+                    <form action="" method="GET">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control" name="q"
+                                   aria-label="..." placeholder="Buscar..." style="height:32px;"
+                                   value="{{ request.GET.q }}">
+                            <div class="input-group-btn">
+
+                                <button type="submit" class="btn btn-default btn_normal"><span
+                                        class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>{% endcomment %}
+
+            </div>
+
+
+            <div class="table-responsive">
+                <table class="usar_DataTable_2 table table-striped table-bordered dt-responsive nowrap gestion_ubicado"
+                       cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>Organismo</th>
+                        <th>Entidad</th>
+                        <th>Municipio</th>
+                        <th>Interruptos</th>
+                        <th width="100">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for interrupto in interruptos_covid %}
+                        <tr>
+                            <td>{{ interrupto.organismo }}</td>
+                            <td>{{ interrupto.entidad }}</td>
+                            <td>{{ interrupto.municipio }}</td>
+                            <td>{{ interrupto.interruptos }}</td>
+                            <td class="opciones_gestion" align="center">
+
+                                <a href="/interruptos/{{ interrupto.id }}"
+                                   class="btn btn-success"
+                                   title="Detalles"><span class="glyphicon glyphicon-search"></span></a>
+
+                                {% if user.perfil_usuario.categoria.nombre == "dmt" or user.perfil_usuario.categoria.nombre == "administrador" %}
+
+                                    <a href="{% url 'modificar_interrupto_covid' interrupto.id %}"
+                                       class="btn btn-info" title="Modificar"><span
+                                            class="glyphicon glyphicon-pencil"></span></a>
+
+                                    <button id="{{ interrupto.id }}" title="Eliminar"
+                                            class="btn btn-danger modal-eliminar_interrupto_covid"
+                                            data-toggle="modal" data-target="#modal_eliminar_interrupto_covid"
+                                            onclick="Objeto.__init__({{ interrupto.id }},'interruptos_covid','modal_eliminar_interrupto_covid').eliminar();">
+                                          <span class="glyphicon glyphicon-trash">
+                                          </span>
+                                    </button>
+
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% block paginate %}
+                {% if interruptos_covid.has_previous or interruptos.has_next %}
+                    <ul class="pagination pull-right" style="position: relative;top: -25px;padding: 0;margin: 0">
+                        {% if interruptos_covid.has_previous %}
+                            <li>
+                                <a href="?pagina={{ interruptos_covid.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                                <a href="#" aria-label="Previous">
+                                    Anterior
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li class="disabled"><a>Página {{ interruptos_covid.number }} de {{ interruptos_covid.paginator.num_pages }}</a></li>
+
+                        {% if interruptos_covid.has_next %}
+                            <li>
+                                <a href="?pagina={{ interruptos_covid.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% else %}
+
+                            <li class="disabled">
+                                <a href="#" aria-label="Next">
+                                    Próximo
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_eliminar_interrupto_covid" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title modal_dar_baja">Confirmación</h4>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro que desea eliminarlo?</p>
+                </div>
+                <div class="modal-footer">
+                    <a type="submit" class="btn btn-default">Aceptar</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

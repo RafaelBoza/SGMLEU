@@ -3148,4 +3148,209 @@ class CausalDesvinculacionNSForm(forms.ModelForm):
         }
 
 
+class InterruptosCovidForm(forms.ModelForm):
+    class Meta:
+        model = InterruptosCovid
+        fields = [
+            "municipio",
+            "organismo",
+            "entidad",
+            "total_trabajadores_entidad",
+            "hospitalizados_covid",
+            "certificado_medico_covid",
+            "permanecen_entidad",
+            "trabajo_distancia",
+            "teletrabajo",
+            "interruptos",
+            "causa_interrupcion",
+            "irma_misma_entidad",
+            "irma_otra_entidad_mismo_organismo",
+            "irma_otro_organismo",
+            "ircl_misma_entidad",
+            "ircl_otra_entidad_mismo_organismo",
+            "ircl_otro_organismo",
+            "vinculados_produccion_alimentos",
+            "garantia_salarial_100",
+            "garantia_salarial_60",
+            "locales_cerrados",
+            "total_locales",
+        ]
+
+    municipio = forms.ModelChoiceField(
+        queryset=Municipio.objects.all().order_by("nombre"),
+        required=True,
+        widget=forms.Select(
+            attrs={'class': 'form-control',
+                   'style': 'visibility:hidden',
+                   'disabled': 'disabled'
+                   }))
+
+    organismo = forms.ModelChoiceField(
+        queryset=Organismo.objects.all().order_by("nombre"),
+        required=True,
+        widget=forms.Select(
+            attrs={'class': 'form-control'
+                   }))
+
+    entidad = forms.ModelChoiceField(
+        required=True,
+        queryset=Entidad.objects.filter(estado=True),
+        widget=forms.Select(
+            attrs={'class': 'form-control'
+                   }))
+
+    total_trabajadores_entidad = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number',
+                'min': 0
+            }))
+
+    hospitalizados_covid = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    certificado_medico_covid = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    permanecen_entidad = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    trabajo_distancia = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    teletrabajo = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    interruptos = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    causa_interrupcion = forms.ModelChoiceField(
+        queryset=CausalInterrupcion.objects.all().order_by("causa"),
+        required=False,
+        widget=forms.Select(
+            attrs={'class': 'form-control',
+                   'style': 'visibility:hidden',
+                   }))
+
+    irma_misma_entidad = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    irma_otra_entidad_mismo_organismo = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    irma_otro_organismo = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    ircl_misma_entidad = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    ircl_otra_entidad_mismo_organismo = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    ircl_otro_organismo = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    vinculados_produccion_alimentos = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    garantia_salarial_100 = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    garantia_salarial_60 = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    locales_cerrados = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+    total_locales = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'type': 'number'
+            }))
+
+
                 # ----------------codigo de daniel (FIN)--------------

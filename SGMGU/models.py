@@ -1677,4 +1677,34 @@ class ControlJovenAbandonanNS(models.Model):
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
 
+class InterruptosCovid(models.Model):
+    municipio = models.ForeignKey(Municipio, blank=True, null=True)  # municipio de la entidad???
+    organismo = models.ForeignKey(Organismo)
+    entidad = models.ForeignKey(Entidad)
+    total_trabajadores_entidad = models.IntegerField()
+    hospitalizados_covid = models.IntegerField()
+    certificado_medico_covid = models.IntegerField()
+    permanecen_entidad = models.IntegerField()
+    trabajo_distancia = models.IntegerField()
+    teletrabajo = models.IntegerField()
+    interruptos = models.IntegerField()
+    causa_interrupcion = models.ForeignKey(CausalInterrupcion)
+    irma_misma_entidad = models.IntegerField()
+    irma_otra_entidad_mismo_organismo = models.IntegerField()
+    irma_otro_organismo = models.IntegerField()
+    ircl_misma_entidad = models.IntegerField()
+    ircl_otra_entidad_mismo_organismo = models.IntegerField()
+    ircl_otro_organismo = models.IntegerField()
+    vinculados_produccion_alimentos = models.IntegerField()
+    garantia_salarial_100 = models.IntegerField()
+    garantia_salarial_60 = models.IntegerField()
+    locales_cerrados = models.IntegerField()
+    total_locales = models.IntegerField()
+
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+    fecha_modificado = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return self.entidad
+
                     # ---------------codigo de daniel (FIN)---------------

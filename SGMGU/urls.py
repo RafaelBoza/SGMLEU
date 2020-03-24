@@ -142,6 +142,10 @@ from SGMGU.views.SeguimientoJovenesAbandonanNS.views_seguimiento_jovenes_ans_ im
 from SGMGU.views.ReportesSeguimientoJovenesAbandonanNS.views_jans_reporte_nominal import *
 # ----------------------------------------------------------------------------------
 
+# INTERRUPTOS-----------------------------------------------------------------------
+from SGMGU.views.Interruptos.views_interruptos_covid import *
+# ----------------------------------------------------------------------------------
+
 # DESCARGAR GFORZA-----------------------------------------------------------
 from SGMGU.views.views_descargar_gforza import *
 # ----------------------------------------------------------------------------------
@@ -811,6 +815,16 @@ urlpatterns = [
     url(r'^causales_desvinculacion_ns/registrar$', registrar_causal_desvinculacion_ns, name='registrar_causal_desvinculacion_ns'),
     url(r'^causales_desvinculacion_ns/(?P<id_causal_desvinculacion_ns>[\w]+)/modificar$', modificar_causal_desvinculacion_ns, name='modificar_causal_desvinculacion_ns'),
     url(r'^causales_desvinculacion_ns/(?P<id_causal_desvinculacion_ns>[\w]+)/eliminar$', eliminar_causal_desvinculacion_ns),
+
+    # INTERRUPTOS COVID
+    url(r'^interruptos_covid$', gestion_interruptos_covid, name='gestion_interruptos_covid'),
+    url(r'^interruptos_covid/registrar$', registrar_interrupto_covid, name='registrar_interrupto_covid'),
+    url(r'^interruptos_covid/(?P<id_interrupto>[\w]+)/eliminar$', eliminar_interrupto_covid),
+    url(r'^interruptos_covid/(?P<id_interrupto>[\w]+)/modificar$', modificar_interrupto_covid, name='modificar_interrupto_covid'),
+    # url(r'^interruptos_covid/(?P<id_interrupto>[\w]+)/informe_valorativo$', descargar_informe_valorativo,
+    #     name='informe_valorativo'),
+    # url(r'^interruptos_covid/(?P<id_interrupto>[\w]+)$', detalles_interrupto, name='detalles_interrupto'),
+    url(r'^peticion_ajax/filtrar_entidades_interruptos_covid/$', login_required(PeticionAjaxFiltrarEntidadesInterruptosCOVID.as_view())),
 
     # DESCARGAR GFORZA
     url(r'^descargar_gforza', descargar_gforza, name='descargar_gforza'),

@@ -64,6 +64,8 @@ def menu(request):
              {'name': 'Organismos Autorizados', 'url': reverse('gestion_organismos_autorizados'),'icon': 'glyphicon glyphicon-chevron-right', 'visible': ['administrador', 'especialista']},
          ]},
 
+        {'name': 'Interruptos (COVID)', 'url': reverse('gestion_interruptos_covid'), 'icon': 'glyphicon glyphicon-briefcase', 'visible': ['administrador', 'dmt', 'dpt_ee']},
+
         {'name': 'Seguimiento a jóvenes que abandonan estudios en el NS', 'url': reverse('gestion_jovenes_abandonan_nivel_superior'), 'icon': 'glyphicon glyphicon-briefcase', 'visible': ['administrador', 'trabajador_social_joven_abandona', 'organismo', 'dmt', 'dpt_ee']},
 
         # ---------------codigo de daniel (FIN)---------------
