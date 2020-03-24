@@ -4,18 +4,13 @@
 
 $(document).on('ready', function () {
 
-    var municipio = $('#id_municipio'),
-        organismo = $('#id_organismo'),
-        entidad = $('#id_entidad'),
-        municipios_entidades = [];
-        municipio.find('option').each(function (k, v) {
-            municipios_entidades.push(v);
-        });
+    var organismo = $('#id_organismo'),
+        entidad = $('#id_entidad');
 
     function seleccionar_entidades() {
 
         $.ajax({
-            data: {'id_municipio': municipio.val(), 'id_organismo': organismo.val()},
+            data: {'id_organismo': organismo.val()},
             url: '/peticion_ajax/filtrar_entidades_interruptos_covid/',
             type: 'get',
             success: function (entidades) {
@@ -29,34 +24,21 @@ $(document).on('ready', function () {
         })
     }
 
+    $('#id_municipio').prop('disabled', true);
+
     if (organismo.val() !== ''){
-         municipio.prop('disabled', false);
+        entidad.prop('disabled', false);
+        seleccionar_entidades();
     } else{
-        municipio.prop('disabled', true);
+        entidad.prop('disabled', true);
     }
 
     organismo.on('change', function(){
         if($(this).val() === ''){
-            municipio.prop('disabled', true);
-        }else{
-            municipio.prop('disabled', false);
-        }
-    });
-
-    if (municipio.val() !== ''){
-         seleccionar_entidades();
-    }
-
-    municipio.on('change', function(){
-
-        if($(this).val() === ''){
             entidad.prop('disabled', true);
         }else{
             entidad.prop('disabled', false);
-
             seleccionar_entidades();
         }
     });
-
-
 });

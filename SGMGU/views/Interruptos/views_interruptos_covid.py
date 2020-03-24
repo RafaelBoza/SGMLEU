@@ -37,6 +37,7 @@ def gestion_interruptos_covid(request):
 @login_required()
 @permission_required(['administrador', 'dmt'])
 def registrar_interrupto_covid(request):
+    municipio = request.user.perfil_usuario.municipio
 
     if request.method == 'POST':
         form = InterruptosCovidForm(request.POST)
@@ -46,11 +47,11 @@ def registrar_interrupto_covid(request):
             messages.add_message(request, messages.SUCCESS, "Registrado con éxito.")
             return redirect('/interruptos_covid')
         else:
-            context = {'form': form, 'nombre_form': "Registrar:"}
+            context = {'form': form, 'nombre_form': "Registrar:", 'municipio': municipio}
             return render(request, "Interruptos/InterruptosCOVID/registrar_interrupto_covid.html", context)
     else:
         form = InterruptosCovidForm()
-    context = {'form': form, 'nombre_form': "Registrar:"}
+    context = {'form': form, 'nombre_form': "Registrar:", 'municipio': municipio}
     return render(request, "Interruptos/InterruptosCOVID/registrar_interrupto_covid.html", context)
 
 
@@ -58,7 +59,8 @@ def registrar_interrupto_covid(request):
 @permission_required(['administrador', 'dmt'])
 def modificar_interrupto_covid(request, id_interrupto):
     interrupto = InterruptosCovid.objects.get(id=id_interrupto)
-    entidad = interrupto.entidad.e_nombre
+    # entidad = interrupto.entidad.e_nombre
+    municipio = request.user.perfil_usuario.municipio
 
     if request.method == 'POST':
         form = InterruptosCovidForm(request.POST, instance=interrupto)
@@ -68,12 +70,12 @@ def modificar_interrupto_covid(request, id_interrupto):
             messages.add_message(request, messages.SUCCESS, "Modificado con éxito.")
             return redirect('/interruptos_covid')
         else:
-            context = {'form': form, 'nombre_form': "Modificar:"}
+            context = {'form': form, 'nombre_form': "Modificar:", 'municipio': municipio}
             return render(request, "Interruptos/InterruptosCOVID/modificar_interrupto_covid.html", context)
     else:
         form = InterruptosCovidForm(instance=interrupto)
 
-    context = {'form': form, 'nombre_form': "Modificar:", 'entidad': entidad}
+    context = {'form': form, 'nombre_form': "Modificar:", 'municipio': municipio}
     return render(request, "Interruptos/InterruptosCOVID/modificar_interrupto_covid.html", context)
 
 
@@ -97,11 +99,9 @@ class PeticionAjaxFiltrarEntidadesInterruptosCOVID(TemplateView):
     def get(self, request, *args, **kwargs):
 
         id_organismo = Organismo.objects.get(id=request.GET['id_organismo']).id
-        id_municipio = Municipio.objects.get(id=request.GET['id_municipio']).codigo_mes
-
+        id_municipio = request.user.perfil_usuario.municipio.codigo_mes
         entidades = Entidad.objects.filter(id_organismo_s__id=id_organismo, municipio__codigo_mes=id_municipio,
                                            estado=True)
-        #  -------------------------------
 
         entidades = [entidades_serializer(entidad) for entidad in entidades]
         return HttpResponse(json.dumps(entidades), content_type='application/json')
