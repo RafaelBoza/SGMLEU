@@ -20,13 +20,17 @@
         <div class="panel-body">
             <div class="row">
 
-                <div class="col-xs-3 pull-left">
+                <div class="col-xs-6 pull-left">
                     <a class="btn btn-success btn_gestion" href="{% url 'registrar_joven_abandona_nivel_superior' %}">
                         <span class="glyphicon glyphicon-plus"></span> Registrar
                     </a>
                     <a class="btn btn-success btn_gestion" style="margin-left: 20px" data-toggle="modal" data-target="#modal_importar_jovenes_abandonan">
                             <span class="glyphicon glyphicon-import"></span>
                             Importar XML
+                     </a>
+                    <a class="btn btn-success btn_gestion" style="margin-left: 20px"  href="{% url 'reportes_jovenes_abandonan' %}">
+                            <span class="glyphicon glyphicon-export"></span>
+                            Reportes
                      </a>
                 </div>
 

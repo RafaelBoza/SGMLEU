@@ -134,7 +134,13 @@ from SGMGU.views.ReportesInterruptos.views_interruptos_causas_interrupcion_sin_e
 from SGMGU.views.ReportesInterruptos.views_interruptos_reubicados import *
 # ----------------------------------------------------------------------------------
 
+# SEGUIMIENTO A JOVENES QUE ABANDONAN EL NIVEL SUPERIOR   ---------------------------
 from SGMGU.views.SeguimientoJovenesAbandonanNS.views_seguimiento_jovenes_ans_ import *
+# ----------------------------------------------------------------------------------
+
+# REPORTES  SEGUIMIENTO A JOVENES QUE ABANDONAN EL NIVEL SUPERIOR   ----------------------
+from SGMGU.views.ReportesSeguimientoJovenesAbandonanNS.views_jans_reporte_nominal import *
+# ----------------------------------------------------------------------------------
 
 # DESCARGAR GFORZA-----------------------------------------------------------
 from SGMGU.views.views_descargar_gforza import *
@@ -786,8 +792,12 @@ urlpatterns = [
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/proceso_trabajo_social$', proceso_trabajador_social_jans, name='proceso_trabajador_social_jans'),
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/proceso_direccion_trabajo$', proceso_direccion_empleo_jans, name='proceso_direccion_empleo_jans'),
     url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/control$', proceso_control_jans, name='proceso_control_jans'),
-    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)$', detalles_joven_abandona_nivel_superior, name='detalles_joven_abandona_nivel_superior'),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/(?P<id_joven>[\w]+)/$', detalles_joven_abandona_nivel_superior, name='detalles_joven_abandona_nivel_superior'),
     url(r'^jovenes_abandonan_nivel_superior/importar$', importar_jovenes_abandonan),
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/reportes$', reportes_jovenes_abandonan, name='reportes_jovenes_abandonan'),
+    # Reportes
+    url(r'^seguimiento_jovenes_abandonan_nivel_superior/reporte_nominal_jans$', reporte_nominal_jans, name='reporte_nominal_jans'),
+
 
     # ASOCIACIONES
     url(r'^causales_no_requieren_empleo$', gestion_causales_no_requieren_empleo, name='gestion_causales_no_requieren_empleo'),

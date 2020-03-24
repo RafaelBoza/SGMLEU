@@ -410,3 +410,9 @@ def importar_jovenes_abandonan(request):
         else:
             messages.add_message(request, messages.SUCCESS, "XML importado con éxito.")
             return redirect("/seguimiento_jovenes_abandonan_nivel_superior")
+
+
+@login_required
+@permission_required(['administrador', 'trabajador_social_joven_abandona', 'organismo', 'dmt', 'dpt_ee'])
+def reportes_jovenes_abandonan(request):
+    return render(request, "JovenesAbandonanNS/Reportes/reportes_jans.html")
